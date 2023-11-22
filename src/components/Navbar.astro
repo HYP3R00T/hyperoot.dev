@@ -93,10 +93,11 @@ import { Icon } from "astro-icon";
 </style>
 
 <header>
-  <nav>
-    <div class="logo">
+  <nav transition:persist>
+    <div class="logo" id="logo">
       <a href="/">
-        <span class="brakets">/</span><span class="site-name" id="site-name">
+        <span class="brakets">/</span>
+        <span class="site-name" id="site-name" data-value="HYP3R00T">
           HYP3R00T
         </span>
       </a>
@@ -135,5 +136,34 @@ import { Icon } from "astro-icon";
     navLinks.style.display = "none";
     closeButton.style.display = "none";
     openButton.style.display = "flex";
+  });
+
+  const logo = document.getElementById("logo");
+  const siteName = document.getElementById("site-name");
+
+  logo.addEventListener("mouseenter", () => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let interval = null;
+    let iteration = 0;
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      siteName.innerText = siteName.innerText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return siteName.dataset.value[index];
+          }
+
+          return letters[Math.floor(Math.random() * 26)];
+        })
+        .join("");
+
+      if (iteration >= siteName.dataset.value.length) {
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 3;
+    }, 30);
   });
 </script>
