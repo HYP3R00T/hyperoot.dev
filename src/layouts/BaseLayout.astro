@@ -1,0 +1,42 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Navbar from "../components/Navbar.astro";
+---
+
+<html>
+  <head>
+    <BaseHead title="hyperoot" />
+    <style>
+      .body-container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        z-index: 3;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: auto;
+      }
+      .main-container {
+        max-width: 70vw;
+        left: 15vw;
+        position: relative;
+      }
+      @media only screen and (max-width: 600px) {
+        .main-container {
+          max-width: 90vw;
+          left: 5vw;
+          position: relative;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="body-container">
+      <Navbar />
+      <div class="main-container">
+        <slot />
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+:root {
+  /* https://chakra-ui.com/docs/styled-system/theme */
+  /* Primary colors */
+  --background-color: #1a202c;
+  --foreground-color: #edf2f7;
+  --accent-color: #a0aec0;
+  --hover-color: #f8f9fa;
+
+  --normal: #2d3748;
+  --hover: #090c10;
+
+  --blue: #4299e1;
+
+  --font-saucecodepro: "SauceCode", sans-serif;
+  --font-monda: "Monda", sans-serif;
+}
+
+@font-face {
+  font-family: "Monda";
+  src: url("/fonts/Monda-Bold.woff") format("woff");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SauceCode";
+  src: url("/fonts/SauceCodeProNerdFont-SemiBold.woff") format("woff");
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-monda);
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background-color: var(--background-color);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--foreground-color);
+  line-height: 1.5;
+  font-size: 1.25em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* text-transform: uppercase; */
+  margin: 1rem 0;
+  color: var(--accent-color);
+  line-height: 1.2;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+a {
+  color: var(--accent-color);
+}
+
+a:hover {
+  color: var(--foreground-color);
+}
+
+p {
+  margin-bottom: 1em;
+  font-family: sans-serif;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+}
+
+input {
+  font-size: 16px;
+}
+
+table {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+code {
+  padding: 2px 5px;
+  background-color: var(--background-color);
+  border-radius: 2px;
+}
+
+pre {
+  padding: 1.5em;
+  border-radius: 8px;
+}
+
+pre > code {
+  all: unset;
+}
+
+blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding: 0 0 0 20px;
+  margin: 0px;
+  /* font-size: 1em; */
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--foreground-color);
+}
+
+.sr-only {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+::selection {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+}
+
+/* !Scroll-bar theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
+}
+
+/* ! Blog theming */
+.prose {
+  transition: all 1s ease-in-out;
+}
+
+.prose h1 {
+  color: var(--accent-color);
+}
+
+.prose p {
+  font-family: sans-serif;
+}
+
+.prose a {
+  text-decoration: dotted underline;
+}
+
+.prose a:hover {
+  transition: all 0.5s ease-in-out;
+}
+
+.prose details {
+  border-radius: 8px;
+  border: solid 1px var(--foreground-color);
+  padding: 1em;
+  margin-bottom: 1rem;
+}
+
+.prose img {
+  border: solid 1px transparent;
+}
+
+.prose strong,
+.prose b {
+}
+
+.prose .latex {
+  background-color: var(--Mantle);
+  border-radius: 8px;
+  border: solid 1px var(--foreground-color);
+  padding: 1em;
+  margin-bottom: 1rem;
+}
+
+.prose code {
+  color: var(--Maroon);
+}

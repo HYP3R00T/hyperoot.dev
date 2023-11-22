@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <style>
+      .container {
+        position: absolute;
+        height: calc(100vh - 20rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      button {
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+        font-family: var(--font-saucecodepro);
+        cursor: pointer;
+      }
+    </style>
+    <BaseLayout>
+      <div class="container">
+        <h1>Rajesh</h1>
+        <p>Python Developer</p>
+        <p>
+          I enjoy creating Python scripts to automate tasks and add a touch of
+          fun to my life.
+        </p>
+        <a href="mailto:me@hyperoot.dev"><button>ping hyperoot.dev</button></a>
+      </div>
+    </BaseLayout>
+  </body>
+</html>

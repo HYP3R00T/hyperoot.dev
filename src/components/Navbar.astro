@@ -1,0 +1,139 @@
+---
+import "../styles/global.css";
+import { Icon } from "astro-icon";
+---
+
+<style>
+  header {
+    padding: 2rem 3rem;
+    z-index: 3;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "SauceCode", sans-serif;
+  }
+
+  .logo a {
+    text-decoration: none;
+    color: var(--foreground-color);
+    padding: 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo a:hover {
+    background-color: var(--hover);
+    border-radius: 5px;
+  }
+
+  .logo .brakets {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 2rem;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  .nav-links a:hover {
+    color: var(--hover-color);
+    background-color: var(--hover);
+    border-radius: 5px;
+  }
+
+  .toggle-button,
+  .close-button {
+    width: 2rem;
+    cursor: pointer;
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    header {
+      padding: 0rem;
+    }
+    nav {
+      /* flex-direction: column; */
+    }
+    .logo {
+      padding: 2rem;
+    }
+    .toggle-button {
+      display: flex;
+    }
+    .toggle-button,
+    .close-button {
+      margin: 2rem 3rem;
+    }
+    .nav-links {
+      position: absolute;
+      top: 6rem;
+      flex-direction: column;
+      display: none;
+      background-color: var(--normal);
+      width: 100%;
+      padding: 1rem;
+      z-index: 3;
+    }
+
+    .nav-links a:hover {
+      color: var(--hover-color);
+      background-color: var(--hover);
+      border-radius: 5px;
+    }
+  }
+</style>
+
+<header>
+  <nav>
+    <div class="logo">
+      <a href="/">
+        <span class="brakets">/</span><span class="site-name" id="site-name">
+          HYP3R00T
+        </span>
+      </a>
+    </div>
+    <div class="toggle-button" id="openButton">
+      <Icon name="ic:round-menu" />
+    </div>
+    <div class="close-button" id="closeButton">
+      <Icon name="ic:round-close" />
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.getElementById("openButton").addEventListener("click", function () {
+    var navLinks = document.querySelector(".nav-links") as HTMLElement;
+    var closeButton = document.getElementById("closeButton") as HTMLElement;
+    var openButton = document.getElementById("openButton") as HTMLElement;
+
+    navLinks.style.display =
+      navLinks.style.display === "flex" ? "none" : "flex";
+    closeButton.style.display =
+      navLinks.style.display === "flex" ? "flex" : "none";
+    openButton.style.display = "none";
+  });
+
+  document.getElementById("closeButton").addEventListener("click", function () {
+    var navLinks = document.querySelector(".nav-links") as HTMLElement;
+    var closeButton = document.getElementById("closeButton") as HTMLElement;
+    var openButton = document.getElementById("openButton") as HTMLElement;
+
+    navLinks.style.display = "none";
+    closeButton.style.display = "none";
+    openButton.style.display = "flex";
+  });
+</script>
