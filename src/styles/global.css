@@ -1,13 +1,14 @@
 :root {
   /* https://chakra-ui.com/docs/styled-system/theme */
   /* Primary colors */
-  --background-color: #1a202c;
-  --foreground-color: #edf2f7;
-  --accent-color: #a0aec0;
-  --hover-color: #f8f9fa;
 
-  --normal: #2d3748;
-  --hover: #090c10;
+  --bg-primary: #1a202c;
+  --bg-secondary: #090c10;
+  --bg-tertiary: #2d3748;
+
+  --text-primary: #edf2f7;
+  --text-secondary: #f8f9fa;
+  --text-tertiary: #a0aec0;
 
   --blue: #4299e1;
 
@@ -42,10 +43,10 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  background-color: var(--background-color);
+  background-color: var(--bg-primary);
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: var(--foreground-color);
+  color: var(--text-primary);
   line-height: 1.5;
   font-size: 1.25em;
 }
@@ -56,9 +57,8 @@ h3,
 h4,
 h5,
 h6 {
-  /* text-transform: uppercase; */
   margin: 1rem 0;
-  color: var(--accent-color);
+  color: var(--text-tertiary);
   line-height: 1.2;
 }
 
@@ -73,16 +73,15 @@ i {
 }
 
 a {
-  color: var(--accent-color);
+  color: var(--text-tertiary);
 }
 
 a:hover {
-  color: var(--foreground-color);
+  color: var(--text-secondary);
 }
 
 p {
   margin-bottom: 1em;
-  font-family: sans-serif;
 }
 
 textarea {
@@ -106,7 +105,7 @@ img {
 
 code {
   padding: 2px 5px;
-  background-color: var(--background-color);
+  background-color: var(--bg-secondary);
   border-radius: 2px;
 }
 
@@ -120,7 +119,7 @@ pre > code {
 }
 
 blockquote {
-  border-left: 4px solid var(--accent-color);
+  border-left: 4px solid var(--text-tertiary);
   padding: 0 0 0 20px;
   margin: 0px;
   /* font-size: 1em; */
@@ -128,7 +127,7 @@ blockquote {
 
 hr {
   border: none;
-  border-top: 1px solid var(--foreground-color);
+  border-top: 1px solid var(--text-primary);
 }
 
 .sr-only {
@@ -146,8 +145,8 @@ hr {
 }
 
 ::selection {
-  background-color: var(--accent-color);
-  color: var(--background-color);
+  background-color: var(--text-tertiary);
+  color: var(--bg-primary);
 }
 
 /* !Scroll-bar theme */
@@ -160,7 +159,7 @@ hr {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
+  background: var(--text-tertiary);
   border-radius: 10px;
 }
 
@@ -170,11 +169,20 @@ hr {
 }
 
 .prose h1 {
-  color: var(--accent-color);
+  color: var(--text-secondary);
+}
+
+.prose h2 {
+  color: var(--text-secondary);
+}
+
+.prose h3 {
+  color: var(--text-secondary);
 }
 
 .prose p {
   font-family: sans-serif;
+  color: var(--text-tertiary);
 }
 
 .prose a {
@@ -187,7 +195,7 @@ hr {
 
 .prose details {
   border-radius: 8px;
-  border: solid 1px var(--foreground-color);
+  border: solid 1px var(--text-primary);
   padding: 1em;
   margin-bottom: 1rem;
 }
@@ -203,7 +211,7 @@ hr {
 .prose .latex {
   background-color: var(--Mantle);
   border-radius: 8px;
-  border: solid 1px var(--foreground-color);
+  border: solid 1px var(--text-primary);
   padding: 1em;
   margin-bottom: 1rem;
 }

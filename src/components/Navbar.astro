@@ -17,7 +17,7 @@ import { Icon } from "astro-icon";
 
   .logo a {
     text-decoration: none;
-    color: var(--foreground-color);
+    color: var(--text-primary);
     padding: 0.5rem 2rem;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@ import { Icon } from "astro-icon";
   }
 
   .logo a:hover {
-    background-color: var(--hover);
+    background-color: var(--bg-secondary);
     border-radius: 5px;
   }
 
@@ -40,8 +40,8 @@ import { Icon } from "astro-icon";
   }
 
   .nav-links a:hover {
-    color: var(--hover-color);
-    background-color: var(--hover);
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
     border-radius: 5px;
   }
 
@@ -74,15 +74,16 @@ import { Icon } from "astro-icon";
       top: 6rem;
       flex-direction: column;
       display: none;
-      background-color: var(--normal);
+      background-color: var(--bg-tertiary);
+      background-color: var(--bg-tertiary);
       width: 100%;
       padding: 1rem;
       z-index: 3;
     }
 
     .nav-links a:hover {
-      color: var(--hover-color);
-      background-color: var(--hover);
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
       border-radius: 5px;
     }
   }

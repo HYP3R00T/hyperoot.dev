@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <style>
+      .container {
+        position: absolute;
+        height: calc(100vh - 20rem);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      img {
+        height: 60vh;
+        border: none;
+      }
+      button {
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+        font-family: var(--font-saucecodepro);
+        cursor: pointer;
+      }
+    </style>
+    <BaseLayout>
+      <div class="container">
+        <img src="/404.svg" alt="404 Not Found" />
+        <a href="/blog"><button>Read some blogs</button></a>
+      </div>
+    </BaseLayout>
+  </body>
+</html>
