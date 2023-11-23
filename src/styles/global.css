@@ -7,10 +7,18 @@
   --bg-tertiary: #2d3748;
 
   --text-primary: #edf2f7;
-  --text-secondary: #f8f9fa;
+  --text-secondary: #cbd5e0;
   --text-tertiary: #a0aec0;
 
+  --red: #f56565;
+  --orange: #ed8936;
+  --yellow: #ecc94b;
+  --green: #48bb78;
+  --teal: #38b2ac;
   --blue: #4299e1;
+  --cyan: #0bc5ea;
+  --purple: #9f7aea;
+  --pink: #ed64a6;
 
   --font-saucecodepro: "SauceCode", sans-serif;
   --font-monda: "Monda", sans-serif;
@@ -18,7 +26,7 @@
 
 @font-face {
   font-family: "Monda";
-  src: url("/fonts/Monda-Bold.woff") format("woff");
+  src: url("/fonts/Monda-Regular.woff") format("woff");
   font-style: normal;
   font-display: swap;
 }
@@ -81,7 +89,7 @@ a:hover {
 }
 
 p {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 textarea {
@@ -121,7 +129,7 @@ pre > code {
 blockquote {
   border-left: 4px solid var(--text-tertiary);
   padding: 0 0 0 20px;
-  margin: 0px;
+  /* margin: 2rem; */
   /* font-size: 1em; */
 }
 
@@ -166,11 +174,11 @@ hr {
 /* ! Blog theming */
 .prose {
   transition: all 1s ease-in-out;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 .prose h1 {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .prose h2 {
@@ -219,4 +227,28 @@ hr {
 
 .prose code {
   color: var(--Maroon);
+}
+
+.prose blockquote {
+  padding: 0 2rem;
+  margin: 2rem 0;
+  /* background-color: var(--bg-secondary); */
+}
+
+.prose blockquote p {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.prose blockquote footer {
+  color: var(--blue);
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .prose {
+    transition: all 1s ease-in-out;
+    text-align: left;
+    font-size: 1.1rem;
+  }
 }

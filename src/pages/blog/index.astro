@@ -3,10 +3,13 @@ import Navbar from "../../components/Navbar.astro";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseHead from "../../components/BaseHead.astro";
+import { Image } from "astro:assets";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (
+  await getCollection("blog", ({ data }) => {
+    return data.isDraft !== true;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
@@ -43,10 +46,10 @@ const posts = (await getCollection("blog")).sort(
         transition: 0.2s ease;
       }
 
-      ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 8px;
-        box-sizing: border-box;
+      ul li .image {
+        width: 100%;
+        aspect-ratio: 2;
+        object-fit: cover;
       }
 
       ul li a {
@@ -61,11 +64,13 @@ const posts = (await getCollection("blog")).sort(
         margin: 0;
         color: var(--text-primary);
         line-height: 1;
+        font-size: 1.5rem;
       }
 
       .date {
         margin: 0;
         color: var(--text-tertiary);
+        font-size: 1rem;
       }
 
       ul li:hover {
@@ -131,18 +136,20 @@ const posts = (await getCollection("blog")).sort(
                 <li>
                   <a href={`/blog/${post.slug}/`}>
                     {post.data.heroImage ? (
-                      <img
+                      <Image
                         width={720}
                         height={360}
                         src={post.data.heroImage}
                         alt=""
+                        class="image"
                       />
                     ) : (
-                      <img
+                      <Image
                         width={720}
                         height={360}
                         src="/images/placeholder.jpg"
                         alt=""
+                        class="image"
                       />
                     )}
                     <div class="category">{post.data.category}</div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon";
 ---
 
 <!doctype html>
@@ -12,32 +13,157 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <style>
       .container {
         position: absolute;
-        height: calc(100vh - 20rem);
+        height: 100vh;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        gap: 5rem;
+        line-height: 1;
+        font-size: 1em;
+        margin: 0;
       }
+
+      .info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+
+      p {
+        color: var(--text-tertiary);
+      }
+
+      .greeter {
+        font-size: 1rem;
+        /* color: var(--blue); */
+      }
+
+      .name {
+        margin: 0;
+        font-size: 3rem;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        font-family: var(--font-saucecodepro);
+        width: 100%;
+      }
+
+      .title {
+        color: var(--text-secondary);
+        font-size: 2rem;
+      }
+
+      .introduction {
+        font-size: 1.2rem;
+        line-height: 1.1;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        width: 50vw;
+      }
+
+      .contact button {
+        transition: all 300ms ease-in-out;
+      }
+
+      .contact button:hover {
+        transform: scale(1.05);
+      }
+
       button {
-        padding: 0.5rem 2rem;
+        padding: 0.5rem 1.5rem;
         border-radius: 5px;
         border: none;
-        font-size: 1rem;
+        font-size: 1.15rem;
         font-family: var(--font-saucecodepro);
         cursor: pointer;
+        background-color: var(--blue);
+      }
+
+      button:hover {
       }
     </style>
+
     <BaseLayout>
       <div class="container">
-        <h1>Rajesh</h1>
-        <p>Python Developer</p>
-        <p>
-          I enjoy creating Python scripts to automate tasks and add a touch of
-          fun to my life.
-        </p>
-        <a href="mailto:me@hyperoot.dev"><button>ping hyperoot.dev</button></a>
+        <section>
+          <div class="info">
+            <p class="greeter">Hey, I'm</p>
+
+            <!-- <h1 class="name" id="name" data-value="HYP3R00T">Rajesh Das</h1> -->
+            <h1 class="name" id="name">Rajesh Das</h1>
+
+            <h2 class="title">I write Python scripts to automate my life.</h2>
+            <p class="introduction">
+              Just a Python dev here, always on the hunt for sweet libraries and
+              tools to jazz up my scripts. Making life easier, one line of code
+              at a time!
+            </p>
+            <br />
+            <a href="mailto:me@hyperoot.dev" class="contact">
+              <button>contact me@hyperoot.dev</button></a
+            >
+          </div>
+        </section>
       </div>
     </BaseLayout>
+    <script>
+      const name = document.getElementById("name");
+
+      name.addEventListener("mouseenter", () => {
+        name.innerText = "HYP3R00T";
+        name.dataset.value = "HYP3R00T";
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let interval = null;
+        let iteration = 0;
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+          name.innerText = name.innerText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return name.dataset.value[index];
+              }
+
+              return letters[Math.floor(Math.random() * 26)];
+            })
+            .join("");
+
+          if (iteration >= name.dataset.value.length) {
+            clearInterval(interval);
+          }
+
+          iteration += 1 / 3;
+        }, 30);
+      });
+      name.addEventListener("mouseleave", () => {
+        name.innerText = "Rajesh Das";
+        name.dataset.value = "Rajesh Das";
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let interval = null;
+        let iteration = 0;
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+          name.innerText = name.innerText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return name.dataset.value[index];
+              }
+
+              return letters[Math.floor(Math.random() * 26)];
+            })
+            .join("");
+
+          if (iteration >= name.dataset.value.length) {
+            clearInterval(interval);
+          }
+
+          iteration += 1 / 3;
+        }, 30);
+      });
+    </script>
   </body>
 </html>

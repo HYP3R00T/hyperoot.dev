@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Navbar from "../components/Navbar.astro";
+import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -25,19 +26,20 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
       }
       .hero-image {
         width: 100%;
+        display: flex;
+        justify-content: center;
       }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 8px;
-        border: solid 1px var(--Text);
+      .hero-image .image {
+        width: 100%;
+        aspect-ratio: 2.5;
+        object-fit: cover;
       }
       .prose {
         /* width: 720px; */
         max-width: calc(100% - 2em);
         margin: auto;
         padding: 1em;
-        color: var(--fg_light);
+        color: var(--text-tertiary);
       }
       .title {
         margin-bottom: 1em;
@@ -50,15 +52,15 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
       }
       .date {
         margin-bottom: 0.5em;
-        color: var(--fg_light);
+        color: var(--text-tertiary);
       }
       .last-updated-on {
         font-style: italic;
       }
       @media only screen and (max-width: 600px) {
         .main-container {
-          max-width: 90vw;
-          left: 5vw;
+          max-width: 95vw;
+          left: 2.5vw;
           position: relative;
         }
       }
@@ -68,18 +70,26 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
   <body>
     <main>
       <Navbar />
+
       <div class="main-container">
         <article>
           <div class="hero-image">
             {
               heroImage ? (
-                <img width={720} height={360} src={heroImage} alt="" />
+                <Image
+                  width={720}
+                  height={360}
+                  src={heroImage}
+                  alt=""
+                  class="image"
+                />
               ) : (
-                <img
+                <Image
                   width={720}
                   height={360}
                   src="/images/placeholder.jpg"
                   alt=""
+                  class="image"
                 />
               )
             }
