@@ -166,6 +166,7 @@ hr {
 /* ! Blog theming */
 .prose {
   transition: all 1s ease-in-out;
+  text-align: justify;
 }
 
 .prose h1 {
