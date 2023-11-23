@@ -138,9 +138,11 @@ import { Icon } from "astro-icon";
     var closeButton = document.getElementById("closeButton") as HTMLElement;
     var openButton = document.getElementById("openButton") as HTMLElement;
 
-    navLinks.style.display = "none";
-    closeButton.style.display = "none";
-    openButton.style.display = "flex";
+    if (window.innerWidth < 600) {
+      navLinks.style.display = "none";
+      closeButton.style.display = "none";
+      openButton.style.display = "flex";
+    }
   });
 
   const logo = document.getElementById("logo");
