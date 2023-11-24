@@ -41,14 +41,11 @@ import "../styles/global.css";
     backdrop-filter: blur(12vmax);
   }
 
-  .body-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    z-index: 3;
-    overflow: hidden;
-    overflow-y: auto;
-    overflow-x: auto;
+  @media only screen and (max-width: 600px) {
+    #blob,
+    #blur {
+      display: none;
+    }
   }
 </style>
 <div id="blob" transition:persist></div>
@@ -60,7 +57,8 @@ import "../styles/global.css";
   if (blob) {
     window.addEventListener("pointermove", (event) => {
       const { clientX, clientY } = event;
-
+      const h = window.innerHeight;
+      const w = window.innerWidth;
       blob.animate(
         {
           left: `${clientX}px`,
