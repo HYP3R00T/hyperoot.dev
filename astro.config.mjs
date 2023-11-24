@@ -11,4 +11,5 @@ export default defineConfig({
       wrap: true,
     },
   },
+  prefetch: true,
 });

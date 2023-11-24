@@ -92,7 +92,7 @@ import { Icon } from "astro-icon";
 <header>
   <nav transition:persist>
     <div class="logo" id="logo">
-      <a href="/">
+      <a href="/" data-astro-reload>
         <span class="site-name" id="site-name" data-value="HYP3R00T">
           HYP3R00T
         </span>
@@ -105,8 +105,8 @@ import { Icon } from "astro-icon";
       <Icon name="ic:round-close" />
     </div>
     <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/blogs">Blogs</a>
+      <a href="/" data-astro-prefetch data-astro-reload>Home</a>
+      <a href="/blogs" data-astro-prefetch data-astro-reload>Blogs</a>
     </div>
   </nav>
 </header>

@@ -134,7 +134,11 @@ const posts = (
             {
               posts.map((post) => (
                 <li>
-                  <a href={`/blogs/${post.slug}/`}>
+                  <a
+                    href={`/blogs/${post.slug}/`}
+                    data-astro-prefetch
+                    data-astro-reload
+                  >
                     {post.data.heroImage ? (
                       <Image
                         width={720}
