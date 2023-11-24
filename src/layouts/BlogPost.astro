@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Navbar from "../components/Navbar.astro";
+import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
@@ -33,6 +34,7 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
         width: 100%;
         aspect-ratio: 2.5;
         object-fit: cover;
+        border: solid 1px var(--text-tertiary);
       }
       .prose {
         /* width: 720px; */
@@ -68,51 +70,53 @@ const { title, description, pubDate, updatedDate, heroImage, category } =
   </head>
 
   <body>
-    <main>
-      <Navbar />
+    <BaseLayout>
+      <main>
+        <Navbar />
 
-      <div class="main-container">
-        <article>
-          <div class="hero-image">
-            {
-              heroImage ? (
-                <Image
-                  width={720}
-                  height={360}
-                  src={heroImage}
-                  alt=""
-                  class="image"
-                />
-              ) : (
-                <Image
-                  width={720}
-                  height={360}
-                  src="/images/placeholder.jpg"
-                  alt=""
-                  class="image"
-                />
-              )
-            }
-          </div>
-          <div class="prose">
-            <div class="title">
-              <div class="date">
-                <FormattedDate date={pubDate} />
-                {
-                  updatedDate && (
-                    <div class="last-updated-on">
-                      Last updated on <FormattedDate date={updatedDate} />
-                    </div>
-                  )
-                }
-              </div>
-              <h1>{title}</h1>
-              <hr />
+        <div class="main-container">
+          <article>
+            <div class="hero-image">
+              {
+                heroImage ? (
+                  <Image
+                    width={720}
+                    height={360}
+                    src={heroImage}
+                    alt=""
+                    class="image"
+                  />
+                ) : (
+                  <Image
+                    width={720}
+                    height={360}
+                    src="/images/placeholder.jpg"
+                    alt=""
+                    class="image"
+                  />
+                )
+              }
             </div>
-            <slot />
-          </div>
-        </article>
-      </div>
-    </main>
+            <div class="prose">
+              <div class="title">
+                <div class="date">
+                  <FormattedDate date={pubDate} />
+                  {
+                    updatedDate && (
+                      <div class="last-updated-on">
+                        Last updated on <FormattedDate date={updatedDate} />
+                      </div>
+                    )
+                  }
+                </div>
+                <h1>{title}</h1>
+                <hr />
+              </div>
+              <slot />
+            </div>
+          </article>
+        </div>
+      </main>
+    </BaseLayout>
   </body>
 </html>

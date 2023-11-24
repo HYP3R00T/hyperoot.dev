@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import Homepage from "../layouts/Homepage.astro";
 import { Icon } from "astro-icon";
 ---
 
@@ -111,8 +111,7 @@ import { Icon } from "astro-icon";
         }
       }
     </style>
-
-    <BaseLayout>
+    <Homepage>
       <div class="container">
         <section>
           <div class="info">
@@ -133,75 +132,9 @@ import { Icon } from "astro-icon";
           </div>
         </section>
       </div>
-    </BaseLayout>
+    </Homepage>
+
     <script>
-      function addHoverEffect() {
-        const name = document.getElementById("name");
-
-        name.addEventListener("mouseover", () => {
-          console.log("Hovered in");
-          name.innerText = "HYP3R00T";
-          name.dataset.value = "HYP3R00T";
-          const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-          let interval = null;
-          let iteration = 0;
-          clearInterval(interval);
-
-          interval = setInterval(() => {
-            name.innerText = name.innerText
-              .split("")
-              .map((letter, index) => {
-                if (index < iteration) {
-                  return name.dataset.value[index];
-                }
-
-                return letters[Math.floor(Math.random() * 26)];
-              })
-              .join("");
-
-            if (iteration >= name.dataset.value.length) {
-              clearInterval(interval);
-            }
-
-            iteration += 1 / 3;
-          }, 30);
-        });
-
-        name.addEventListener("mouseout", () => {
-          console.log("Hovered out");
-          name.innerText = "Rajesh Das";
-          name.dataset.value = "Rajesh Das";
-          const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-          let interval = null;
-          let iteration = 0;
-          clearInterval(interval);
-
-          interval = setInterval(() => {
-            name.innerText = name.innerText
-              .split("")
-              .map((letter, index) => {
-                if (index < iteration) {
-                  return name.dataset.value[index];
-                }
-
-                return letters[Math.floor(Math.random() * 26)];
-              })
-              .join("");
-
-            if (iteration >= name.dataset.value.length) {
-              clearInterval(interval);
-            }
-
-            iteration += 1 / 3;
-          }, 30);
-        });
-      }
-
-      // Reattach the event listeners after the page is fully loaded
-      document.addEventListener("DOMContentLoaded", addHoverEffect);
-    </script>
-
-    <!-- <script>
       const name = document.getElementById("name");
 
       name.addEventListener("mouseover", () => {
@@ -260,6 +193,6 @@ import { Icon } from "astro-icon";
           iteration += 1 / 3;
         }, 30);
       });
-    </script> -->
+    </script>
   </body>
 </html>

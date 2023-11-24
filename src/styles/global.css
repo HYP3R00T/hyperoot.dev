@@ -135,7 +135,7 @@ blockquote {
 
 hr {
   border: none;
-  border-top: 1px solid var(--text-primary);
+  border-top: 1px solid var(--text-tertiary);
 }
 
 .sr-only {

@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar.astro";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseHead from "../../components/BaseHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 
 const posts = (
@@ -50,6 +51,7 @@ const posts = (
         width: 100%;
         aspect-ratio: 2;
         object-fit: cover;
+        border: solid 1px var(--text-tertiary);
       }
 
       ul li a {
@@ -126,56 +128,58 @@ const posts = (
     </style>
   </head>
   <body>
-    <Navbar />
-    <div class="main-container">
-      <main>
-        <section>
-          <ul>
-            {
-              posts.map((post) => (
-                <li>
-                  <a
-                    href={`/blogs/${post.slug}/`}
-                    data-astro-prefetch
-                    data-astro-reload
-                  >
-                    {post.data.heroImage ? (
-                      <Image
-                        width={720}
-                        height={360}
-                        src={post.data.heroImage}
-                        alt=""
-                        class="image"
-                      />
-                    ) : (
-                      <Image
-                        width={720}
-                        height={360}
-                        src="/images/placeholder.jpg"
-                        alt=""
-                        class="image"
-                      />
-                    )}
-                    <div class="category">{post.data.category}</div>
-                    <h4
-                      class="title"
-                      style="text-align: center; padding-bottom: 1rem;"
+    <BaseLayout>
+      <Navbar />
+      <div class="main-container">
+        <main>
+          <section>
+            <ul>
+              {
+                posts.map((post) => (
+                  <li>
+                    <a
+                      href={`/blogs/${post.slug}/`}
+                      data-astro-prefetch
+                      data-astro-reload
                     >
-                      {post.data.title}
-                    </h4>
-                    <p
-                      class="date"
-                      style="text-align: center; padding-bottom: 1rem;"
-                    >
-                      <FormattedDate date={post.data.pubDate} />
-                    </p>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
-      </main>
-    </div>
+                      {post.data.heroImage ? (
+                        <Image
+                          width={720}
+                          height={360}
+                          src={post.data.heroImage}
+                          alt=""
+                          class="image"
+                        />
+                      ) : (
+                        <Image
+                          width={720}
+                          height={360}
+                          src="/images/placeholder.jpg"
+                          alt=""
+                          class="image"
+                        />
+                      )}
+                      <div class="category">{post.data.category}</div>
+                      <h4
+                        class="title"
+                        style="text-align: center; padding-bottom: 1rem;"
+                      >
+                        {post.data.title}
+                      </h4>
+                      <p
+                        class="date"
+                        style="text-align: center; padding-bottom: 1rem;"
+                      >
+                        <FormattedDate date={post.data.pubDate} />
+                      </p>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </main>
+      </div>
+    </BaseLayout>
   </body>
 </html>

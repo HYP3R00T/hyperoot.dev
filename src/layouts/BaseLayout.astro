@@ -1,11 +1,13 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Navbar from "../components/Navbar.astro";
+import CursorEffect from "../components/CursorEffect.astro";
 ---
 
 <html>
   <head>
     <BaseHead title="hyperoot" />
+  </head>
+  <body>
     <style>
       .body-container {
         position: relative;
@@ -16,28 +18,10 @@ import Navbar from "../components/Navbar.astro";
         overflow-y: auto;
         overflow-x: auto;
       }
-      .main-container {
-        left: 15vw;
-        position: absolute;
-        width: 70vw;
-        top: 0;
-      }
-      @media only screen and (max-width: 600px) {
-        .main-container {
-          max-width: 90vw;
-          left: 5vw;
-          position: relative;
-        }
-      }
     </style>
-  </head>
-  <body>
+    <CursorEffect />
     <div class="body-container">
-      <Navbar class="navbar" />
-      <div class="main-container">
-        <slot />
-      </div>
+      <slot />
     </div>
-    <script></script>
   </body>
 </html>
