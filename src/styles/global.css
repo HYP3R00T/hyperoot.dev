@@ -10,6 +10,8 @@
   --text-secondary: #cbd5e0;
   --text-tertiary: #a0aec0;
 
+  --dark-transparent: RGBA(0, 0, 0, 0.24);
+
   --red: #f56565;
   --orange: #ed8936;
   --yellow: #ecc94b;
@@ -22,6 +24,18 @@
 
   --font-saucecodepro: "SauceCode", sans-serif;
   --font-monda: "Monda", sans-serif;
+
+  --astro-code-color-text: var(--text-secondary);
+  --astro-code-color-background: var(--dark-transparent);
+  --astro-code-token-constant: var(--red);
+  --astro-code-token-string: var(--purple);
+  --astro-code-token-comment: var(--text-tertiary);
+  --astro-code-token-keyword: var(--text-primary);
+  --astro-code-token-parameter: var(--red);
+  --astro-code-token-function: var(--blue);
+  --astro-code-token-string-expression: var(--red);
+  --astro-code-token-punctuation: var(--text-primary);
+  --astro-code-token-link: var(--red);
 }
 
 @font-face {
@@ -153,7 +167,7 @@ hr {
 }
 
 ::selection {
-  background-color: var(--text-tertiary);
+  background-color: var(--text-primary);
   color: var(--bg-primary);
 }
 
@@ -215,24 +229,31 @@ hr {
 
 .prose strong,
 .prose b {
+  font-weight: 700;
+  color: var(--text-secondary);
 }
 
 .prose .latex {
-  background-color: var(--Mantle);
   border-radius: 8px;
-  border: solid 1px var(--text-primary);
+  /* border: solid 1px var(--text-primary); */
   padding: 1em;
   margin-bottom: 1rem;
+  color: var(--text-primary);
+  background-color: var(--dark-transparent);
 }
 
-.prose code {
-  color: var(--Maroon);
-}
+/* .prose code {
+} */
+
+/* .prose .astro-code {
+  border: solid 2px var(--text-tertiary);
+} */
 
 .prose blockquote {
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   margin: 2rem 0;
-  /* background-color: var(--bg-secondary); */
+  background-color: var(--dark-transparent);
+  border-radius: 8px;
 }
 
 .prose blockquote p {
