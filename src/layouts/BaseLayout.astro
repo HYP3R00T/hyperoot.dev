@@ -26,14 +26,14 @@ import Navbar from "../components/Navbar.astro";
         .main-container {
           max-width: 90vw;
           left: 5vw;
-          position: absolute;
+          position: relative;
         }
       }
     </style>
   </head>
   <body>
     <div class="body-container">
-      <Navbar />
+      <Navbar class="navbar" />
       <div class="main-container">
         <slot />
       </div>
