@@ -11,9 +11,7 @@ import { Icon } from "astro-icon";
   </head>
   <body>
     <style>
-      .container {
-        position: absolute;
-        height: 100vh;
+      section {
         width: 100%;
         display: flex;
         align-items: center;
@@ -26,10 +24,19 @@ import { Icon } from "astro-icon";
       }
 
       .info {
+        height: calc(100vh - 220px);
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: start;
+        justify-content: center;
+      }
+
+      .dummy {
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       p {
@@ -79,14 +86,18 @@ import { Icon } from "astro-icon";
         background-color: var(--blue);
       }
 
+      .scroll-down-icon {
+        width: 2rem;
+      }
+
       @media only screen and (max-width: 600px) {
         .container {
           width: 90vw;
-          height: auto;
+          height: calc(100vh - 220px);
         }
 
         .info {
-          height: calc(100vh - 220px);
+          /* height: calc(100vh - 220px); */
           display: flex;
           justify-content: center;
         }
@@ -112,26 +123,27 @@ import { Icon } from "astro-icon";
       }
     </style>
     <Homepage>
-      <div class="container">
-        <section>
-          <div class="info">
-            <p class="greeter">Hey, I'm</p>
+      <section>
+        <div class="info">
+          <p class="greeter">Hey, I'm</p>
 
-            <h1 class="name" id="name" transition:persist>Rajesh Das</h1>
+          <h1 class="name" id="name" transition:persist>Rajesh Das</h1>
 
-            <h2 class="title">Python Developer</h2>
-            <p class="introduction">
-              Just a Python dev here, always on the hunt for sweet libraries and
-              tools to jazz up my scripts. Making life easier, one line of code
-              at a time!
-            </p>
-            <br />
-            <a href="mailto:me@hyperoot.dev" class="contact">
-              <button>contact me@hyperoot.dev</button></a
-            >
-          </div>
-        </section>
-      </div>
+          <h2 class="title">Python Developer</h2>
+          <p class="introduction">
+            Just a Python dev here, always on the hunt for sweet libraries and
+            tools to jazz up my scripts. Making life easier, one line of code at
+            a time!
+          </p>
+          <br />
+          <a href="mailto:me@hyperoot.dev" class="contact">
+            <button>contact me@hyperoot.dev</button></a
+          >
+        </div>
+      </section>
+      <section class="dummy">
+        <!-- <Icon name="ic:round-menu" class="scroll-down-icon" /> -->
+      </section>
     </Homepage>
 
     <script>
