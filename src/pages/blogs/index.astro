@@ -1,10 +1,11 @@
 ---
-import Navbar from "../../components/Navbar.astro";
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+import Navbar from "../../components/Navbar.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseHead from "../../components/BaseHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 
 const posts = (
   await getCollection("blog", ({ data }) => {
@@ -137,11 +138,7 @@ const posts = (
               {
                 posts.map((post) => (
                   <li>
-                    <a
-                      href={`/blogs/${post.slug}/`}
-                      data-astro-prefetch
-                      data-astro-reload
-                    >
+                    <a href={`/blogs/${post.slug}/`} data-astro-prefetch>
                       {post.data.heroImage ? (
                         <Image
                           width={720}
@@ -154,7 +151,7 @@ const posts = (
                         <Image
                           width={720}
                           height={360}
-                          src="/images/placeholder_1.jpg"
+                          src="./../../assets/placeholder_1.jpg"
                           alt=""
                           class="image"
                         />

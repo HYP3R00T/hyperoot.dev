@@ -1,5 +1,6 @@
 ---
 import Homepage from "../layouts/Homepage.astro";
+import { Image } from "astro:assets";
 ---
 
 <!doctype html>
@@ -12,7 +13,7 @@ import Homepage from "../layouts/Homepage.astro";
     <style>
       .container {
         position: absolute;
-        height: 100vh;
+        /* height: 100vh; */
         width: 100%;
         display: flex;
         align-items: center;
@@ -35,7 +36,7 @@ import Homepage from "../layouts/Homepage.astro";
     </style>
     <Homepage>
       <div class="container">
-        <img src="/404.svg" alt="404 Not Found" />
+        <Image src="/404.svg" alt="404 Not Found" width={200} height={200} />
         <a href="/blogs"><button>Read some blogs</button></a>
       </div>
     </Homepage>
