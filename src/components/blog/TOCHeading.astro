@@ -1,0 +1,26 @@
+---
+import type { TocItem } from "@/utils";
+
+interface Props {
+  heading: TocItem;
+}
+
+const {
+  heading: { slug, text, depth, subheadings },
+} = Astro.props;
+---
+
+<li>
+  <a href={`#${slug}`} aria-label={`Scroll to section: ${text}`}>
+    <span>#</span>{text}
+  </a>
+  {
+    !!subheadings.length && (
+      <ul>
+        {subheadings.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

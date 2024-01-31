@@ -1,27 +1,54 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import CursorEffect from "../components/CursorEffect.astro";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = "" } = Astro.props;
 ---
 
 <html>
   <head>
-    <BaseHead title="hyperoot" />
-  </head>
-  <body>
+    <BaseHead title={title} description={description} />
     <style>
       .body-container {
         position: relative;
-        width: 100vw;
-        height: 100vh;
-        z-index: 3;
+        width: 100%;
+        min-height: 100vh;
         overflow: hidden;
         overflow-y: auto;
         overflow-x: auto;
       }
+
+      .main-container {
+        position: relative;
+        width: 70vw;
+        /* min-height: 85vh; */
+        left: 15vw;
+        padding: 0rem 5rem;
+      }
+
+      @media only screen and (max-width: 720px) {
+        .main-container {
+          width: 95vw;
+          left: 2.5vw;
+          padding: 0rem 0rem;
+        }
+      }
     </style>
-    <CursorEffect />
+  </head>
+  <body>
     <div class="body-container">
-      <slot />
+      <Navbar />
+      <div class="main-container">
+        <slot />
+      </div>
+      <Footer />
     </div>
   </body>
 </html>

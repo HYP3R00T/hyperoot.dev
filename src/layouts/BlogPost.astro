@@ -1,122 +1,110 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import Navbar from "../components/Navbar.astro";
-import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
+
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "./BaseLayout.astro";
+import placeholder from "../assets/placeholder_1.jpg";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, category } =
+const { title, description, pubDate, updatedDate, coverImage, category } =
   Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description} />
-    <style>
-      .main-container {
-        max-width: 70vw;
-        left: 15vw;
-        position: relative;
-      }
-      article {
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-      .hero-image .image {
-        width: 100%;
-        aspect-ratio: 2.5;
-        object-fit: cover;
-        border: solid 1px var(--text-tertiary);
-      }
-      .prose {
-        /* width: 720px; */
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: var(--text-tertiary);
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: var(--text-tertiary);
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-      @media only screen and (max-width: 600px) {
-        .main-container {
-          max-width: 95vw;
-          left: 2.5vw;
-          position: relative;
+<style>
+  .main-container {
+    width: 100%;
+    left: 0;
+  }
+  article {
+    max-width: 100%;
+    margin: 0;
+  }
+  .hero-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-image .image {
+    width: 100%;
+    aspect-ratio: 2.5;
+    object-fit: cover;
+    border: solid 1px var(--text-tertiary);
+  }
+  .prose {
+    /* width: 720px; */
+    max-width: 100%;
+    margin: auto;
+    padding: 0.5em;
+    color: var(--text-tertiary);
+  }
+  .title {
+    margin-bottom: 1em;
+    padding: 1em 0;
+    text-align: center;
+    line-height: 1;
+  }
+  .title h1 {
+    margin: 0 0 0.5em 0;
+  }
+  .date {
+    margin-bottom: 0.5em;
+    color: var(--text-tertiary);
+  }
+  .last-updated-on {
+    font-style: italic;
+  }
+
+  @media only screen and (max-width: 720px) {
+    .main-container {
+      position: relative;
+      width: 95vw;
+    }
+  }
+</style>
+
+<BaseLayout title={title} description={description}>
+  <div class="main-container">
+    <article>
+      <div class="hero-image">
+        {
+          coverImage ? (
+            <Image
+              width={720}
+              height={360}
+              src={coverImage}
+              alt=""
+              class="image"
+            />
+          ) : (
+            <Image
+              width={720}
+              height={360}
+              src={placeholder}
+              alt=""
+              class="image"
+            />
+          )
         }
-      }
-    </style>
-  </head>
-
-  <body>
-    <BaseLayout>
-      <main>
-        <Navbar />
-
-        <div class="main-container">
-          <article>
-            <div class="hero-image">
-              {
-                heroImage ? (
-                  <Image
-                    width={720}
-                    height={360}
-                    src={heroImage}
-                    alt=""
-                    class="image"
-                  />
-                ) : (
-                  <Image
-                    width={720}
-                    height={360}
-                    src="/images/placeholder_1.jpg"
-                    alt=""
-                    class="image"
-                  />
-                )
-              }
-            </div>
-            <div class="prose">
-              <div class="title">
-                <div class="date">
-                  <FormattedDate date={pubDate} />
-                  {
-                    updatedDate && (
-                      <div class="last-updated-on">
-                        Last updated on <FormattedDate date={updatedDate} />
-                      </div>
-                    )
-                  }
+      </div>
+      <div class="prose">
+        <div class="title">
+          <div class="date">
+            <FormattedDate date={pubDate} />
+            {
+              updatedDate && (
+                <div class="last-updated-on">
+                  Last updated on <FormattedDate date={updatedDate} />
                 </div>
-                <h1>{title}</h1>
-                <hr />
-              </div>
-              <slot />
-            </div>
-          </article>
+              )
+            }
+          </div>
+          <h1>{title}</h1>
+          <hr />
         </div>
-      </main>
-    </BaseLayout>
-  </body>
-</html>
+        <slot />
+      </div>
+    </article>
+  </div>
+</BaseLayout>

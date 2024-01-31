@@ -1,0 +1,61 @@
+---
+import type { Page, GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import PageLayout from "./../../../layouts/BaseLayout.astro";
+import PostPreview from "./../../../components/blog/PostPreview.astro";
+import Pagination from "./../../../components/Paginator.astro";
+import {
+  getAllPosts,
+  getUniqueTags,
+  sortMDByDate,
+} from "./../../../utils/index";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const allPosts = await getAllPosts();
+  const allPostsByDate = sortMDByDate(allPosts);
+  const uniqueTags = getUniqueTags(allPostsByDate);
+
+  return uniqueTags.flatMap((tag) => {
+    const filterPosts = allPostsByDate.filter((post) =>
+      post.data.tags.includes(tag)
+    );
+    return paginate(filterPosts, {
+      params: { tag },
+      pageSize: 10,
+    });
+  });
+};
+
+const posts = (
+  await getCollection("blog", ({ data }) => {
+    return data.isDraft !== true;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const { blog } = Astro.props;
+const { tag } = Astro.params;
+
+const meta = {
+  title: `Tag: ${tag}`,
+  description: `View all posts with the tag - ${tag}`,
+};
+---
+
+<PageLayout title="">
+  <h1>
+    <a href="/tags/">Tags</a>
+    <span>→</span>
+    <span>#{tag}</span>
+  </h1>
+  <section aria-label="Blog post list">
+    <ul>
+      {
+        posts.map((p) => (
+          <li>
+            <PostPreview post={p} as="h2" withDesc />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</PageLayout>

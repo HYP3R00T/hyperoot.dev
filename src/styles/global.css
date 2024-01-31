@@ -22,8 +22,11 @@
   --purple: #9f7aea;
   --pink: #ed64a6;
 
-  --font-saucecodepro: "SauceCode", sans-serif;
-  --font-monda: "Monda", sans-serif;
+  --font-roboto: Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-robotomono: "RobotoMono", monospace;
+  --font-saucecodepro: "SauceCodePro", monospace;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-montserrat-alt: "Montserrat-Alt", sans-serif;
 
   --astro-code-color-text: var(--text-secondary);
   --astro-code-color-background: var(--dark-transparent);
@@ -39,17 +42,45 @@
 }
 
 @font-face {
-  font-family: "Monda";
-  src: url("/fonts/Monda-Regular.woff") format("woff");
+  font-family: "RobotoMono";
+  src: url("/fonts/RobotoMono.woff") format("woff");
   font-style: normal;
-  font-display: swap;
+  font-weight: 400;
 }
 
 @font-face {
-  font-family: "SauceCode";
-  src: url("/fonts/SauceCodeProNerdFont-SemiBold.woff") format("woff");
+  font-family: "SauceCodePro";
+  src: url("/fonts/SauceCodeProNerdFont-Regular.woff") format("woff");
   font-style: normal;
-  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-Blog.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-Italic.woff") format("woff");
+  font-style: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Montserrat-Alt";
+  src: url("/fonts/MontserratAlternates-SemiBold.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
 }
 
 *,
@@ -61,7 +92,7 @@
 }
 
 body {
-  font-family: var(--font-monda);
+  font-family: var(--font-montserrat);
   margin: 0;
   padding: 0;
   text-align: left;
@@ -69,8 +100,8 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--text-primary);
-  line-height: 1.5;
-  font-size: 1.25em;
+  line-height: 1.4;
+  font-size: 1.1rem;
 }
 
 h1,
@@ -80,8 +111,9 @@ h4,
 h5,
 h6 {
   margin: 1rem 0;
+  font-family: var(--font-saucecodepro);
   color: var(--text-tertiary);
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 strong,
@@ -96,6 +128,7 @@ i {
 
 a {
   color: var(--text-tertiary);
+  text-decoration: none;
 }
 
 a:hover {
@@ -103,16 +136,16 @@ a:hover {
 }
 
 p {
-  margin-bottom: 0.5em;
+  margin-bottom: 2em;
 }
 
 textarea {
   width: 100%;
-  font-size: 16px;
 }
 
 input {
-  font-size: 16px;
+  width: 100%;
+  /* font-size: 16px; */
 }
 
 table {
@@ -136,7 +169,7 @@ pre {
   border-radius: 8px;
 }
 
-pre > code {
+pre>code {
   all: unset;
 }
 
@@ -174,6 +207,7 @@ hr {
 /* !Scroll-bar theme */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -185,7 +219,7 @@ hr {
   border-radius: 10px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
   ::-webkit-scrollbar {
     width: 0;
   }
@@ -194,7 +228,8 @@ hr {
 /* ! Blog theming */
 .prose {
   transition: all 1s ease-in-out;
-  /* text-align: justify; */
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 .prose h1 {
@@ -210,12 +245,12 @@ hr {
 }
 
 .prose p {
-  font-family: sans-serif;
   color: var(--text-tertiary);
 }
 
 .prose a {
   text-decoration: dotted underline;
+  color: var(--red);
 }
 
 .prose a:hover {
@@ -241,19 +276,11 @@ hr {
 
 .prose .latex {
   border-radius: 8px;
-  /* border: solid 1px var(--text-primary); */
   padding: 1em;
   margin-bottom: 1rem;
   color: var(--text-primary);
   background-color: var(--dark-transparent);
 }
-
-/* .prose code {
-} */
-
-/* .prose .astro-code {
-  border: solid 2px var(--text-tertiary);
-} */
 
 .prose blockquote {
   padding: 1rem 2rem;
@@ -272,7 +299,7 @@ hr {
   font-size: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
   .prose {
     transition: all 1s ease-in-out;
     text-align: left;

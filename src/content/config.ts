@@ -1,6 +1,14 @@
 import { defineCollection, z } from "astro:content";
 
+function removeDupsAndLowerCase(array: string[]) {
+  if (!array.length) return array;
+  const lowercaseItems = array.map((str) => str.toLowerCase());
+  const distinctItems = new Set(lowercaseItems);
+  return Array.from(distinctItems);
+}
+
 const blog = defineCollection({
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -14,13 +22,21 @@ const blog = defineCollection({
         .string()
         .optional()
         .transform((str) => (str ? new Date(str) : undefined)),
-      heroImage: image()
-        .refine((img) => img.width >= 1080, {
-          message: "Cover image must be at least 1080 pixels wide!",
+      coverImage: image()
+        .refine((img) => img.width >= 720, {
+          message: "Cover image must be at least 720 pixels wide!",
         })
         .optional(),
+      tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
       isDraft: z.boolean().optional().default(false),
     }),
 });
 
-export const collections = { blog };
+const extra = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+  }),
+});
+
+export const collections = { blog, extra };

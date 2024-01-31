@@ -1,211 +1,81 @@
 ---
-import { Icon } from "astro-icon";
-
-import Homepage from "../layouts/Homepage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "./../styles/index.css";
+import Intro from "../content/extra/intro.mdx";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <style>
-      section {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 5rem;
-        line-height: 1;
-        font-size: 1em;
-        margin: 0;
-      }
+<BaseLayout title="hyperoot.dev">
+  <section>
+    <div class="hero">
+      <h4>Hello, I am</h4>
+      <h1 class="name" id="name">Rajesh Das</h1>
+      <h2 class="title">Python Developer</h2>
+      <div class="introduction">
+        <Intro />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
 
-      .info {
-        height: calc(100vh - 220px);
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: center;
-      }
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const name = document.getElementById("name");
 
-      .dummy {
-        height: 110px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    name.addEventListener("mouseover", () => {
+      // console.log("Hovered in");
+      name.innerText = "HYP3R00T";
+      name.dataset.value = "HYP3R00T";
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let interval = null;
+      let iteration = 0;
+      clearInterval(interval);
 
-      p {
-        color: var(--text-tertiary);
-      }
+      interval = setInterval(() => {
+        name.innerText = name.innerText
+          .split("")
+          .map((letter, index) => {
+            if (index < iteration) {
+              return name.dataset.value[index];
+            }
 
-      .greeter {
-        font-size: 1rem;
-      }
+            return letters[Math.floor(Math.random() * 26)];
+          })
+          .join("");
 
-      .name {
-        margin: 0;
-        font-size: 3rem;
-        color: var(--text-primary);
-        text-transform: uppercase;
-        font-family: var(--font-saucecodepro);
-        width: 100%;
-      }
-
-      .title {
-        color: var(--text-secondary);
-        font-size: 2rem;
-      }
-
-      .introduction {
-        font-size: 1.2rem;
-        line-height: 1.1;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        width: 50vw;
-      }
-
-      .contact button {
-        transition: all 300ms ease-in-out;
-      }
-
-      .contact button:hover {
-        transform: scale(1.05);
-      }
-
-      button {
-        padding: 0.5rem 1.5rem;
-        border-radius: 5px;
-        border: none;
-        font-size: 1.15rem;
-        font-family: var(--font-saucecodepro);
-        cursor: pointer;
-        background-color: var(--blue);
-      }
-
-      .scroll-down-icon {
-        width: 2rem;
-      }
-
-      @media only screen and (max-width: 600px) {
-        .container {
-          width: 90vw;
-          height: calc(100vh - 220px);
+        if (iteration >= name.dataset.value.length) {
+          clearInterval(interval);
         }
 
-        .info {
-          /* height: calc(100vh - 220px); */
-          display: flex;
-          justify-content: center;
+        iteration += 1 / 3;
+      }, 30);
+    });
+    name.addEventListener("mouseout", () => {
+      // console.log("Hovered out");
+      name.innerText = "Rajesh Das";
+      name.dataset.value = "Rajesh Das";
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let interval = null;
+      let iteration = 0;
+      clearInterval(interval);
+
+      interval = setInterval(() => {
+        name.innerText = name.innerText
+          .split("")
+          .map((letter, index) => {
+            if (index < iteration) {
+              return name.dataset.value[index];
+            }
+
+            return letters[Math.floor(Math.random() * 26)];
+          })
+          .join("");
+
+        if (iteration >= name.dataset.value.length) {
+          clearInterval(interval);
         }
 
-        .introduction {
-          width: 100%;
-        }
-
-        .contact {
-          width: 90vw;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          text-decoration: none;
-        }
-
-        button {
-          width: 100%;
-        }
-      }
-    </style>
-    <Homepage>
-      <section>
-        <div class="info">
-          <p class="greeter">Hey, I'm</p>
-
-          <h1 class="name" id="name">Rajesh Das</h1>
-
-          <h2 class="title">Python Developer</h2>
-          <p class="introduction">
-            Just a Python dev here, always on the hunt for sweet libraries and
-            tools to jazz up my scripts. Making life easier, one line of code at
-            a time!
-          </p>
-          <br />
-          <a href="mailto:me@hyperoot.dev" class="contact">
-            <button>contact me@hyperoot.dev</button></a
-          >
-        </div>
-      </section>
-      <section class="dummy">
-        <!-- <Icon name="ic:round-menu" class="scroll-down-icon" /> -->
-      </section>
-    </Homepage>
-
-    <script>
-      const name = document.getElementById("name");
-
-      name.addEventListener("mouseover", () => {
-        // console.log("Hovered in");
-        name.innerText = "HYP3R00T";
-        name.dataset.value = "HYP3R00T";
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let interval = null;
-        let iteration = 0;
-        clearInterval(interval);
-
-        interval = setInterval(() => {
-          name.innerText = name.innerText
-            .split("")
-            .map((letter, index) => {
-              if (index < iteration) {
-                return name.dataset.value[index];
-              }
-
-              return letters[Math.floor(Math.random() * 26)];
-            })
-            .join("");
-
-          if (iteration >= name.dataset.value.length) {
-            clearInterval(interval);
-          }
-
-          iteration += 1 / 3;
-        }, 30);
-      });
-      name.addEventListener("mouseout", () => {
-        // console.log("Hovered out");
-        name.innerText = "Rajesh Das";
-        name.dataset.value = "Rajesh Das";
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let interval = null;
-        let iteration = 0;
-        clearInterval(interval);
-
-        interval = setInterval(() => {
-          name.innerText = name.innerText
-            .split("")
-            .map((letter, index) => {
-              if (index < iteration) {
-                return name.dataset.value[index];
-              }
-
-              return letters[Math.floor(Math.random() * 26)];
-            })
-            .join("");
-
-          if (iteration >= name.dataset.value.length) {
-            clearInterval(interval);
-          }
-
-          iteration += 1 / 3;
-        }, 30);
-      });
-    </script>
-  </body>
-</html>
+        iteration += 1 / 3;
+      }, 30);
+    });
+  });
+</script>

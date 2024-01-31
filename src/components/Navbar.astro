@@ -1,93 +1,7 @@
 ---
 import "../styles/global.css";
-import { Icon } from "astro-icon";
+import "../styles/navbar.css";
 ---
-
-<style>
-  header {
-    padding: 2rem 3rem;
-    z-index: 3;
-  }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: "SauceCode", sans-serif;
-  }
-
-  .logo a {
-    text-decoration: none;
-    color: var(--text-primary);
-    padding: 0.5rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .logo a:hover {
-    background-color: var(--bg-secondary);
-    border-radius: 5px;
-  }
-
-  .nav-links {
-    display: flex;
-  }
-
-  .nav-links a {
-    padding: 0.5rem 2rem;
-    text-decoration: none;
-    width: 100%;
-  }
-
-  .nav-links a:hover {
-    color: var(--text-secondary);
-    background-color: var(--bg-secondary);
-    border-radius: 5px;
-  }
-
-  .toggle-button,
-  .close-button {
-    width: 2rem;
-    cursor: pointer;
-    display: none;
-  }
-
-  @media only screen and (max-width: 600px) {
-    header {
-      padding: 0rem;
-    }
-    nav {
-      /* flex-direction: column; */
-    }
-    .logo {
-      padding: 2rem;
-    }
-    .toggle-button {
-      display: flex;
-    }
-    .toggle-button,
-    .close-button {
-      margin: 2rem 3rem;
-    }
-    .nav-links {
-      position: absolute;
-      top: 6rem;
-      flex-direction: column;
-      display: none;
-      background-color: var(--bg-tertiary);
-      background-color: var(--bg-tertiary);
-      width: 100%;
-      padding: 1rem;
-      z-index: 3;
-    }
-
-    .nav-links a:hover {
-      color: var(--text-secondary);
-      background-color: var(--bg-secondary);
-      border-radius: 5px;
-    }
-  }
-</style>
 
 <header>
   <nav>
@@ -98,80 +12,91 @@ import { Icon } from "astro-icon";
         </span>
       </a>
     </div>
+
+    <!-- For smaller viewports -->
     <div class="toggle-button" id="openButton">
-      <Icon name="ic:round-menu" />
+      <img src="/assets/menu.svg" alt="close" />
     </div>
     <div class="close-button" id="closeButton">
-      <Icon name="ic:round-close" />
+      <img src="/assets/close.svg" alt="close" />
     </div>
+
+    <!-- Navigation Links -->
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
     </div>
   </nav>
 </header>
 
 <script>
-  document.getElementById("openButton").addEventListener("click", function () {
-    var navLinks = document.querySelector(".nav-links") as HTMLElement;
-    var closeButton = document.getElementById("closeButton") as HTMLElement;
-    var openButton = document.getElementById("openButton") as HTMLElement;
+  document.addEventListener("astro:page-load", () => {
+    document
+      .getElementById("openButton")
+      .addEventListener("click", function () {
+        var navLinks = document.querySelector(".nav-links") as HTMLElement;
+        var closeButton = document.getElementById("closeButton") as HTMLElement;
+        var openButton = document.getElementById("openButton") as HTMLElement;
 
-    navLinks.style.display =
-      navLinks.style.display === "flex" ? "none" : "flex";
-    closeButton.style.display =
-      navLinks.style.display === "flex" ? "flex" : "none";
-    openButton.style.display = "none";
-  });
+        navLinks.style.display =
+          navLinks.style.display === "flex" ? "none" : "flex";
+        closeButton.style.display =
+          navLinks.style.display === "flex" ? "flex" : "none";
+        openButton.style.display = "none";
+      });
 
-  document.getElementById("closeButton").addEventListener("click", function () {
-    var navLinks = document.querySelector(".nav-links") as HTMLElement;
-    var closeButton = document.getElementById("closeButton") as HTMLElement;
-    var openButton = document.getElementById("openButton") as HTMLElement;
+    document
+      .getElementById("closeButton")
+      .addEventListener("click", function () {
+        var navLinks = document.querySelector(".nav-links") as HTMLElement;
+        var closeButton = document.getElementById("closeButton") as HTMLElement;
+        var openButton = document.getElementById("openButton") as HTMLElement;
 
-    navLinks.style.display = "none";
-    closeButton.style.display = "none";
-    openButton.style.display = "flex";
-  });
+        navLinks.style.display = "none";
+        closeButton.style.display = "none";
+        openButton.style.display = "flex";
+      });
 
-  document.querySelector(".nav-links").addEventListener("click", function () {
-    var navLinks = document.querySelector(".nav-links") as HTMLElement;
-    var closeButton = document.getElementById("closeButton") as HTMLElement;
-    var openButton = document.getElementById("openButton") as HTMLElement;
+    document.querySelector(".nav-links").addEventListener("click", function () {
+      var navLinks = document.querySelector(".nav-links") as HTMLElement;
+      var closeButton = document.getElementById("closeButton") as HTMLElement;
+      var openButton = document.getElementById("openButton") as HTMLElement;
 
-    if (window.innerWidth < 600) {
-      navLinks.style.display = "none";
-      closeButton.style.display = "none";
-      openButton.style.display = "flex";
-    }
-  });
-
-  const logo = document.getElementById("logo");
-  const siteName = document.getElementById("site-name");
-
-  logo.addEventListener("mouseenter", () => {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let interval = null;
-    let iteration = 0;
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      siteName.innerText = siteName.innerText
-        .split("")
-        .map((letter, index) => {
-          if (index < iteration) {
-            return siteName.dataset.value[index];
-          }
-
-          return letters[Math.floor(Math.random() * 26)];
-        })
-        .join("");
-
-      if (iteration >= siteName.dataset.value.length) {
-        clearInterval(interval);
+      if (window.innerWidth < 600) {
+        navLinks.style.display = "none";
+        closeButton.style.display = "none";
+        openButton.style.display = "flex";
       }
+    });
 
-      iteration += 1 / 3;
-    }, 30);
+    const logo = document.getElementById("logo");
+    const siteName = document.getElementById("site-name");
+
+    logo.addEventListener("mouseenter", () => {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let interval = null;
+      let iteration = 0;
+      clearInterval(interval);
+
+      interval = setInterval(() => {
+        siteName.innerText = siteName.innerText
+          .split("")
+          .map((letter, index) => {
+            if (index < iteration) {
+              return siteName.dataset.value[index];
+            }
+
+            return letters[Math.floor(Math.random() * 26)];
+          })
+          .join("");
+
+        if (iteration >= siteName.dataset.value.length) {
+          clearInterval(interval);
+        }
+
+        iteration += 1 / 3;
+      }, 30);
+    });
   });
 </script>

@@ -1,0 +1,78 @@
+header {
+  position: relative;
+  width: 70vw;
+  height: 15vh;
+  left: 15vw;
+  z-index: 10;
+}
+
+
+nav {
+  padding: 2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  font-family: var(--font-saucecodepro);
+  padding: 0.5rem 2rem;
+}
+
+nav a:hover {
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  border-radius: 5px;
+}
+
+.logo a {
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: flex;
+  overflow-x: auto;
+}
+
+.toggle-button,
+.close-button {
+  width: 2rem;
+  cursor: pointer;
+  display: none;
+  margin: 0.5rem 2rem;
+}
+
+@media only screen and (max-width: 720px) {
+  header {
+    width: 100vw;
+    left: 0vw;
+  }
+
+  nav {
+    padding: 1rem 1rem;
+  }
+
+  nav a {
+    font-size: 1.25rem;
+  }
+
+  .toggle-button {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    background-color: var(--bg-tertiary);
+    display: none;
+    position: absolute;
+    top: 5rem;
+    text-align: right;
+    right: 1rem;
+    padding: 1rem 1rem;
+  }
+
+  .nav-links a {
+    width: 100%;
+  }
+}

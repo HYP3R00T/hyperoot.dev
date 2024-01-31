@@ -1,0 +1,80 @@
+---
+type PaginationLink = {
+  url: string;
+  text?: string;
+  srLabel?: string;
+};
+
+interface Props {
+  prevUrl?: PaginationLink;
+  nextUrl?: PaginationLink;
+}
+
+const { prevUrl, nextUrl } = Astro.props;
+---
+
+<style>
+  nav {
+    display: flex;
+  }
+
+  nav > *:hover {
+    background: none;
+  }
+
+  .disabled {
+    opacity: 0;
+  }
+
+  .previous {
+    text-align: center;
+  }
+
+  .next {
+    text-align: center;
+  }
+  @media only screen and (max-width: 720px) {
+    nav {
+      position: relative;
+    }
+
+    a {
+      padding: 0;
+    }
+
+    .previous {
+      text-align: left;
+    }
+
+    .next {
+      text-align: right;
+    }
+  }
+</style>
+
+{
+  (prevUrl || nextUrl) && (
+    <nav>
+      {prevUrl ? (
+        <a href={prevUrl.url} data-astro-prefetch class="previous">
+          {prevUrl.srLabel && <span class="sr-only">{prevUrl.srLabel}</span>}
+          {prevUrl.text ? prevUrl.text : "Previous"}
+        </a>
+      ) : (
+        <a class="disabled" role="link" aria-disabled="true">
+          {"Previous"}
+        </a>
+      )}
+      {nextUrl ? (
+        <a href={nextUrl.url} data-astro-prefetch class="next">
+          {nextUrl.srLabel && <span class="sr-only">{nextUrl.srLabel}</span>}
+          {nextUrl.text ? nextUrl.text : "Next"}
+        </a>
+      ) : (
+        <a class="disabled" role="link" aria-disabled="true">
+          {"Next"}
+        </a>
+      )}
+    </nav>
+  )
+}
