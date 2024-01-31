@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import Contacts from "../content/extra/contacts.mdx";
+---
+
+<style>
+  .container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .contacts {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  img {
+    flex: 1;
+    height: 40vh;
+    width: 50vw;
+  }
+
+  @media only screen and (max-width: 720px) {
+    .container {
+      flex-direction: column;
+    }
+    img {
+      width: 80vw;
+    }
+  }
+</style>
+<BaseLayout title="Contact Me | hyperoot.dev">
+  <div class="container">
+    <Image
+      src="/assets/contact_me.svg"
+      alt="404 Not Found"
+      width={200}
+      height={200}
+    />
+    <div class="contacts">
+      <Contacts />
+    </div>
+  </div>
+</BaseLayout>

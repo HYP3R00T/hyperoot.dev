@@ -15,13 +15,6 @@ const { post } = Astro.props;
 ---
 
 <div class="cards">
-  <!-- <a href={`/blogs/${post.slug}/`} data-astro-prefetch>
-    <p class="date">
-      <FormattedDate date={post.data.pubDate} />
-    </p>
-    <h4 class="title">{post.data.title}</h4>
-    <p>{post.data.description}</p>
-  </a> -->
   <a href={`/blogs/${post.slug}/`} data-astro-prefetch>
     <div class="card">
       <div class="cover-image">

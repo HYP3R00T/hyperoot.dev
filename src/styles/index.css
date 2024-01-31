@@ -81,11 +81,15 @@ section {
     padding-bottom: 10vh;
   }
 
-  h1 {
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero h1 {
     font-size: 3rem;
   }
 
-  h2 {
+  .hero h2 {
     font-size: 1.75rem;
   }
 

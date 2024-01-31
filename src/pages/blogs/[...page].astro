@@ -37,8 +37,14 @@ const paginationProps = {
 };
 ---
 
+<style>
+  .title {
+    color: var(--text-secondary);
+  }
+</style>
+
 <BaseLayout title="blogs | hyperoot.dev">
-  <h1>Posts</h1>
+  <h1 class="title">Posts</h1>
   <div>
     <section aria-label="Blog post list">
       {page.data.map((p) => !p.data.isDraft && <PostPreview post={p} />)}

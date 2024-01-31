@@ -23,10 +23,8 @@
   --pink: #ed64a6;
 
   --font-roboto: Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
-  --font-robotomono: "RobotoMono", monospace;
   --font-saucecodepro: "SauceCodePro", monospace;
   --font-montserrat: "Montserrat", sans-serif;
-  --font-montserrat-alt: "Montserrat-Alt", sans-serif;
 
   --astro-code-color-text: var(--text-secondary);
   --astro-code-color-background: var(--dark-transparent);
@@ -39,13 +37,6 @@
   --astro-code-token-string-expression: var(--red);
   --astro-code-token-punctuation: var(--text-primary);
   --astro-code-token-link: var(--red);
-}
-
-@font-face {
-  font-family: "RobotoMono";
-  src: url("/fonts/RobotoMono.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
 }
 
 @font-face {
@@ -64,7 +55,7 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/fonts/Montserrat-Blog.woff") format("woff");
+  src: url("/fonts/Montserrat-Bold.woff") format("woff");
   font-style: normal;
   font-weight: 700;
 }
@@ -76,12 +67,6 @@
   font-style: italic;
 }
 
-@font-face {
-  font-family: "Montserrat-Alt";
-  src: url("/fonts/MontserratAlternates-SemiBold.woff") format("woff");
-  font-style: normal;
-  font-weight: 600;
-}
 
 *,
 *::after,
@@ -100,7 +85,7 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.5;
   font-size: 1.1rem;
 }
 
@@ -132,7 +117,7 @@ a {
 }
 
 a:hover {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 p {
@@ -245,7 +230,7 @@ hr {
 }
 
 .prose p {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .prose a {
@@ -303,6 +288,6 @@ hr {
   .prose {
     transition: all 1s ease-in-out;
     text-align: left;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 }
