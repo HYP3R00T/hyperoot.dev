@@ -1,18 +1,41 @@
 ---
+import type { Page, GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
-import "./../styles/index.css";
+import PostPreview from "../components/blog/PostPreview.astro";
 import Intro from "../content/extra/intro.mdx";
+import "./../styles/index.css";
+
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
+}
+
+const posts = (
+  await getCollection("blog", ({ data }) => {
+    return data.isDraft !== true;
+  })
+)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
 ---
 
 <BaseLayout title="hyperoot.dev">
   <section>
     <div class="hero">
-      <h4>Hello, I am</h4>
+      <h4 class="greet">Hello, I am</h4>
       <h1 class="name" id="name">Rajesh Das</h1>
       <h2 class="title">Python Developer</h2>
       <div class="introduction">
         <Intro />
       </div>
+    </div>
+  </section>
+  <section>
+    <div aria-label="Blog post list" class="recent-blogs">
+      <h1 class="recent-blogs-title">Recent Blogs</h1>
+      {posts.map((p) => !p.data.isDraft && <PostPreview post={p} />)}
     </div>
   </section>
 </BaseLayout>
@@ -22,7 +45,6 @@ import Intro from "../content/extra/intro.mdx";
     const name = document.getElementById("name");
 
     name.addEventListener("mouseover", () => {
-      // console.log("Hovered in");
       name.innerText = "HYP3R00T";
       name.dataset.value = "HYP3R00T";
       const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

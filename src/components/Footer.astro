@@ -3,8 +3,32 @@ import "../styles/global.css";
 ---
 
 <style>
+  footer {
+    position: relative;
+    bottom: 0;
+    height: 7.5vh;
+    z-index: 10;
+    background-color: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+  }
   .space {
-    height: 10vh;
+    position: relative;
+    width: 70vw;
+    left: 15vw;
+    padding: 0rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media only screen and (max-width: 720px) {
+    .space {
+      width: 100vw;
+      justify-content: center;
+      left: 0vw;
+    }
   }
 </style>
-<footer><div class="space"></div></footer>
+<footer>
+  <div class="space">© {new Date().getFullYear()} hyperoot</div>
+</footer>

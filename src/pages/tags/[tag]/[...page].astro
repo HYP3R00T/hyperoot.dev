@@ -1,7 +1,9 @@
 ---
 import type { Page, GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
-import PageLayout from "./../../../layouts/BaseLayout.astro";
+
+import BaseLayout from "./../../../layouts/BaseLayout.astro";
 import PostPreview from "./../../../components/blog/PostPreview.astro";
 import Pagination from "./../../../components/Paginator.astro";
 import {
@@ -25,6 +27,9 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     });
   });
 };
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
+}
 
 const posts = (
   await getCollection("blog", ({ data }) => {
@@ -32,30 +37,17 @@ const posts = (
   })
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const { blog } = Astro.props;
+const { page } = Astro.props;
 const { tag } = Astro.params;
-
-const meta = {
-  title: `Tag: ${tag}`,
-  description: `View all posts with the tag - ${tag}`,
-};
 ---
 
-<PageLayout title="">
+<BaseLayout title="">
   <h1>
     <a href="/tags/">Tags</a>
     <span>→</span>
     <span>#{tag}</span>
   </h1>
   <section aria-label="Blog post list">
-    <ul>
-      {
-        posts.map((p) => (
-          <li>
-            <PostPreview post={p} as="h2" withDesc />
-          </li>
-        ))
-      }
-    </ul>
+    {page.data.map((p) => <PostPreview post={p} as="h2" />)}
   </section>
-</PageLayout>
+</BaseLayout>

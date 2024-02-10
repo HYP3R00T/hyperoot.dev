@@ -1,0 +1,56 @@
+.main-container {
+    width: 100%;
+    left: 0;
+}
+
+article {
+    max-width: 100%;
+    margin: 0;
+}
+
+.hero-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image .image {
+    width: 100%;
+    aspect-ratio: 2.5;
+    object-fit: cover;
+    border: solid 1px var(--text-tertiary);
+}
+
+.prose {
+    max-width: 100%;
+    margin: auto;
+    padding: 0.5em;
+    color: var(--text-tertiary);
+}
+
+.title {
+    margin-bottom: 1em;
+    padding: 1em 0;
+    text-align: center;
+    line-height: 1;
+}
+
+.title h1 {
+    margin: 0 0 0.5em 0;
+}
+
+.date {
+    margin-bottom: 0.5em;
+    color: var(--text-tertiary);
+}
+
+.last-updated-on {
+    font-style: italic;
+}
+
+@media only screen and (max-width: 720px) {
+    .main-container {
+        position: relative;
+        width: 95vw;
+    }
+}

@@ -11,20 +11,18 @@ import { Image } from "astro:assets";
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    height: 70vh;
   }
 
   img {
-    height: 70vh;
-    width: 50vw;
+    max-height: 70vh;
+    min-width: 40vw;
+    max-width: 50vw;
   }
 
-  button {
-    padding: 0.5rem 2rem;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
+  .warning {
     font-family: var(--font-saucecodepro);
-    cursor: pointer;
+    text-align: justify;
   }
 
   @media only screen and (max-width: 720px) {
@@ -36,6 +34,9 @@ import { Image } from "astro:assets";
 <BaseLayout title="404 | hyperoot.dev">
   <div class="container">
     <Image src="/assets/404.svg" alt="404 Not Found" width={200} height={200} />
-    <a href="/blogs"><button>Read some blogs</button></a>
+    <p class="warning">
+      This page could not be found. It either doesn't exist or was deleted. Or
+      perhaps you don't exist and this webpage couldn't find you.
+    </p>
   </div>
 </BaseLayout>

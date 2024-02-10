@@ -1,0 +1,45 @@
+.cards {
+    font-family: var(--font-saucecodepro);
+}
+
+
+.card {
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+}
+
+.card:hover .detail>* {
+    color: var(--text-primary);
+}
+
+.date {
+    color: var(--text-tertiary);
+}
+
+.title {
+    text-decoration: dotted underline;
+}
+
+.title:hover {
+    color: var(--blue);
+}
+
+.description {
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+@media only screen and (max-width: 720px) {
+    .heading {
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+}

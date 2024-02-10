@@ -9,7 +9,7 @@ section {
 
 .hero {
   position: relative;
-  min-height: 70vh;
+  min-height: 50vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -28,15 +28,18 @@ section {
   margin-bottom: 1em;
 }
 
-.hero h1 {
+
+.hero .name {
   font-size: 5rem;
   color: var(--blue);
+  line-height: 1;
 }
 
-.hero h2 {
+.hero .title {
   color: var(--text-primary);
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  text-decoration: none;
 }
 
 .introduction a {
@@ -47,27 +50,19 @@ section {
   color: var(--text-primary);
 }
 
-.contact {
-  background-color: var(--bg-tertiary);
-  padding: 1rem 2rem;
-  color: var(--text-tertiary);
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-saucecodepro);
-  font-size: 1rem;
+.recent-blogs {
+  position: relative;
+  min-height: 30vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.contact:hover {
-  background-color: var(--bg-secondary);
+.recent-blogs-title {
+  color: var(--red);
 }
 
-.contact span {
-  color: var(--text-primary);
-}
-
-.contact:hover span {
-  color: var(--blue);
-}
 
 @media only screen and (max-width: 720px) {
   section {
@@ -75,7 +70,7 @@ section {
   }
 
   .hero {
-    min-height: 70vh;
+    min-height: 50vh;
     display: flex;
     justify-content: center;
     padding-bottom: 10vh;
@@ -85,20 +80,13 @@ section {
     font-size: 1.2rem;
   }
 
-  .hero h1 {
+  .hero .name {
     font-size: 3rem;
   }
 
-  .hero h2 {
+  .hero .title {
     font-size: 1.75rem;
+    line-height: 2;
   }
 
-  .introduction {
-    width: 100%;
-  }
-
-  a {
-    text-decoration: none;
-    width: 100%;
-  }
 }

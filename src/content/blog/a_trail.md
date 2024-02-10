@@ -1,15 +1,13 @@
 ---
 title: 'A Trail'
-description: ''
+description: 'It is good to have an end to journey toward; but it is the journey that matters, in the end.'
 pubDate: 'Nov 23 2023'
 category: 'Life'
 coverImage: './images/a_trail.avif'
-tags: ["test"]
+tags: ["life", "random"]
 ---
-<blockquote>
-<p>It is good to have an end to journey toward; but it is the journey that matters, in the end.</p>
-<footer>Ursula K. Le Guin</footer>
-</blockquote>
+> It is good to have an end to journey toward; but it is the journey that matters, in the end.\
+> <cite>Ursula K. Le Guin</cite>
 
 Embarking on the journey of life, I often picture it as a stroll through a dense forest. The origins are hazy, but my recollections paint a vivid image  —  I find myself traversing a trail, enveloped in the morning mist as thick as the surrounding woods. It's a sensation of rebirth, a refreshing start to an expedition into the unknown. For hours, I bask in the ambiance, grounding myself in the earth beneath, entranced by the symphony of the wind dancing through the trees.
 

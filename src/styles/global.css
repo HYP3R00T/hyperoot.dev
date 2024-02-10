@@ -2,25 +2,25 @@
   /* https://chakra-ui.com/docs/styled-system/theme */
   /* Primary colors */
 
-  --bg-primary: #1a202c;
-  --bg-secondary: #090c10;
-  --bg-tertiary: #2d3748;
+  --bg-primary: #1e1e2e;
+  --bg-secondary: #11111b;
+  --bg-tertiary: #313244;
 
-  --text-primary: #edf2f7;
-  --text-secondary: #cbd5e0;
-  --text-tertiary: #a0aec0;
+  --text-primary: #cdd6f4;
+  --text-secondary: #a6adc8;
+  --text-tertiary: #7f849c;
 
   --dark-transparent: RGBA(0, 0, 0, 0.24);
 
-  --red: #f56565;
-  --orange: #ed8936;
-  --yellow: #ecc94b;
-  --green: #48bb78;
-  --teal: #38b2ac;
-  --blue: #4299e1;
-  --cyan: #0bc5ea;
-  --purple: #9f7aea;
-  --pink: #ed64a6;
+  --red: #f38ba8;
+  --orange: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --blue: #89b4fa;
+  --cyan: #74c7ec;
+  --purple: #cba6f7;
+  --pink: #f5c2e7;
 
   --font-roboto: Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
   --font-saucecodepro: "SauceCodePro", monospace;
@@ -112,12 +112,13 @@ i {
 }
 
 a {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   text-decoration: none;
 }
 
 a:hover {
   color: var(--text-primary);
+  text-decoration: underline dotted;
 }
 
 p {
@@ -159,10 +160,7 @@ pre>code {
 }
 
 blockquote {
-  border-left: 4px solid var(--text-tertiary);
-  padding: 0 0 0 20px;
-  /* margin: 2rem; */
-  /* font-size: 1em; */
+  border-left: 4px solid var(--purple);
 }
 
 hr {
@@ -215,18 +213,25 @@ hr {
   transition: all 1s ease-in-out;
   margin: 0;
   font-size: 1.1rem;
+  font-family: var(--font-roboto);
 }
 
 .prose h1 {
-  color: var(--text-primary);
+  color: var(--blue);
 }
 
 .prose h2 {
-  color: var(--text-secondary);
+  color: var(--cyan);
 }
 
 .prose h3 {
-  color: var(--text-secondary);
+  color: var(--purple);
+}
+
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--text-primary);
 }
 
 .prose p {
@@ -256,7 +261,12 @@ hr {
 .prose strong,
 .prose b {
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--blue);
+}
+
+.prose em,
+.prose i {
+  color: var(--orange);
 }
 
 .prose .latex {
@@ -264,7 +274,7 @@ hr {
   padding: 1em;
   margin-bottom: 1rem;
   color: var(--text-primary);
-  background-color: var(--dark-transparent);
+  background-color: var(--bg-secondary);
 }
 
 .prose blockquote {
@@ -276,13 +286,15 @@ hr {
 
 .prose blockquote p {
   color: var(--text-secondary);
-  font-style: italic;
+  margin-bottom: 0em;
 }
 
-.prose blockquote footer {
-  color: var(--blue);
-  font-size: 1rem;
+.prose blockquote footer,
+.prose cite {
+  color: var(--pink);
+  font-size: 0.75rem;
 }
+
 
 @media only screen and (max-width: 720px) {
   .prose {

@@ -6,6 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Pagination from "../../components/Paginator.astro";
 import PostPreview from "../../components/blog/PostPreview.astro";
 import { getAllPosts, sortMDByDate, getUniqueTags } from "../../utils/index";
+import "./../../styles/blog-page.css";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const allPosts = await getAllPosts();
@@ -37,18 +38,36 @@ const paginationProps = {
 };
 ---
 
-<style>
-  .title {
-    color: var(--text-secondary);
-  }
-</style>
-
 <BaseLayout title="blogs | hyperoot.dev">
-  <h1 class="title">Posts</h1>
-  <div>
-    <section aria-label="Blog post list">
-      {page.data.map((p) => !p.data.isDraft && <PostPreview post={p} />)}
-      <Pagination {...paginationProps} />
-    </section>
+  {
+    !!uniqueTags.length && (
+      <div class="tags">
+        <h2 class="tag-title">Tags</h2>
+        <div class="tag-cloud">
+          <div class="tag">
+            {uniqueTags.map((tag) => (
+              <button>
+                <a
+                  href={`/tags/${tag}/`}
+                  aria-label={`View all posts with the tag: ${tag}`}
+                >
+                  {tag}
+                </a>
+              </button>
+            ))}
+          </div>
+          <div class="view-all">
+            <a href="/tags/" aria-label="View all blog categories">
+              View all →
+            </a>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  <div aria-label="Blog post list" class="posts">
+    <h1 class="tag-title">Posts</h1>
+    {page.data.map((p) => !p.data.isDraft && <PostPreview post={p} />)}
+    <Pagination {...paginationProps} />
   </div>
 </BaseLayout>
