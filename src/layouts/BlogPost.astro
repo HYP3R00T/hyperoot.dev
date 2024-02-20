@@ -9,8 +9,7 @@ import "../styles/blogpost.css";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, coverImage, category } =
-  Astro.props;
+const { title, description, pubDate, updatedDate, coverImage } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>

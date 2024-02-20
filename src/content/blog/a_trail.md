@@ -2,7 +2,6 @@
 title: 'A Trail'
 description: 'It is good to have an end to journey toward; but it is the journey that matters, in the end.'
 pubDate: 'Nov 23 2023'
-category: 'Life'
 coverImage: './images/a_trail.avif'
 tags: ["life", "random"]
 ---

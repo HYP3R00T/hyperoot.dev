@@ -13,7 +13,6 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      category: z.string().optional(),
       pubDate: z
         .string()
         .or(z.date())
