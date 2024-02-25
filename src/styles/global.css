@@ -2,17 +2,35 @@
   /* https://chakra-ui.com/docs/styled-system/theme */
   /* Primary colors */
 
-  --bg-primary: #1e1e2e;
+  --bg-primary: #1A202C;
+  --bg-secondary: #171923;
+  --bg-tertiary: #2D3748;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #F7FAFC;
+  --text-tertiary: #E2E8F0;
+
+  /* --bg-primary: #1e1e2e;
   --bg-secondary: #11111b;
   --bg-tertiary: #313244;
 
   --text-primary: #cdd6f4;
   --text-secondary: #a6adc8;
-  --text-tertiary: #7f849c;
+  --text-tertiary: #7f849c; */
 
   --dark-transparent: RGBA(0, 0, 0, 0.24);
 
-  --red: #f38ba8;
+  --red: #FC8181;
+  --orange: #F6AD55;
+  --yellow: #F6E05E;
+  --green: #68D391;
+  --teal: #4FD1C5;
+  --blue: #63B3ED;
+  --cyan: #76E4F7;
+  --purple: #B794F4;
+  --pink: #F687B3;
+
+  /* --red: #f38ba8;
   --orange: #fab387;
   --yellow: #f9e2af;
   --green: #a6e3a1;
@@ -20,7 +38,7 @@
   --blue: #89b4fa;
   --cyan: #74c7ec;
   --purple: #cba6f7;
-  --pink: #f5c2e7;
+  --pink: #f5c2e7; */
 
   --font-roboto: Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
   --font-saucecodepro: "SauceCodePro", monospace;
@@ -235,7 +253,7 @@ hr {
 }
 
 .prose p {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .prose a {
