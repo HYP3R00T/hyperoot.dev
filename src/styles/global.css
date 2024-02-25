@@ -10,14 +10,6 @@
   --text-secondary: #F7FAFC;
   --text-tertiary: #E2E8F0;
 
-  /* --bg-primary: #1e1e2e;
-  --bg-secondary: #11111b;
-  --bg-tertiary: #313244;
-
-  --text-primary: #cdd6f4;
-  --text-secondary: #a6adc8;
-  --text-tertiary: #7f849c; */
-
   --dark-transparent: RGBA(0, 0, 0, 0.24);
 
   --red: #FC8181;
@@ -30,19 +22,8 @@
   --purple: #B794F4;
   --pink: #F687B3;
 
-  /* --red: #f38ba8;
-  --orange: #fab387;
-  --yellow: #f9e2af;
-  --green: #a6e3a1;
-  --teal: #94e2d5;
-  --blue: #89b4fa;
-  --cyan: #74c7ec;
-  --purple: #cba6f7;
-  --pink: #f5c2e7; */
-
-  --font-roboto: Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
-  --font-saucecodepro: "SauceCodePro", monospace;
-  --font-montserrat: "Montserrat", sans-serif;
+  --font-roboto: 'Source Sans Pro', sans-serif;
+  --font-saucecodepro:  "SauceCodePro", monospace;
 
   --astro-code-color-text: var(--text-secondary);
   --astro-code-color-background: var(--dark-transparent);
@@ -57,35 +38,6 @@
   --astro-code-token-link: var(--red);
 }
 
-@font-face {
-  font-family: "SauceCodePro";
-  src: url("/fonts/SauceCodeProNerdFont-Regular.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Montserrat";
-  src: url("/fonts/Montserrat-Regular.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Montserrat";
-  src: url("/fonts/Montserrat-Bold.woff") format("woff");
-  font-style: normal;
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: "Montserrat";
-  src: url("/fonts/Montserrat-Italic.woff") format("woff");
-  font-style: normal;
-  font-style: italic;
-}
-
-
 *,
 *::after,
 *::before {
@@ -95,7 +47,7 @@
 }
 
 body {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-roboto);
   margin: 0;
   padding: 0;
   text-align: left;
@@ -149,7 +101,6 @@ textarea {
 
 input {
   width: 100%;
-  /* font-size: 16px; */
 }
 
 table {
