@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/mdx": "^2.0.3",
     "@astrojs/rss": "^4.0.1",
+    "@fontsource-variable/source-code-pro": "^5.0.17",
     "@fontsource/source-sans-pro": "^5.0.8",
     "@sentry/astro": "^7.92.0",
     "@spotlightjs/astro": "^1.0.9",
