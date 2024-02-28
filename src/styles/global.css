@@ -2,7 +2,7 @@
   /* https://chakra-ui.com/docs/styled-system/theme */
   /* Primary colors */
 
-  --bg-primary: #1A202C;
+  /* --bg-primary: #1A202C;
   --bg-secondary: #171923;
   --bg-tertiary: #2D3748;
 
@@ -20,10 +20,30 @@
   --blue: #63B3ED;
   --cyan: #76E4F7;
   --purple: #B794F4;
-  --pink: #F687B3;
+  --pink: #F687B3; */
+
+  --bg-primary: #181825;
+  --bg-secondary: #1e1e2e;
+  --bg-tertiary: #11111b;
+
+  --text-primary: #cdd6f4;
+  --text-secondary: #bac2de;
+  --text-tertiary: #a6adc8;
+
+  --dark-transparent: rgba(0, 0, 0, 0.24);
+
+  --red: #f38ba8;
+  --orange: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --blue: #74c7ec;
+  --cyan: #89dceb;
+  --purple: #cba6f7;
+  --pink: #f5c2e7;
 
   --font-roboto: 'Source Sans Pro', sans-serif;
-  --font-saucecodepro:  "SauceCodePro", monospace;
+  --font-saucecodepro: 'Source Code Pro Variable', monospace;
 
   --astro-code-color-text: var(--text-secondary);
   --astro-code-color-background: var(--dark-transparent);

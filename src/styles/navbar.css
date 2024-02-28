@@ -27,6 +27,8 @@ nav a:hover {
 
 .logo a {
   color: var(--blue);
+  font-family: var(--font-saucecodepro);
+  font-weight: 600;
 }
 
 .logo a:hover {
