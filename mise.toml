@@ -1,0 +1,15 @@
+[tools]
+pre-commit = "latest"
+node = "lts"
+pnpm = "latest"
+python = "latest"
+
+[hooks]
+enter = "bash ./scripts/setup_project.sh"
+
+[env]
+_.path = ['{{config_root}}/node_modules/.bin']
+
+[settings]
+experimental = true
+lockfile = true
