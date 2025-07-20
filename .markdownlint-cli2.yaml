@@ -1,0 +1,10 @@
+config:
+  default: true
+
+  # Disable conflicting or unneeded rules
+  MD013: false  # Line length (Prettier wraps)
+  MD041: false  # Missing first heading (VitePress index pages often don't need it)
+
+ignores:
+  - "node_modules"
+  - ".vitepress/dist"
