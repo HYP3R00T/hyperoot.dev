@@ -1,5 +1,9 @@
+[tools.markdownlint-cli2]
+version = "0.18.1"
+backend = "npm:markdownlint-cli2"
+
 [tools.node]
-version = "22.17.0"
+version = "22.17.1"
 backend = "core:node"
 
 [tools.pnpm]
@@ -10,6 +14,10 @@ backend = "aqua:pnpm/pnpm"
 version = "4.2.0"
 backend = "aqua:pre-commit/pre-commit"
 
+[tools.prettier]
+version = "3.6.2"
+backend = "npm:prettier"
+
 [tools.python]
-version = "3.13.5"
+version = "3.12.9"
 backend = "core:python"

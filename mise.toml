@@ -3,6 +3,8 @@ pre-commit = "latest"
 node = "lts"
 pnpm = "latest"
 python = "latest"
+markdownlint-cli2 = "latest"
+prettier = "latest"
 
 [hooks]
 enter = "bash ./scripts/setup_project.sh"
@@ -13,3 +15,8 @@ _.path = ['{{config_root}}/node_modules/.bin']
 [settings]
 experimental = true
 lockfile = true
+
+[tasks.dev]
+description = "Dev Mode"
+run = "vitepress dev docs --host 0.0.0.0 --port 5555 --cors"
+# run = "pnpm run docs:dev --host --port 5555"
