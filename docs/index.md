@@ -6,7 +6,7 @@ hero:
   text: 'Engineering in Public'
   tagline: 'Where experiments become guides and failures become lessons.'
   image:
-    src: /assets/Logo.svg
+    src: /Logo.svg
     alt: VitePress
   actions:
     - theme: brand
