@@ -1,5 +1,4 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
@@ -11,8 +10,8 @@ hero:
     alt: VitePress
   actions:
     - theme: brand
-      text: Learn With Me
-      link: /
+      text: Learn
+      link: /learn/start-here
     - theme: alt
       text: Portfolio
       link: https://rajeshdas.dev
@@ -29,5 +28,5 @@ features:
   - title: CelestialDocs
     link: https://github.com/HYP3R00T/CelestialDocs
     icon: 🔭
-    details: Next-gen documentation platform built with Astro & TailwindCSS
+    details: Minimal documentation platform built with Astro & TailwindCSS
 ---

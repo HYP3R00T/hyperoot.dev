@@ -8,32 +8,8 @@ import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 export default defineConfig({
   title: 'hyperoot.dev',
   description: 'A VitePress Site',
-  themeConfig: {
-    siteTitle: 'Hyperoot',
-    logo: '/assets/Logo.svg',
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright:
-        'Copyright © 2025-present <a href="https://github.com/HYP3R00T">Hyperoot</a>',
-    },
-    search: {
-      provider: 'local',
-    },
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
-    ],
-
-    sidebar: [
-      {
-        text: 'Examples',
-        collapsed: true,
-        items: [{ text: 'Markdown Examples', link: '/markdown-examples' }],
-      },
-    ],
-
-    socialLinks: [{ icon: 'github', link: 'https://github.com/HYP3R00T' }],
-  },
+  lastUpdated: true,
+  cleanUrls: true,
   markdown: {
     config(md) {
       md.use(groupIconMdPlugin)
@@ -49,6 +25,72 @@ export default defineConfig({
       },
       host: '0.0.0.0', // Ensure the server binds to all interfaces
       port: 5555,
+    },
+  },
+  themeConfig: {
+    siteTitle: 'Hyperoot',
+    logo: '/assets/Logo.svg',
+    socialLinks: [{ icon: 'github', link: 'https://github.com/HYP3R00T' }],
+    editLink: {
+      pattern: 'https://github.com/HYP3R00T/hyperoot.dev/edit/main/docs/:path',
+    },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright:
+        'Copyright © 2025-present <a href="https://github.com/HYP3R00T">Hyperoot</a>',
+    },
+    search: {
+      provider: 'local',
+    },
+    outline: 'deep',
+    nav: [
+      { text: 'Home', link: '/' },
+      { text: 'Learn', link: '/learn/start-here' },
+      {
+        text: 'Projects',
+        items: [
+          { text: 'Homelab', link: 'https://github.com/HYP3R00T/homelab' },
+          { text: 'Dotfiles', link: 'https://github.com/HYP3R00T/.dotfiles' },
+        ],
+      },
+    ],
+    sidebar: {
+      learn: [
+        {
+          text: 'Start Here',
+          link: '/learn/start-here',
+        },
+        {
+          text: 'Environment Setup',
+          collapsed: true,
+          items: [
+            {
+              text: 'Mise-en-place',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Getting Started',
+                  link: '/learn/mise-en-place/01-getting-started.md',
+                },
+                {
+                  text: 'Installing tools',
+                  link: '/learn/mise-en-place/02-installing-tools.md',
+                },
+                {
+                  text: 'Configuration',
+                  link: '/learn/mise-en-place/03-configuration.md',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      homelab: [
+        {
+          text: 'Homelab Overview',
+          link: '/homelab/intro',
+        },
+      ],
     },
   },
 })
