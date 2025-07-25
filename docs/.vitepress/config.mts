@@ -29,7 +29,7 @@ export default defineConfig({
   },
   themeConfig: {
     siteTitle: 'Hyperoot',
-    logo: '/assets/Logo.svg',
+    logo: '/Logo.svg',
     socialLinks: [{ icon: 'github', link: 'https://github.com/HYP3R00T' }],
     editLink: {
       pattern: 'https://github.com/HYP3R00T/hyperoot.dev/edit/main/docs/:path',
