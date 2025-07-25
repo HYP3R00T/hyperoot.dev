@@ -11,7 +11,8 @@
                 "christian-kohler.path-intellisense",
                 "tamasfe.even-better-toml",
                 "hverlin.mise-vscode",
-                "redhat.vscode-yaml"
+                "redhat.vscode-yaml",
+                "esbenp.prettier-vscode"
             ]
         }
     },
