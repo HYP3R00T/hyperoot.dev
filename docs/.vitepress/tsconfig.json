@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "target": "esnext",
+        "types": [
+            "vitepress/client",
+            "vue"
+        ],
+        "allowJs": true,
+        "checkJs": false,
+        "strict": true
+    },
+    "include": [
+        "**/*"
+    ],
+    "exclude": [
+        "cache",
+        "dist",
+        "node_modules"
+    ],
+    "vueCompilerOptions": {
+        "target": 3
+    }
+}
