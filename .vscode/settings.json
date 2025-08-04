@@ -1,5 +1,8 @@
 {
-    "debug.javascript.defaultRuntimeExecutable": {
-        "pwa-node": "/home/vscode/.local/share/mise/shims/node"
-    }
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/home/vscode/.local/share/mise/shims/node"
+  },
+  "markdownlint.config": {
+    "MD033": false
+  }
 }

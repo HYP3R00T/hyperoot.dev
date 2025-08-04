@@ -17,7 +17,3 @@ backend = "aqua:pre-commit/pre-commit"
 [tools.prettier]
 version = "3.6.2"
 backend = "npm:prettier"
-
-[tools.python]
-version = "3.12.9"
-backend = "core:python"
