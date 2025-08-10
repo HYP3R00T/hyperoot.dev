@@ -12,7 +12,8 @@
                 "tamasfe.even-better-toml",
                 "hverlin.mise-vscode",
                 "redhat.vscode-yaml",
-                "esbenp.prettier-vscode"
+                "esbenp.prettier-vscode",
+                "DavidAnson.vscode-markdownlint"
             ]
         }
     },
