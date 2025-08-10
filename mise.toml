@@ -1,4 +1,5 @@
 [tools]
+python = "3.13"
 pre-commit = "latest"
 node = "lts"
 pnpm = "latest"
