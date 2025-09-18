@@ -69,8 +69,9 @@ defineProps<{
     background-color: var(--vp-c-default-soft);
     width: 48px;
     height: 48px;
-    font-size: 24px;
+    font-size: 36px;
     transition: background-color 0.25s;
+    font-family: var(--vp-font-family-mono);
 }
 
 .title {

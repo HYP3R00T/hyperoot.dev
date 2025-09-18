@@ -6,7 +6,7 @@ const { frontmatter: fm } = useData()
 </script>
 
 <template>
-    <h2 class="about-title">Projects</h2>
+    <h2 class="about-title" id="projects">Projects</h2>
     <Features v-if="fm.modfeatures" class="HomeFeatures" :features="fm.modfeatures" />
     <!-- <pre>{{ JSON.stringify(fm, null, 2) }}</pre> -->
 </template>

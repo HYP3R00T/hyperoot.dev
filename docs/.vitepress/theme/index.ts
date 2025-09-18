@@ -1,9 +1,8 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
-import { h } from 'vue'
-
-import HomeExtra from './HomeExtra.vue'
+import HomeAbout from './components/HomeAbout.vue'
+import HomeFeatures from './components/HomeFeatures.vue'
 
 import './custom.css'
 import 'virtual:group-icons.css'
@@ -11,11 +10,8 @@ import 'virtual:group-icons.css'
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
-    enhanceAppWithTabs(app)
-  },
-  Layout() {
-    return h(DefaultTheme.Layout, null, {
-      'home-features-before': () => h(HomeExtra),
-    })
+    enhanceAppWithTabs(app),
+      app.component('HomeAbout', HomeAbout),
+      app.component('HomeFeatures', HomeFeatures)
   },
 } satisfies Theme
