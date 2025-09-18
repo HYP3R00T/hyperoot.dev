@@ -14,7 +14,7 @@ import { VPButton } from 'vitepress/theme'
           helping teams deliver reliable software faster.
         </p>
         <div class="action">
-          <VPButton theme="brand" text="Hey" href="https://rajeshdas.dev" />
+          <VPButton theme="brand" text="Let's Connect" href="https://rajeshdas.dev" />
         </div>
       </div>
     </div>
