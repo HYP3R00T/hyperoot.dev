@@ -85,7 +85,7 @@ You can quickly update all references by searching for these patterns in your ed
 - `hyperoot.dev` → Your domain/organization
 - `HYP3R00T` → Your GitHub username
 - `rajesh@hyperoot.dev` → Your email
-- `devcontainer-devcontainer-python-template` → Your project name
+- `devcontainer-python-template` → Your project name
 
 **💡 Tip**: Use VS Code's "Find and Replace" (Ctrl/Cmd + H) to quickly update all instances across your project.
 
