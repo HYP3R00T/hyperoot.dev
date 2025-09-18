@@ -5,4 +5,7 @@
     "markdownlint.config": {
         "MD033": false
     },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }

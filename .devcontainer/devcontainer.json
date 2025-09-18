@@ -13,7 +13,8 @@
                 "hverlin.mise-vscode",
                 "redhat.vscode-yaml",
                 "esbenp.prettier-vscode",
-                "DavidAnson.vscode-markdownlint"
+                "DavidAnson.vscode-markdownlint",
+                "Vue.volar"
             ]
         }
     },
