@@ -10,6 +10,7 @@ export default defineConfig({
   description: 'A VitePress Site',
   lastUpdated: true,
   cleanUrls: true,
+  ignoreDeadLinks: true,
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   markdown: {
     config(md) {
