@@ -1,17 +1,17 @@
-[tools.markdownlint-cli2]
+[[tools.markdownlint-cli2]]
 version = "0.18.1"
 backend = "npm:markdownlint-cli2"
 
-[tools.node]
-version = "22.18.0"
+[[tools.node]]
+version = "22.19.0"
 backend = "core:node"
 
 [tools.node.platforms.linux-x64]
-checksum = "sha256:a2e703725d8683be86bb5da967bf8272f4518bdaf10f21389e2b2c9eaeae8c8a"
-size = 54824343
-url = "https://nodejs.org/dist/v22.18.0/node-v22.18.0-linux-x64.tar.gz"
+checksum = "sha256:d36e56998220085782c0ca965f9d51b7726335aed2f5fc7321c6c0ad233aa96d"
+size = 54907188
+url = "https://nodejs.org/dist/v22.19.0/node-v22.19.0-linux-x64.tar.gz"
 
-[tools.pnpm]
+[[tools.pnpm]]
 version = "10.13.1"
 backend = "aqua:pnpm/pnpm"
 
@@ -20,7 +20,7 @@ checksum = "blake3:e0daa8ad976eec482bc7f82f53854fffe478aa2320acbab78e6715123b022
 size = 66202541
 url = "https://github.com/pnpm/pnpm/releases/download/v10.13.1/pnpm-linux-x64"
 
-[tools.pre-commit]
+[[tools.pre-commit]]
 version = "4.2.0"
 backend = "aqua:pre-commit/pre-commit"
 
@@ -29,10 +29,10 @@ checksum = "sha256:0d4d80fd598dd1f7c268569de49e7c7a692a3de6f7a97cf14ad4e6cce993b
 size = 6544274
 url = "https://github.com/pre-commit/pre-commit/releases/download/v4.2.0/pre-commit-4.2.0.pyz"
 
-[tools.prettier]
+[[tools.prettier]]
 version = "3.6.2"
 backend = "npm:prettier"
 
-[tools.python]
+[[tools.python]]
 version = "3.13.6"
 backend = "core:python"
