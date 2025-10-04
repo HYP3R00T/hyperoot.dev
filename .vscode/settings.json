@@ -1,11 +1,59 @@
 {
-    "debug.javascript.defaultRuntimeExecutable": {
-        "pwa-node": "/home/vscode/.local/share/mise/shims/node"
-    },
-    "markdownlint.config": {
-        "MD033": false
-    },
-    "[vue]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
+  "editor.tabSize": 2,
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/home/vscode/.local/share/mise/shims/node"
+  },
+  "markdownlint.config": {
+    "MD033": false
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".gitignore": true,
+    ".markdownlint-cli2.yaml": true,
+    ".pre-commit-config.yaml": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    "mise.lock": true,
+    "mise.toml": true,
+    "package.json": true,
+    "pnpm-lock.yaml": true,
+    "scripts": true,
+    "node_modules": true,
+    ".pnpm-store": true,
+    ".devcontainer": true,
+    ".vscode": true,
+    "docs/.vitepress/cache": true,
+    "docs/.vitepress/theme": true,
+    "docs/.vitepress/tsconfig.json": true,
+    "docs/assets": true,
+    "docs/public": true
+  },
+  "hide-files.files": [
+    ".gitignore",
+    ".markdownlint-cli2.yaml",
+    ".pre-commit-config.yaml",
+    ".prettierignore",
+    ".prettierrc",
+    "mise.lock",
+    "mise.toml",
+    "package.json",
+    "pnpm-lock.yaml",
+    "scripts",
+    "node_modules",
+    ".pnpm-store",
+    ".devcontainer",
+    ".vscode",
+    "docs/.vitepress/cache",
+    "docs/.vitepress/theme",
+    "docs/.vitepress/tsconfig.json",
+    "docs/assets",
+    "docs/public"
+  ],
 }
