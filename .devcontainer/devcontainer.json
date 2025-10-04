@@ -1,24 +1,25 @@
 {
-    "name": "devops-study-app",
-    "build": {
-        "context": "..",
-        "dockerfile": "Dockerfile"
-    },
-    "postCreateCommand": "scripts/setup.sh",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "christian-kohler.path-intellisense",
-                "tamasfe.even-better-toml",
-                "hverlin.mise-vscode",
-                "redhat.vscode-yaml",
-                "esbenp.prettier-vscode",
-                "DavidAnson.vscode-markdownlint",
-                "Vue.volar"
-            ]
-        }
-    },
-    "forwardPorts": [
-        5555
-    ]
+  "name": "devops-study-app",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "scripts/setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "christian-kohler.path-intellisense",
+        "tamasfe.even-better-toml",
+        "hverlin.mise-vscode",
+        "redhat.vscode-yaml",
+        "esbenp.prettier-vscode",
+        "DavidAnson.vscode-markdownlint",
+        "Vue.volar",
+        "roonie007.hide-files"
+      ]
+    }
+  },
+  "forwardPorts": [
+    5173
+  ]
 }
