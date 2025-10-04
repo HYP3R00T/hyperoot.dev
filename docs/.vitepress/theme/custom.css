@@ -39,3 +39,11 @@
         max-height: 320px;
     }
 }
+
+.github-alert {
+    font-family: var(--vp-font-family-mono);
+}
+
+.github-alert .custom-block-title {
+    font-family: var(--vp-font-family-base);
+}

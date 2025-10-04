@@ -58,11 +58,12 @@ export default defineConfig({
     outline: 'deep',
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Learn', link: '/learn/start-here' },
+      { text: 'Learn', link: '/learn/start-here', activeMatch: '^/learn/' },
       {
         text: 'Projects',
+        activeMatch: '^/projects/',
         items: [
-          { text: 'Homelab', link: 'https://github.com/HYP3R00T/homelab' },
+          { text: 'Homelab', link: '/projects/homelab/overview/introduction' },
           { text: 'Dotfiles', link: 'https://github.com/HYP3R00T/.dotfiles' },
           {
             text: 'Celestial Docs',
@@ -72,10 +73,7 @@ export default defineConfig({
             text: 'Cost Cutter',
             link: 'https://github.com/HYP3R00T/CostCutter',
           },
-          {
-            text: 'Python-Template',
-            link: '/python-template/setup.md',
-          },
+          { text: 'Python-Template', link: '/projects/python-template/setup' },
         ],
       },
     ],
@@ -95,33 +93,43 @@ export default defineConfig({
               items: [
                 {
                   text: 'Getting Started',
-                  link: '/learn/mise-en-place/01-getting-started.md',
+                  link: '/learn/mise-en-place/01-getting-started',
                 },
                 {
                   text: 'Installing tools',
-                  link: '/learn/mise-en-place/02-installing-tools.md',
+                  link: '/learn/mise-en-place/02-installing-tools',
                 },
                 {
                   text: 'Configuration',
-                  link: '/learn/mise-en-place/03-configuration.md',
+                  link: '/learn/mise-en-place/03-configuration',
                 },
               ],
             },
           ],
         },
       ],
-      homelab: [
+      '/projects/homelab/': [
         {
           text: 'Homelab Overview',
-          link: '/homelab/intro.md',
+          link: '/projects/homelab/overview/introduction',
         },
-      ],
-      'python-template': [
         {
-          text: 'Setup',
-          link: '/python-template/setup.md',
+          text: 'Infrastructure',
+          collapsed: true,
+          items: [
+            {
+              text: 'HashiCorp Vault',
+              link: '/projects/homelab/infrastructure/vault',
+            },
+          ],
         },
       ],
+      //   '/projects/python-template/': [
+      //     {
+      //       text: 'Python Template',
+      //       link: '/projects/python-template/setup',
+      //     },
+      //   ],
     },
   },
 })
