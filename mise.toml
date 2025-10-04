@@ -18,4 +18,5 @@ lockfile = true
 
 [tasks.dev]
 description = "Dev Mode"
-run = "vitepress dev docs --host 0.0.0.0 --port 5555 --cors"
+run = "pnpm vitepress dev docs --cors --port 5173 --host 0.0.0.0"
+# run = "vitepress dev docs --host 0.0.0.0 --port 5555 --cors"
