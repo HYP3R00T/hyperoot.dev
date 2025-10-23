@@ -4,9 +4,9 @@ prev: false
 # Getting Started
 
 > [!tip] External Resources
+> 󰈙 Official Documentation: [mise.jdx.dev](https://mise.jdx.dev)
 >
-> - Mise-en-place Documentation: [mise.jdx.dev](https://mise.jdx.dev)
-> - Mise-en-place Source Code: [github.com/jdx/mise](https://github.com/jdx/mise)
+> 󰊤 Source Code: [github.com/jdx/mise](https://github.com/jdx/mise)
 
 `mise` (short for *mise-en-place*, a French culinary term meaning "everything in its place") is a modern, fast, and user-friendly version manager and tool installer for developers.
 

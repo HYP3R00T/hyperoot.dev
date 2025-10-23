@@ -21,7 +21,7 @@ hero:
 
 modfeatures:
   - title: Homelab
-    link: https://github.com/HYP3R00T/homelab
+    link: /projects/homelab/overview/introduction
     icon: 
     details: Build and manage a powerful personal Kubernetes homelab
   - title: Dotfiles
