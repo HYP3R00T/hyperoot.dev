@@ -1,6 +1,37 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: detect-private-key
+
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.8.3 # Replace with latest tag
+    rev: v4.16.2
     hooks:
       - id: commitizen
         stages: [commit-msg]
+
+  - repo: https://github.com/rvben/rumdl-pre-commit
+    rev: v0.0.222
+    hooks:
+      - id: rumdl
+      - id: rumdl-fmt
+
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.4.15
+    hooks:
+      - id: biome-check
+        exclude: '\.astro$'
+      - id: biome-format
+        exclude: '\.astro$'
+      - id: biome-lint
+        exclude: '\.astro$'
