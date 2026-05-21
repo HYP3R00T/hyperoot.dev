@@ -1,25 +1,30 @@
 {
-  "name": "devops-study-app",
+  "name": "hyperoot.dev",
   "build": {
-    "context": "..",
+    "context": ".",
     "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}"
   },
   "postCreateCommand": "scripts/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [
+        "astro-build.astro-vscode",
+        "biomejs.biome",
+        "bradlc.vscode-tailwindcss",
         "christian-kohler.path-intellisense",
-        "tamasfe.even-better-toml",
-        "hverlin.mise-vscode",
-        "redhat.vscode-yaml",
+        "EditorConfig.EditorConfig",
         "esbenp.prettier-vscode",
-        "DavidAnson.vscode-markdownlint",
-        "Vue.volar",
-        "roonie007.hide-files"
+        "github.vscode-github-actions",
+        "hverlin.mise-vscode",
+        "hyperoot.settings-organizer",
+        "redhat.vscode-yaml",
+        "rvben.rumdl",
+        "tamasfe.even-better-toml",
+        "unifiedjs.vscode-mdx"
       ]
     }
-  },
-  "forwardPorts": [
-    5173
-  ]
+  }
 }
