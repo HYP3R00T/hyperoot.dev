@@ -1,0 +1,79 @@
+---
+import { Icon } from "astro-icon/components";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { formatMonthYearRange } from "@/lib/utils";
+import CardGrid from "../common/CardGrid.astro";
+
+interface Props {
+  project: {
+    id: string;
+    data: {
+      icon?: string;
+      title: string;
+      description: string;
+      technologies: string[];
+      openSource?: boolean;
+      hasPage?: boolean;
+      startDate?: Date;
+      endDate?: Date;
+      sourceRepo?: string;
+      website?: string;
+    };
+  };
+}
+
+const { project } = Astro.props;
+const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate);
+const hasPage = project.data.hasPage !== false;
+const showLinks = Boolean(project.data.sourceRepo || project.data.website);
+---
+
+<CardGrid>
+  <div class="flex items-center justify-between">
+    <div class="flex gap-4 items-center justify-center">
+      <h3 class="group-hover:text-accent-1 text-foreground-1 font-display text-xl transition-colors md:text-2xl">
+        {hasPage ? <a href={`/project/${project.id}/`}>{project.data.title}</a> : project.data.title}
+      </h3>
+    </div>
+    {project.data.openSource && <span class="font-mono text-foreground-3 text-xs">// Open Source</span>}
+  </div>
+
+  <div class="text-foreground-2 max-w-4xl text-sm leading-relaxed">
+    {project.data.description}
+  </div>
+
+  {projectDates && <div class="text-foreground-2 text-xs tracking-wide">{projectDates}</div>}
+
+  {
+    showLinks && (
+      <div class="flex flex-wrap gap-2">
+        {project.data.sourceRepo && (
+          <a
+            href={project.data.sourceRepo}
+            target="_blank"
+            rel="noreferrer"
+            class={buttonVariants({ variant: "outline", size: "xs" })}
+          >
+            Source
+          </a>
+        )}
+        {project.data.website && (
+          <a
+            href={project.data.website}
+            target="_blank"
+            rel="noreferrer"
+            class={buttonVariants({ variant: "outline", size: "xs" })}
+          >
+            Website
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  {
+    project.data.technologies && project.data.technologies.length > 0 && (
+      <div class="text-foreground-3 text-xs tracking-wide">{project.data.technologies.join(" • ")}</div>
+    )
+  }
+</CardGrid>

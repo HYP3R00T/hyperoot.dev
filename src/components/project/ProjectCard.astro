@@ -1,0 +1,91 @@
+---
+import { Icon } from "astro-icon/components";
+import { buttonVariants } from "@/components/ui/button";
+import { formatMonthYearRange } from "@/lib/utils";
+
+interface Props {
+  project: {
+    data: {
+      icon?: string;
+      title: string;
+      description: string;
+      technologies: string[];
+      startDate?: Date;
+      endDate?: Date;
+      sourceRepo?: string;
+      website?: string;
+    };
+  };
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate);
+const showLinks = Boolean(project.data.sourceRepo || project.data.website);
+---
+
+<div
+  class="group border-border hover:bg-card bg-background relative border p-6 transition-colors duration-200 hover:z-10 md:p-8"
+  style="margin-right: -1px; margin-bottom: -1px;"
+>
+  <!-- Top row: icon + index + arrow -->
+  <div class="mb-4 flex items-start justify-between">
+    <div class="flex items-center gap-3">
+      <div class="border-border inline-flex size-10.5 shrink-0 items-center justify-center border [&>svg]:size-5.25">
+        <Icon name={project.data.icon || "github"} class="text-foreground size-5" />
+      </div>
+      <div class="text-muted text-xs">
+        {String(index + 1).padStart(2, "0")}
+      </div>
+    </div>
+    <div
+      class="border-border group-hover:bg-foreground group-hover:text-background group-hover:border-foreground flex size-8 shrink-0 items-center justify-center border transition-colors duration-200"
+    >
+      <Icon name="arrow-up" class="size-4 rotate-45" />
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h3 class="text-foreground font-display mb-2 text-lg tracking-tight uppercase md:text-xl">
+    {project.data.title}
+  </h3>
+
+  <!-- Description — 2 lines max -->
+  <p class="text-foreground-2 mb-4 line-clamp-2 text-sm leading-relaxed">
+    {project.data.description}
+  </p>
+
+  {projectDates && <div class="text-foreground-2 mb-3 text-xs tracking-wide">{projectDates}</div>}
+
+  {
+    showLinks && (
+      <div class="mb-3 flex flex-wrap gap-2">
+        {project.data.sourceRepo && (
+          <a
+            href={project.data.sourceRepo}
+            target="_blank"
+            rel="noreferrer"
+            class={buttonVariants({ variant: "outline", size: "sm" })}
+          >
+            Source
+          </a>
+        )}
+        {project.data.website && (
+          <a
+            href={project.data.website}
+            target="_blank"
+            rel="noreferrer"
+            class={buttonVariants({ variant: "outline", size: "sm" })}
+          >
+            Website
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  <!-- Tech stack -->
+  <div class="text-muted text-xs tracking-wide">
+    {project.data.technologies.join(" · ")}
+  </div>
+</div>

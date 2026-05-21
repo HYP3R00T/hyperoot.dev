@@ -1,9 +1,77 @@
 ---
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import FeaturedProjectCard from "@/components/project/FeaturedProjectCard.astro";
+import ProjectListItem from "@/components/project/ProjectListItem.astro";
+
+// Get all projects and filter drafts
+const allProjects = await getCollection("projects");
+const projects = allProjects.filter((p) => !p.data.draft);
+
+type ProjectEntry = CollectionEntry<"projects">;
+
+const shouldSortProjects = projects.some((p) => p.data.order !== undefined || p.data.startDate || p.data.endDate);
+
+const sortByOrderAndDate = (a: ProjectEntry, b: ProjectEntry) => {
+  const orderDiff = (a.data.order ?? 999) - (b.data.order ?? 999);
+  if (orderDiff !== 0) {
+    return orderDiff;
+  }
+
+  const aDate = (a.data.endDate ?? a.data.startDate)?.getTime() ?? 0;
+  const bDate = (b.data.endDate ?? b.data.startDate)?.getTime() ?? 0;
+  const dateDiff = bDate - aDate;
+  return dateDiff !== 0 ? dateDiff : 0;
+};
+
+const sortProjects = (list: ProjectEntry[]) => (shouldSortProjects ? [...list].sort(sortByOrderAndDate) : list);
+
+// Separate featured and non-featured projects
+const featuredProjects = sortProjects(projects.filter((p) => p.data.featured));
+const otherProjects = sortProjects(projects.filter((p) => !p.data.featured));
 ---
 
 <BaseLayout>
-  <div class="flex flex-col gap-20 py-20">
-    <h1>Hello</h1>
-  </div>
+  <section class="relative flex items-center justify-center px-4 md:px-12">
+    <div class="bg-transparent mx-auto w-full max-w-5xl my-16">
+      <div class="mb-12">
+        <Badge variant="secondary">Projects</Badge>
+        <h1 class="text-section-heading my-8">
+          <div>My</div>
+          <div>Work</div>
+        </h1>
+        <p class="text-foreground-2 max-w-2xl text-base leading-relaxed md:text-lg">
+          A collection of production infrastructure, automation tools, and DevOps solutions built to solve real-world
+          challenges at scale.
+        </p>
+      </div>
+
+      {
+        featuredProjects.length > 0 && (
+          <div class="mb-20 flex flex-col gap-4">
+            <Badge>Featured Projects</Badge>
+            <div class="border-border space-y-4 border-t md:space-y-0">
+              {featuredProjects.map((project) => (
+                <FeaturedProjectCard project={project} />
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        otherProjects.length > 0 && (
+          <div class="flex flex-col gap-4">
+            <Badge>Other Projects</Badge>
+            <div class="border-border  grid grid-cols-2  md:space-y-0">
+              {otherProjects.map((project) => (
+                <ProjectListItem project={project} />
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
 </BaseLayout>
