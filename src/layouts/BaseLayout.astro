@@ -1,0 +1,49 @@
+---
+import { SITE } from "@data/config";
+import Header from "@/components/core/Header.astro";
+import HeadSEO from "@/components/core/HeadSEO.astro";
+import type { BaseLayoutProps } from "@/lib/types";
+import Footer from "@/components/core/Footer.astro";
+
+const { title, description, image, imageAlt, contentType } = Astro.props as BaseLayoutProps;
+---
+
+<html lang=`${SITE.lang ?? "en"}`>
+  <head>
+    <HeadSEO title={title} description={description} image={image} imageAlt={imageAlt} contentType={contentType} />
+  </head>
+
+  <body class="flex flex-col">
+    <Header />
+    <div class="flex flex-1 dot-pattern-interactive">
+      <main class="flex h-full w-full justify-center">
+        <div class="flex w-full flex-col justify-center">
+          <slot />
+        </div>
+      </main>
+    </div>
+    <Footer />
+  </body>
+</html>
+
+<script>
+  import initInteractiveDots from "@/lib/initInteractiveDots";
+  initInteractiveDots();
+</script>
+
+<script is:inline>
+  (() => {
+    const applyTheme = () => {
+      const savedTheme = localStorage.getItem("theme");
+      const theme = savedTheme === "light" || savedTheme === "dark" || savedTheme === "system" ? savedTheme : "system";
+      const isDark =
+        theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+      document.documentElement.classList.toggle("dark", isDark);
+      document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+    };
+
+    applyTheme();
+    document.addEventListener("astro:after-swap", applyTheme);
+  })();
+</script>
