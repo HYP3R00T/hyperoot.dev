@@ -1,19 +1,31 @@
 {
-  "editor.tabSize": 2,
-  "debug.javascript.defaultRuntimeExecutable": {
-    "pwa-node": "/home/vscode/.local/share/mise/shims/node"
-  },
-  "markdownlint.config": {
-    "MD033": false
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true
-  }
+    "explorer.excludeGitIgnore": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.biome": "explicit"
+    },
+    "[astro]": {
+        "editor.defaultFormatter": "astro-build.astro-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features",
+        "editor.suggest.insertMode": "replace"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.maxTokenizationLineLength": 2500
+    },
+    "[json]": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "css.lint.unknownAtRules": "ignore"
 }
