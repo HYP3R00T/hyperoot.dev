@@ -1,22 +1,29 @@
 [tools]
-python = "3.13"
-pre-commit = "latest"
+github-cli = "latest"
 node = "lts"
 pnpm = "latest"
-markdownlint-cli2 = "latest"
-prettier = "latest"
-
-[hooks]
-enter = "bash ./scripts/setup_project.sh"
-
-[env]
-_.path = ['{{config_root}}/node_modules/.bin']
+prek = "latest"
+rumdl = "latest"
+uv = "latest"
 
 [settings]
 experimental = true
-lockfile = true
+
+[hooks]
+enter = "bash ./scripts/enter_project.sh"
+
+[env]
+_.file = '.env'                                # for sensitive data
+_.path = ['{{config_root}}/node_modules/.bin']
 
 [tasks.dev]
 description = "Dev Mode"
-run = "pnpm vitepress dev docs --cors --port 5173 --host 0.0.0.0"
-# run = "vitepress dev docs --host 0.0.0.0 --port 5555 --cors"
+run = "astro dev --host 0.0.0.0"
+
+[tasks.dicon]
+description = "Downloads an SVG from svgrepo and saves it to src/assets/icons/"
+run = "bash ./scripts/download-icon.sh"
+
+[tasks.biome]
+description = "Run Biome checks and apply safe fixes"
+run = "biome check --write . && biome format --write ."
