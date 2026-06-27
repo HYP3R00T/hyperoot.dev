@@ -1,0 +1,52 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  bottomRightClass?: string;
+  dataHomeSection?: boolean;
+  dataArticlesFeatured?: boolean;
+}
+
+const {
+  id,
+  class: className,
+  bottomRightClass = "w-full pb-1",
+  dataHomeSection = false,
+  dataArticlesFeatured = false,
+} = Astro.props as Props;
+---
+
+<section
+  id={id}
+  class:list={["relative min-h-[calc(100svh-5.5rem)]", className]}
+  data-home-section={dataHomeSection ? true : undefined}
+  data-articles-featured={dataArticlesFeatured ? "true" : undefined}
+>
+  <div class="absolute inset-0 bg-background-0"></div>
+
+  <div class="relative px-4 md:px-8">
+    <div
+      class="mx-auto grid min-h-[calc(100svh-5.5rem)] w-full max-w-site gap-10 pt-8 pb-6 md:pt-12 md:pb-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-end lg:gap-12 xl:gap-20"
+    >
+      <div class="flex min-h-[calc(100svh-11rem)] flex-col justify-between gap-10">
+        <div class="max-w-2xl lg:max-w-2xl">
+          <slot name="topLeft" />
+        </div>
+
+        <div class="max-w-xl pb-2">
+          <slot name="bottomLeft" />
+        </div>
+      </div>
+
+      <div class="flex min-w-0 w-full flex-col justify-between gap-10 overflow-hidden lg:min-h-[calc(100svh-11rem)]">
+        <div class="flex w-full justify-end empty:hidden">
+          <slot name="topRight" />
+        </div>
+
+        <div class={bottomRightClass}>
+          <slot name="bottomRight" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

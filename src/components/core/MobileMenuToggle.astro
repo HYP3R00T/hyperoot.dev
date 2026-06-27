@@ -23,18 +23,20 @@ import { Menu, X } from "lucide-react";
 
     const iconOpen = toggleBtn.querySelector("[data-icon-open]");
     const iconClose = toggleBtn.querySelector("[data-icon-close]");
-    const panelCloseBtn = menu.querySelector("[data-mobile-menu-close]");
+    const headerShell = document.querySelector("[data-header-shell]");
+    const headerNav = document.querySelector("[data-header-nav]");
+    let previousScrollY = 0;
 
-    // position panel under header
-    const header = document.querySelector("header");
+    // Keep the compact panel visually attached to the bottom edge of the floating nav.
     const applyPanelPosition = () => {
-      const headerHeight = header ? header.getBoundingClientRect().height : 0;
-      (menu as HTMLElement).style.top = `${headerHeight}px`;
-      (menu as HTMLElement).style.bottom = "0";
+      const navBottom = headerNav ? headerNav.getBoundingClientRect().bottom : 0;
+      (menu as HTMLElement).style.top = `${navBottom}px`;
+      (menu as HTMLElement).style.bottom = "auto";
     };
 
     applyPanelPosition();
     window.addEventListener("resize", applyPanelPosition);
+    window.addEventListener("scroll", applyPanelPosition, { passive: true });
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -46,12 +48,22 @@ import { Menu, X } from "lucide-react";
       (toggleBtn as HTMLElement).setAttribute("aria-expanded", String(open));
       iconOpen && iconOpen.classList.toggle("hidden", open);
       iconClose && iconClose.classList.toggle("hidden", !open);
+      if (headerShell instanceof HTMLElement) headerShell.dataset.menuOpen = String(open);
+      if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = String(open);
 
       if (open) {
+        previousScrollY = window.scrollY;
+        document.documentElement.classList.add("overflow-hidden");
+        document.body.classList.add("overflow-hidden");
+        requestAnimationFrame(applyPanelPosition);
         document.addEventListener("keydown", onKey);
-        (panelCloseBtn as HTMLElement | null)?.focus();
         document.dispatchEvent(new CustomEvent("mobile-menu:opened"));
       } else {
+        if (headerShell instanceof HTMLElement) headerShell.dataset.menuOpen = "false";
+        if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = "false";
+        document.documentElement.classList.remove("overflow-hidden");
+        document.body.classList.remove("overflow-hidden");
+        if (Math.abs(window.scrollY - previousScrollY) > 1) window.scrollTo(0, previousScrollY);
         document.removeEventListener("keydown", onKey);
         (toggleBtn as HTMLElement).focus();
         document.dispatchEvent(new CustomEvent("mobile-menu:closed"));
@@ -59,14 +71,17 @@ import { Menu, X } from "lucide-react";
     }
 
     toggleBtn.addEventListener("click", () => setOpen(menu.getAttribute("data-open") !== "true"));
-    panelCloseBtn && panelCloseBtn.addEventListener("click", () => setOpen(false));
-
     menu.addEventListener("click", (e) => {
       const target = e.target;
       if (!(target instanceof Element)) return;
-      if (target === menu) return setOpen(false);
-      const isCloseButton = !!target.closest("[data-mobile-menu-close]");
-      if (!isCloseButton && (target.closest("a") || target.closest("button"))) setOpen(false);
+      if (target.closest("a") || target.closest("button")) setOpen(false);
     });
+
+    document.addEventListener("astro:before-swap", () => {
+      if (headerShell instanceof HTMLElement) headerShell.dataset.menuOpen = "false";
+      if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = "false";
+      document.documentElement.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden");
+    }, { once: true });
   });
 </script>

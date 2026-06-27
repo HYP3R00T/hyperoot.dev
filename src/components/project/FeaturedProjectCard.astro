@@ -49,7 +49,7 @@ const showLinks = Boolean(project.data.sourceRepo || project.data.website);
           class="group-hover:text-accent-1 text-foreground-0 mb-4 text-2xl uppercase transition-colors md:text-3xl"
           style="font-family: 'Space Grotesk', sans-serif; font-weight: 700;"
         >
-          {hasPage ? <a href={`/project/${project.id}/`}>{project.data.title}</a> : project.data.title}
+          {hasPage ? <a href={`/${project.id}/`}>{project.data.title}</a> : project.data.title}
         </h2>
 
         <p class="text-foreground-2 mb-6 text-sm leading-relaxed">

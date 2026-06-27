@@ -32,7 +32,7 @@ const showLinks = Boolean(project.data.sourceRepo || project.data.website);
   <div class="flex items-center justify-between">
     <div class="flex gap-4 items-center justify-center">
       <h3 class="group-hover:text-accent-1 text-foreground-1 font-display text-xl transition-colors md:text-2xl">
-        {hasPage ? <a href={`/project/${project.id}/`}>{project.data.title}</a> : project.data.title}
+        {hasPage ? <a href={`/${project.id}/`}>{project.data.title}</a> : project.data.title}
       </h3>
     </div>
     {project.data.openSource && <span class="font-mono text-foreground-3 text-xs">// Open Source</span>}

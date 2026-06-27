@@ -4,68 +4,102 @@ import { SITE, navItems, SOCIAL_LINKS } from "@data/config";
 
 const currentYear = new Date().getFullYear();
 const activeSocials = SOCIAL_LINKS.filter((s) => s.active);
+const utilityLinks = [
+  { href: SITE.repo, label: "Source", blank: true },
+  { href: "https://rajeshdas.dev", label: "Personal site", blank: true },
+  { href: "https://github.com/HYP3R00T", label: "GitHub", blank: true },
+];
 ---
 
-<footer class="border-border border-t mx-auto w-full bg-transparent">
-  <!-- Main footer grid -->
-  <div class="grid grid-cols-1 md:grid-cols-3 px-4 md:px-12">
-    <!-- Brand column -->
-    <div class="border-border border-b p-8 md:border-r md:border-b-0 md:py-12 md:pr-12 md:pl-0">
-      <div class="text-foreground-0 font-mono mb-4 text-lg font-semibold tracking-wide">
-        {SITE.author}
+<footer class="px-4 py-8 md:px-8 md:py-10">
+  <div class="mx-auto w-full max-w-site overflow-hidden rounded-lg border border-border bg-background-1">
+    <div class="grid gap-10 p-6 md:grid-cols-[1.1fr_0.9fr] md:p-8 lg:p-10">
+      <div class="space-y-8">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-2">
+          <p>&copy; {currentYear} {SITE.title}. All rights reserved.</p>
+        </div>
+
+        <div class="max-w-xl space-y-4">
+          <p class="font-mono text-xs tracking-[0.28em] text-accent-1 uppercase">Hyperoot</p>
+          <p class="font-display text-3xl leading-tight text-foreground-0 md:text-4xl">
+            A focused project showcase for the tools, templates, experiments, and case studies I build.
+          </p>
+        </div>
       </div>
-      <p class="text-foreground-2 text-sm leading-relaxed">
-        Building robust infrastructure and automation tools for modern development teams.
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-[0.9fr_1fr]">
+        <div>
+          <p class="mb-4 font-mono text-xs tracking-[0.24em] text-foreground-3 uppercase">Routes</p>
+          <nav class="grid gap-3">
+            {
+              navItems.map((item) => (
+                <a
+                  href={item.href}
+                  target={item.blank ? "_blank" : undefined}
+                  rel={item.blank ? "noopener noreferrer" : undefined}
+                  class="group inline-flex w-fit items-center gap-2 text-sm text-foreground-1 transition-colors hover:text-accent-1"
+                >
+                  {item.label}
+                  <Icon name="arrow-up-right" class="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                </a>
+              ))
+            }
+          </nav>
+        </div>
+
+        <div class="space-y-8">
+          <div>
+            <p class="mb-4 font-mono text-xs tracking-[0.24em] text-foreground-3 uppercase">Connect</p>
+            <div class="flex flex-wrap gap-2">
+              {
+                activeSocials.map((social) => (
+                  <a
+                    href={social.href}
+                    target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={social.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                    title={social.linkTitle}
+                    class="inline-flex items-center gap-2 rounded-md border border-border bg-background-2 px-3 py-2 text-sm text-foreground-1 transition-colors hover:bg-background-0 hover:text-accent-1"
+                  >
+                    <Icon name={social.name} class="size-4" />
+                    <span class="capitalize">{social.name}</span>
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+
+          <div>
+            <p class="mb-4 font-mono text-xs tracking-[0.24em] text-foreground-3 uppercase">Elsewhere</p>
+            <div class="flex flex-wrap gap-x-4 gap-y-2">
+              {
+                utilityLinks.map((item) => (
+                  <a
+                    href={item.href}
+                    target={item.blank ? "_blank" : undefined}
+                    rel={item.blank ? "noopener noreferrer" : undefined}
+                    class="text-sm text-foreground-2 transition-colors hover:text-accent-1"
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-border px-4 pt-8 md:px-8 lg:px-10">
+      <div class="flex flex-wrap items-end justify-between gap-4 pb-5 text-sm text-foreground-2">
+        <p class="font-mono tracking-[0.18em] uppercase">Projects / Case studies</p>
+        <p class="text-right">Built as the technical companion to rajeshdas.dev.</p>
+      </div>
+      <p
+        aria-hidden="true"
+        class="-mb-8 text-center select-none overflow-hidden font-display text-[23vw] leading-[0.72] font-semibold tracking-[-0.08em] whitespace-nowrap text-foreground-0/10 sm:text-[18vw] lg:text-[14rem]"
+      >
+        Hyperoot
       </p>
     </div>
-
-    <!-- Navigation column -->
-    <div class="border-border border-b p-8 md:border-r md:border-b-0 md:py-12 md:px-12">
-      <div class="text-foreground-2 mb-6 text-sm font-medium tracking-widest uppercase">Navigation</div>
-      <nav class="flex flex-col gap-3">
-        {
-          navItems.map((item) => (
-            <a
-              href={item.href}
-              target={item.blank ? "_blank" : undefined}
-              rel={item.blank ? "noopener noreferrer" : undefined}
-              class="text-foreground-1 hover:text-foreground-0 w-fit text-sm tracking-wide transition-colors"
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-    </div>
-
-    <!-- Social column -->
-    <div class="p-8 md:py-12 md:pl-12 md:pr-0">
-      <div class="text-foreground-2 mb-6 text-sm font-medium tracking-widest uppercase">Connect</div>
-      <div class="flex flex-col gap-3">
-        {
-          activeSocials.map((social) => (
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={social.linkTitle}
-              class="text-foreground-1 hover:text-foreground-0 flex w-fit items-center gap-3 text-sm tracking-wide transition-colors"
-            >
-              <Icon name={social.name} class="size-4" />
-              {social.name}
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="border-border flex items-center justify-between border-t py-6 px-4 md:px-12">
-    <div class="text-foreground-2 text-xs tracking-wide">
-      &copy; {currentYear}
-      {SITE.author}
-    </div>
-    <div class="flex flex-row gap-4 text-foreground-2 text-xs tracking-wide font-mono">pronounced "hyper root"</div>
   </div>
 </footer>
