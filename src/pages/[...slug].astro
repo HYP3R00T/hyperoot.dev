@@ -3,9 +3,11 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Icon } from "astro-icon/components";
 import placeholder1 from "@/assets/placeholder1.png";
+import { estimateReadTime } from "@/lib/utils";
+import ScrollRevealText from "@/components/common/ScrollRevealText";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -18,69 +20,188 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const { Content, headings } = await render(project);
 const heroImage = project.data.images?.[0] ?? placeholder1;
+const readTime = project.body ? estimateReadTime(project.body) : 4;
+const visibility = project.data.private ? "Private" : project.data.openSource ? "Open source" : "Public";
+const visibleHeadings = headings.filter((heading) => heading.depth === 2).slice(0, 8);
+const proofCards = [
+  { label: "Intent", body: "The reason this project exists and the workflow it improves." },
+  { label: "Constraint", body: "The limits that shaped the implementation and scope." },
+  { label: "Build", body: "The technical choices, stack, and tradeoffs behind it." },
+  { label: "Proof", body: "The evidence, links, screenshots, or examples that make it real." },
+];
+const revealText = `${project.data.title} is not just a repository link. The case study explains the context, constraints, decisions, and proof behind the work so the project can be understood without guessing.`;
 ---
 
 <BaseLayout title={project.data.title} description={project.data.description} image={heroImage} imageAlt={project.data.imageAlt}>
-  <section class="px-4 py-16 md:px-8 md:py-20">
-    <div class="mx-auto w-full max-w-5xl">
-      <div class="mb-4">
-        <a href="/#projects">
-          <Badge>
-            <span class="flex flex-row items-center gap-2">
-              <Icon name="arrow-left" class="size-4" />
-              BACK TO PROJECTS
-            </span>
-          </Badge>
-        </a>
-      </div>
+  <section class="px-4 pt-12 pb-20 md:px-8 md:pt-18 md:pb-28">
+    <div class="mx-auto w-full max-w-site">
+      <a href="/#projects" class={`${buttonVariants({ variant: "outline", size: "sm" })} mb-10`}>
+        <Icon name="arrow-left" class="size-4" />
+        Projects
+      </a>
 
-      <div class="overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3">
-        <div class="aspect-og overflow-hidden rounded-md bg-background-2">
-          <Image src={heroImage} alt={project.data.imageAlt || project.data.title} class="h-full w-full object-cover" />
-        </div>
-      </div>
+      <article class="mx-auto w-full max-w-5xl">
+        <header>
+          <p class="font-mono text-xs tracking-widest text-accent-1 uppercase">Project case study</p>
+          <h1 class="mt-4 max-w-4xl font-display text-5xl leading-none font-semibold tracking-tighter text-foreground-0 md:text-6xl xl:text-7xl">
+            {project.data.title}
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-relaxed text-foreground-1 md:text-xl">
+            {project.data.description}
+          </p>
 
-      <div class="py-8 md:py-10">
-        <p class="font-mono text-xs tracking-widest text-accent-1 uppercase">Case study</p>
-        <h1 class="mt-4 font-display text-5xl leading-none font-semibold tracking-tighter text-foreground-0 md:text-7xl">
-          {project.data.title}
-        </h1>
-        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-foreground-1">{project.data.description}</p>
+          <div class="mt-8 grid gap-3 rounded-lg border border-border/80 bg-background-1 p-3 md:grid-cols-4">
+            <div class="rounded-md bg-background-0 p-4">
+              <p class="font-mono text-xs text-foreground-3 uppercase">Read time</p>
+              <p class="mt-2 text-sm text-foreground-1">{readTime} min</p>
+            </div>
+            <div class="rounded-md bg-background-0 p-4">
+              <p class="font-mono text-xs text-foreground-3 uppercase">Visibility</p>
+              <p class="mt-2 text-sm text-foreground-1">{visibility}</p>
+            </div>
+            <div class="rounded-md bg-background-0 p-4 md:col-span-2">
+              <p class="font-mono text-xs text-foreground-3 uppercase">Domains</p>
+              <p class="mt-2 text-sm text-foreground-1">{project.data.domains.join(" / ")}</p>
+            </div>
+          </div>
 
-        <div class="mt-7 flex flex-wrap gap-2">
-          {project.data.technologies.map((technology: string) => <Badge variant="outline">{technology}</Badge>)}
-        </div>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {project.data.domains.map((domain: string) => <Badge variant="outline">{domain}</Badge>)}
+            {project.data.technologies.slice(0, 5).map((technology: string) => <Badge variant="outline">{technology}</Badge>)}
+          </div>
 
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          {
-            project.data.website && (
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            {project.data.website && (
               <a href={project.data.website} target="_blank" rel="noopener noreferrer" class={buttonVariants({ size: "lg" })}>
                 Live Site
                 <Icon name="arrow-up-right" class="size-4" />
               </a>
-            )
-          }
-          {
-            project.data.sourceRepo && (
-              <a
-                href={project.data.sourceRepo}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={buttonVariants({ variant: "outline", size: "lg" })}
-              >
+            )}
+            {project.data.sourceRepo && (
+              <a href={project.data.sourceRepo} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: "outline", size: "lg" })}>
                 Source
                 <Icon name="arrow-up-right" class="size-4" />
               </a>
-            )
-          }
-        </div>
-      </div>
+            )}
+            <Button id="share-button" variant="outline" size="lg">
+              Share
+              <Icon name="arrow-up-right" class="size-4" />
+            </Button>
+          </div>
+        </header>
 
-      <article class="prose border-t border-border/80 pt-8">
-        <Content />
+        <div class="mt-12 overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3">
+          <div class="aspect-og overflow-hidden rounded-md bg-background-2">
+            <Image
+              src={heroImage}
+              alt={project.data.imageAlt || project.data.title}
+              class="h-full w-full object-cover"
+              widths={[720, 960, 1280, 1600]}
+              sizes="(min-width: 1024px) 64rem, calc(100vw - 2rem)"
+            />
+          </div>
+        </div>
+
+        <section class="my-20 rounded-lg border border-border/80 bg-background-1 px-4 py-14 md:px-8 md:py-20" aria-label="Case study reveal">
+          <ScrollRevealText client:load text={revealText} className="max-w-5xl" />
+        </section>
+
+        <section class="mt-8 grid gap-3 md:grid-cols-4" aria-label="Case study ingredients">
+          {proofCards.map((card) => (
+            <div class="rounded-lg border border-border/80 bg-background-1 p-5">
+              <p class="font-mono text-xs tracking-widest text-accent-1 uppercase">{card.label}</p>
+              <p class="mt-3 text-sm leading-relaxed text-foreground-2">{card.body}</p>
+            </div>
+          ))}
+        </section>
+
+        {visibleHeadings.length > 0 && (
+          <nav aria-label="Case study sections" class="mt-8 rounded-lg border border-border/80 bg-background-1 p-5">
+            <p class="font-mono text-xs tracking-widest text-foreground-3 uppercase">Sections</p>
+            <ol class="mt-4 grid gap-2 md:grid-cols-2 lg:grid-cols-4">
+              {visibleHeadings.map((heading) => (
+                <li>
+                  <a
+                    href={`#${heading.slug}`}
+                    class="block rounded-md border border-border/80 bg-background-0 px-3 py-2 text-sm leading-snug text-foreground-2 transition-colors hover:bg-background-2 hover:text-accent-1"
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+
+        <div class="prose case-study-prose mt-12 max-w-none">
+          <Content />
+        </div>
       </article>
     </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  .case-study-prose > h2 {
+    margin-top: 4rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in hsl, var(--border) 90%, transparent);
+    background: var(--background-1);
+    padding: 1.25rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 0.95;
+    letter-spacing: 0;
+  }
+
+  .case-study-prose > h2:nth-of-type(even) {
+    background: var(--background-0);
+  }
+
+  .case-study-prose > h2 + p {
+    margin-top: 0;
+  }
+
+  .case-study-prose > ul {
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in hsl, var(--border) 90%, transparent);
+    background: var(--background-1);
+    padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+  }
+</style>
+
+<script>
+  const setupShareButton = () => {
+    const button = document.getElementById("share-button");
+    if (!button) return;
+
+    button.addEventListener("click", async () => {
+      const url = window.location.href;
+      const title = document.title;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, url });
+        } catch {
+          // Sharing was dismissed.
+        }
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(url);
+        const originalText = button.innerHTML;
+        button.innerHTML = "Copied";
+        window.setTimeout(() => {
+          button.innerHTML = originalText;
+        }, 1600);
+      } catch {
+        button.setAttribute("data-copy-failed", "true");
+      }
+    });
+  };
+
+  document.addEventListener("astro:page-load", setupShareButton);
+</script>
