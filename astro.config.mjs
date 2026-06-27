@@ -1,10 +1,10 @@
 // @ts-check
 
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
-import AutoImport from 'astro-auto-import'
 import icon from 'astro-icon'
 
 export default defineConfig({
@@ -12,6 +12,7 @@ export default defineConfig({
   prefetch: true,
 
   markdown: {
+    processor: unified(),
     shikiConfig: {
       theme: 'poimandres',
     },
@@ -30,9 +31,6 @@ export default defineConfig({
           },
         ],
       },
-    }),
-    AutoImport({
-      imports: ['./src/components/core/Video.astro'],
     }),
     mdx(),
     react(),

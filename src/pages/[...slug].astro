@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,10 @@ import { Icon } from "astro-icon/components";
 import placeholder1 from "@/assets/placeholder1.png";
 import { estimateReadTime } from "@/lib/utils";
 import ScrollRevealText from "@/components/common/ScrollRevealText";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -19,7 +24,7 @@ export async function getStaticPaths() {
     }));
 }
 
-const { project } = Astro.props;
+const { project } = Astro.props as Props;
 const { Content, headings } = await render(project);
 const heroImage = project.data.images?.[0] ?? placeholder1;
 const readTime = project.body ? estimateReadTime(project.body) : 4;
