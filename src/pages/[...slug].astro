@@ -17,7 +17,7 @@ interface Props {
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects
-    .filter((project) => !project.data.draft)
+    .filter((project) => !project.data.draft && project.data.hasPage !== false)
     .map((project) => ({
       params: { slug: project.id },
       props: { project },

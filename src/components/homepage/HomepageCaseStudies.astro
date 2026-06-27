@@ -19,7 +19,6 @@ const projects = allProjects
 const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
 const projectTags = ["Web", "DevOps", "Automation", "Infrastructure", "Developer Tools", "Content", "Data/AI"];
 
-const projectHref = (project: ProjectEntry) => `/${project.id}/`;
 const normalizeTag = (tag: string) => tag.toLowerCase();
 ---
 
@@ -71,25 +70,41 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
       <div class="grid gap-6 pt-6 md:grid-cols-2 xl:grid-cols-3" data-project-grid>
         {
           projects.map((project, index) => {
-            const href = projectHref(project);
+            const hasPage = project.data.hasPage !== false;
+            const href = `/${project.id}/`;
             const image = project.data.images?.[0] ?? projectImages[index % projectImages.length] ?? placeholder1;
             const tags = project.data.domains.map(normalizeTag).join("|");
 
             return (
               <article
-                class="group flex min-h-full flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors hover:bg-background-1"
+                class:list={[
+                  "group flex min-h-full flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors",
+                  hasPage && "hover:bg-background-1",
+                ]}
                 data-project-card
                 data-project-tags={tags}
               >
-                <a href={href} class="block overflow-hidden rounded-md bg-background-2">
-                  <Image
-                    src={image}
-                    alt={project.data.imageAlt || `${project.data.title} preview`}
-                    class="aspect-video h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    widths={[480, 720, 960]}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  />
-                </a>
+                {hasPage ? (
+                  <a href={href} class="block overflow-hidden rounded-md bg-background-2">
+                    <Image
+                      src={image}
+                      alt={project.data.imageAlt || `${project.data.title} preview`}
+                      class="aspect-video h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      widths={[480, 720, 960]}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    />
+                  </a>
+                ) : (
+                  <div class="block overflow-hidden rounded-md bg-background-2">
+                    <Image
+                      src={image}
+                      alt={project.data.imageAlt || `${project.data.title} preview`}
+                      class="aspect-video h-full w-full object-cover"
+                      widths={[480, 720, 960]}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
 
                 <div class="flex flex-1 flex-col px-1 pt-4 pb-1">
                   <div class="flex flex-wrap gap-2">
@@ -101,23 +116,30 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
                     ))}
                   </div>
 
-                  <h3 class="mt-3 font-display text-xl leading-tight text-foreground-0 transition-colors group-hover:text-accent-1">
-                    <a href={href}>{project.data.title}</a>
+                  <h3
+                    class:list={[
+                      "mt-3 font-display text-xl leading-tight text-foreground-0 transition-colors",
+                      hasPage && "group-hover:text-accent-1",
+                    ]}
+                  >
+                    {hasPage ? <a href={href}>{project.data.title}</a> : project.data.title}
                   </h3>
                   <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-foreground-2">{project.data.description}</p>
 
                   <div class="mt-auto flex flex-wrap gap-2 pt-5">
-                    <a
-                      href={href}
-                      class={buttonVariants({
-                        variant: "default",
-                        size: "sm",
-                        className: "bg-accent-1 text-background-0 hover:bg-accent-2 hover:text-background-0",
-                      })}
-                    >
-                      Project
-                      <Icon name="arrow-right" class="size-4" />
-                    </a>
+                    {hasPage && (
+                      <a
+                        href={href}
+                        class={buttonVariants({
+                          variant: "default",
+                          size: "sm",
+                          className: "bg-accent-1 text-background-0 hover:bg-accent-2 hover:text-background-0",
+                        })}
+                      >
+                        Project
+                        <Icon name="arrow-right" class="size-4" />
+                      </a>
+                    )}
                     {project.data.sourceRepo && (
                       <a
                         href={project.data.sourceRepo}

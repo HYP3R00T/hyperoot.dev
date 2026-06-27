@@ -26,10 +26,7 @@ const projectRank = (project: ProjectEntry) => {
 
 const featuredProjects = [...projects].sort((a, b) => projectRank(a) - projectRank(b)).slice(0, 5);
 
-const projectHref = (project: ProjectEntry) => {
-  if (project.data.hasPage !== false) return `/${project.id}/`;
-  return project.data.website ?? project.data.sourceRepo ?? "#case-studies";
-};
+const projectHref = (project: ProjectEntry) => `/${project.id}/`;
 ---
 
 <PageHero id="hero" dataHomeSection bottomRightClass="w-full">
@@ -75,23 +72,19 @@ const projectHref = (project: ProjectEntry) => {
     <Carousel client:load label="Featured work" itemSelector="[data-project-card]">
       {
         featuredProjects.map((project, index) => {
+          const hasPage = project.data.hasPage !== false;
           const href = projectHref(project);
-          const external = href.startsWith("http");
-
-          return (
-            <a
-              href={href}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noopener noreferrer" : undefined}
-              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3 transition-colors hover:bg-background-0"
-              data-project-card
-              data-carousel-item
-            >
+          const image = project.data.images?.[0] ?? projectImages[index] ?? placeholder1;
+          const cardContent = (
+            <>
               <div class="aspect-video overflow-hidden rounded-md bg-background-1">
                 <Image
-                  src={project.data.images?.[0] ?? projectImages[index] ?? placeholder1}
+                  src={image}
                   alt={project.data.imageAlt || `${project.data.title} preview`}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  class:list={[
+                    "h-full w-full object-cover",
+                    hasPage && "transition-transform duration-500 group-hover:scale-105",
+                  ]}
                   widths={[480, 720, 960]}
                   sizes="(max-width: 1024px) 86vw, 420px"
                 />
@@ -101,14 +94,35 @@ const projectHref = (project: ProjectEntry) => {
                   {project.data.title}
                 </h2>
                 <p class="mt-2 mb-6 text-sm leading-relaxed text-foreground-1">{project.data.description}</p>
-                <div class="mt-auto pt-4 font-display text-sm font-medium text-foreground-1 transition-colors group-hover:text-accent-1">
-                  <span class="inline-flex items-center gap-2">
-                    View project
-                    <Icon name="arrow-up-right" class="size-4" />
-                  </span>
-                </div>
+                {hasPage && (
+                  <div class="mt-auto pt-4 font-display text-sm font-medium text-foreground-1 transition-colors group-hover:text-accent-1">
+                    <span class="inline-flex items-center gap-2">
+                      View project
+                      <Icon name="arrow-up-right" class="size-4" />
+                    </span>
+                  </div>
+                )}
               </div>
+            </>
+          );
+
+          return hasPage ? (
+            <a
+              href={href}
+              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3 transition-colors hover:bg-background-0"
+              data-project-card
+              data-carousel-item
+            >
+              {cardContent}
             </a>
+          ) : (
+            <article
+              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3"
+              data-project-card
+              data-carousel-item
+            >
+              {cardContent}
+            </article>
           );
         })
       }
