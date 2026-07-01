@@ -16,9 +16,17 @@ export const SITE: SiteConfig = {
 }
 
 export const navItems: NavItem[] = [
-  { href: '/#projects', label: 'Projects' },
+  {
+    href: '/#projects',
+    label: 'Projects',
+    children: [
+      { href: 'https://celestialdocs.hyperoot.dev', label: 'CelestialDocs', blank: true },
+      { href: 'https://voicepad.hyperoot.dev/', label: 'VoicePad', blank: true },
+      { href: 'https://utilityhub.hyperoot.dev', label: 'UtilityHub', blank: true },
+    ],
+  },
   { href: 'https://github.com/HYP3R00T', label: 'GitHub', blank: true },
-  { href: 'https://rajeshdas.dev', label: 'Personal', blank: true },
+  { href: 'https://rajeshdas.dev', label: 'Personal', blank: true, special: true },
 ]
 
 export const SOCIAL_LINKS = [

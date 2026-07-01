@@ -36,6 +36,7 @@ export interface NavItem {
   label: string
   special?: boolean
   blank?: boolean
+  children?: NavItem[]
 }
 
 // Footer navigation item

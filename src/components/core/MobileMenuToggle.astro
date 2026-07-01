@@ -25,7 +25,6 @@ import { Menu, X } from "lucide-react";
     const iconClose = toggleBtn.querySelector("[data-icon-close]");
     const headerShell = document.querySelector("[data-header-shell]");
     const headerNav = document.querySelector("[data-header-nav]");
-    let previousScrollY = 0;
 
     // Keep the compact panel visually attached to the bottom edge of the floating nav.
     const applyPanelPosition = () => {
@@ -52,24 +51,18 @@ import { Menu, X } from "lucide-react";
       if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = String(open);
 
       if (open) {
-        previousScrollY = window.scrollY;
-        document.documentElement.classList.add("overflow-hidden");
-        document.body.classList.add("overflow-hidden");
         requestAnimationFrame(applyPanelPosition);
         document.addEventListener("keydown", onKey);
         document.dispatchEvent(new CustomEvent("mobile-menu:opened"));
       } else {
         if (headerShell instanceof HTMLElement) headerShell.dataset.menuOpen = "false";
         if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = "false";
-        document.documentElement.classList.remove("overflow-hidden");
-        document.body.classList.remove("overflow-hidden");
-        if (Math.abs(window.scrollY - previousScrollY) > 1) window.scrollTo(0, previousScrollY);
         document.removeEventListener("keydown", onKey);
-        (toggleBtn as HTMLElement).focus();
         document.dispatchEvent(new CustomEvent("mobile-menu:closed"));
       }
     }
 
+    setOpen(false);
     toggleBtn.addEventListener("click", () => setOpen(menu.getAttribute("data-open") !== "true"));
     menu.addEventListener("click", (e) => {
       const target = e.target;
@@ -78,6 +71,11 @@ import { Menu, X } from "lucide-react";
     });
 
     document.addEventListener("astro:before-swap", () => {
+      (menu as HTMLElement).setAttribute("data-open", "false");
+      (menu as HTMLElement).setAttribute("aria-hidden", "true");
+      (toggleBtn as HTMLElement).setAttribute("aria-expanded", "false");
+      iconOpen && iconOpen.classList.remove("hidden");
+      iconClose && iconClose.classList.add("hidden");
       if (headerShell instanceof HTMLElement) headerShell.dataset.menuOpen = "false";
       if (headerNav instanceof HTMLElement) headerNav.dataset.menuOpen = "false";
       document.documentElement.classList.remove("overflow-hidden");

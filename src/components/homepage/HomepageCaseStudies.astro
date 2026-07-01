@@ -78,9 +78,10 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
             return (
               <article
                 class:list={[
-                  "group flex min-h-full flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors",
+                  "group flex min-h-full scroll-mt-28 flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors",
                   hasPage && "hover:bg-background-1",
                 ]}
+                id={`project-${project.id}`}
                 data-project-card
                 data-project-tags={tags}
               >
