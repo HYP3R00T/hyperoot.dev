@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content'
-import type { ImageMetadata, MarkdownHeading } from 'astro'
+import type { ImageMetadata } from 'astro'
 
 // For HeadSEO.astro
 export interface HeadSEOProps {
@@ -36,6 +36,7 @@ export interface NavItem {
   label: string
   special?: boolean
   blank?: boolean
+  children?: NavItem[]
 }
 
 // Footer navigation item
@@ -61,36 +62,4 @@ export interface FooterSocialLink {
   linkTitle: string
 }
 
-// Posts / content types
-export type PostEntry = CollectionEntry<'posts'>
-export type Posts = PostEntry[]
-
-export interface PostsPageProps {
-  page: {
-    data: PostEntry[]
-    currentPage: number
-    pageSize: number
-    url: {
-      first?: string
-      prev?: string
-      next?: string
-      last?: string
-    }
-  }
-  totalPages?: number
-  featured?: PostEntry
-}
-
-export interface PostPath {
-  params: { slug: string }
-  props: { entry: PostEntry; headings: MarkdownHeading[] }
-}
-
-export interface PostDetailPageProps {
-  entry: PostEntry
-  headings: MarkdownHeading[]
-}
-
-export interface PostCardProps {
-  post: PostEntry
-}
+export type ProjectEntry = CollectionEntry<'projects'>

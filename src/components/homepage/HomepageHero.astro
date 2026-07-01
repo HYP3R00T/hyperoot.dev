@@ -1,0 +1,131 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import Carousel from "@/components/common/Carousel";
+import PageHero from "@/components/common/PageHero.astro";
+import { Icon } from "astro-icon/components";
+import placeholder1 from "@/assets/placeholder1.png";
+import placeholder2 from "@/assets/placeholder2.png";
+import placeholder3 from "@/assets/placeholder3.png";
+import placeholder4 from "@/assets/placeholder4.png";
+import placeholder5 from "@/assets/placeholder5.png";
+import { homepageIntro } from "@data/homepage";
+
+type ProjectEntry = CollectionEntry<"projects">;
+
+const allProjects = await getCollection("projects");
+const projects = allProjects.filter((project) => !project.data.draft);
+const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
+
+const projectRank = (project: ProjectEntry) => {
+  if (project.data.featured) return project.data.order ?? 100;
+  return (project.data.order ?? 100) + 100;
+};
+
+const featuredProjects = [...projects].sort((a, b) => projectRank(a) - projectRank(b)).slice(0, 5);
+
+const projectHref = (project: ProjectEntry) => `/${project.id}/`;
+---
+
+<PageHero id="hero" dataHomeSection bottomRightClass="w-full">
+  <Fragment slot="topLeft">
+    <h1
+      class="font-display text-5xl leading-none font-semibold tracking-tighter text-foreground-0 sm:text-6xl lg:text-5xl xl:text-6xl"
+    >
+      {homepageIntro.heading}
+    </h1>
+  </Fragment>
+
+  <Fragment slot="topRight">
+    <a href={homepageIntro.personalSite.href} target="_blank" rel="noopener noreferrer" aria-label="Open Rajesh Das personal website">
+      <Badge
+        variant="outline"
+        className="border-accent-1/70 bg-transparent px-2 font-mono text-[10px] font-medium tracking-widest text-accent-1 uppercase hover:border-accent-1 hover:text-accent-1"
+      >
+        {homepageIntro.personalSite.label}
+      </Badge>
+    </a>
+  </Fragment>
+
+  <Fragment slot="bottomLeft">
+    <p class="font-mono text-xs tracking-widest text-foreground-2 uppercase">
+      {homepageIntro.eyebrow}
+    </p>
+    <p class="mt-4 max-w-lg text-base leading-relaxed text-foreground-1 md:text-lg">
+      {homepageIntro.body}
+    </p>
+    <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+      <a href={homepageIntro.primaryCta.href} class={buttonVariants({ variant: "default", size: "lg" })}>
+        {homepageIntro.primaryCta.label}
+        <Icon name="arrow-right" class="size-4" />
+      </a>
+      <a href={homepageIntro.secondaryCta.href} class={buttonVariants({ variant: "outline", size: "lg" })}>
+        {homepageIntro.secondaryCta.label}
+        <Icon name="arrow-up-right" class="size-4" />
+      </a>
+    </div>
+  </Fragment>
+
+  <Fragment slot="bottomRight">
+    <Carousel client:load label="Featured work" itemSelector="[data-project-card]">
+      {
+        featuredProjects.map((project, index) => {
+          const hasPage = project.data.hasPage !== false;
+          const href = projectHref(project);
+          const image = project.data.images?.[0] ?? projectImages[index] ?? placeholder1;
+          const cardContent = (
+            <>
+              <div class="aspect-video overflow-hidden rounded-md bg-background-1">
+                <Image
+                  src={image}
+                  alt={project.data.imageAlt || `${project.data.title} preview`}
+                  class:list={[
+                    "h-full w-full object-cover",
+                    hasPage && "transition-transform duration-500 group-hover:scale-105",
+                  ]}
+                  widths={[480, 720, 960]}
+                  sizes="(max-width: 1024px) 86vw, 420px"
+                />
+              </div>
+              <div class="flex flex-1 flex-col px-1 pt-4 pb-1 xl:pt-5">
+                <h2 class="font-display text-xl leading-tight text-foreground-0 xl:text-2xl">
+                  {project.data.title}
+                </h2>
+                <p class="mt-2 mb-6 text-sm leading-relaxed text-foreground-1">{project.data.description}</p>
+                {hasPage && (
+                  <div class="mt-auto pt-4 font-display text-sm font-medium text-foreground-1 transition-colors group-hover:text-accent-1">
+                    <span class="inline-flex items-center gap-2">
+                      View project
+                      <Icon name="arrow-up-right" class="size-4" />
+                    </span>
+                  </div>
+                )}
+              </div>
+            </>
+          );
+
+          return hasPage ? (
+            <a
+              href={href}
+              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3 transition-colors hover:bg-background-0"
+              data-project-card
+              data-carousel-item
+            >
+              {cardContent}
+            </a>
+          ) : (
+            <article
+              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3"
+              data-project-card
+              data-carousel-item
+            >
+              {cardContent}
+            </article>
+          );
+        })
+      }
+    </Carousel>
+  </Fragment>
+</PageHero>

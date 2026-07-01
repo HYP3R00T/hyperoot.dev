@@ -1,0 +1,144 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Icon } from "astro-icon/components";
+import placeholder1 from "@/assets/placeholder1.png";
+import { estimateReadTime } from "@/lib/utils";
+import ScrollRevealText from "@/components/common/ScrollRevealText";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects
+    .filter((project) => !project.data.draft && project.data.hasPage !== false)
+    .map((project) => ({
+      params: { slug: project.id },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props as Props;
+const { Content, headings } = await render(project);
+const heroImage = project.data.images?.[0] ?? placeholder1;
+const readTime = project.body ? estimateReadTime(project.body) : 4;
+const visibility = project.data.private ? "Private" : project.data.openSource ? "Open source" : "Public";
+---
+
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  image={heroImage}
+  imageAlt={project.data.imageAlt}
+>
+  <section class="px-4 pt-12 pb-20 md:px-8 md:pt-18 md:pb-28">
+    <div class="mx-auto w-full max-w-site">
+      <a href="/#projects" class={`${buttonVariants({ variant: "outline", size: "sm" })} mb-10`}>
+        <Icon name="arrow-left" class="size-4" />
+        Projects
+      </a>
+
+      <article class="mx-auto w-full max-w-5xl">
+        <header>
+          <h1
+            class="mt-4 max-w-4xl font-display text-5xl leading-none font-semibold tracking-tighter text-foreground-0 md:text-6xl xl:text-7xl"
+          >
+            {project.data.title}
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-relaxed text-foreground-1 md:text-xl">
+            {project.data.description}
+          </p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            {
+              project.data.website && (
+                <a
+                  href={project.data.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={buttonVariants({ size: "lg" })}
+                >
+                  Live Site
+                  <Icon name="arrow-up-right" class="size-4" />
+                </a>
+              )
+            }
+            {
+              project.data.sourceRepo && (
+                <a
+                  href={project.data.sourceRepo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={buttonVariants({ variant: "outline", size: "lg" })}
+                >
+                  Source
+                  <Icon name="arrow-up-right" class="size-4" />
+                </a>
+              )
+            }
+            <Button id="share-button" variant="outline" size="lg">
+              Share
+              <Icon name="arrow-up-right" class="size-4" />
+            </Button>
+          </div>
+        </header>
+
+        <div class="mt-12 overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3">
+          <div class="aspect-og overflow-hidden rounded-md bg-background-2">
+            <Image
+              src={heroImage}
+              alt={project.data.imageAlt || project.data.title}
+              class="h-full w-full object-cover"
+              widths={[720, 960, 1280, 1600]}
+              sizes="(min-width: 1024px) 64rem, calc(100vw - 2rem)"
+            />
+          </div>
+        </div>
+
+        <div class="prose case-study-prose mt-12 max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const setupShareButton = () => {
+    const button = document.getElementById("share-button");
+    if (!button) return;
+
+    button.addEventListener("click", async () => {
+      const url = window.location.href;
+      const title = document.title;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, url });
+        } catch {
+          // Sharing was dismissed.
+        }
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(url);
+        const originalText = button.innerHTML;
+        button.innerHTML = "Copied";
+        window.setTimeout(() => {
+          button.innerHTML = originalText;
+        }, 1600);
+      } catch {
+        button.setAttribute("data-copy-failed", "true");
+      }
+    });
+  };
+
+  document.addEventListener("astro:page-load", setupShareButton);
+</script>

@@ -6,7 +6,7 @@ export const SITE: SiteConfig = {
   author: 'Rajesh',
   repo: 'https://github.com/HYP3R00T/hyperoot.dev',
   title: 'Hyperoot Labs',
-  description: 'A starter template for Astro projects with mise, Biome, pre-commit hooks, and GitHub Actions.',
+  description: 'A focused catalog of Hyperoot projects, tools, templates, and case studies.',
   image: placeholder1,
   imageAlt: 'Check out hyperoot.dev',
   contentType: 'Portfolio',
@@ -16,7 +16,17 @@ export const SITE: SiteConfig = {
 }
 
 export const navItems: NavItem[] = [
-  // { href: '/components', label: 'Components' }
+  {
+    href: '/#projects',
+    label: 'Projects',
+    children: [
+      { href: 'https://celestialdocs.hyperoot.dev', label: 'CelestialDocs', blank: true },
+      { href: 'https://voicepad.hyperoot.dev/', label: 'VoicePad', blank: true },
+      { href: 'https://utilityhub.hyperoot.dev', label: 'UtilityHub', blank: true },
+    ],
+  },
+  { href: 'https://github.com/HYP3R00T', label: 'GitHub', blank: true },
+  { href: 'https://rajeshdas.dev', label: 'Personal', blank: true, special: true },
 ]
 
 export const SOCIAL_LINKS = [
