@@ -1,0 +1,58 @@
+---
+import { Button } from "@/components/ui/button";
+import { Icon } from "astro-icon/components";
+
+interface MetaItem {
+  label: string;
+  value: string;
+  datetime?: string;
+}
+
+interface Props {
+  label: string;
+  items: MetaItem[];
+  tags?: string[];
+  shareLabel?: string;
+}
+
+const { label, items, tags = [], shareLabel } = Astro.props as Props;
+---
+
+<aside class="mt-8 border-t border-border pt-8 lg:hidden" aria-label={label}>
+  <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">{label}</p>
+
+  <dl class="mt-5 grid grid-cols-2 gap-x-6 gap-y-5">
+    {
+      items.map((item) => (
+        <div>
+          <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">{item.label}</dt>
+          <dd class="mt-1.5 text-sm text-foreground-1">
+            {item.datetime ? <time datetime={item.datetime}>{item.value}</time> : item.value}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  {
+    tags.length > 0 && (
+      <div class="mt-5 border-t border-border pt-5">
+        <p class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Topics</p>
+        <p class="mt-1.5 text-sm leading-6 text-foreground-1">{tags.join(" · ")}</p>
+      </div>
+    )
+  }
+
+  {
+    shareLabel && (
+      <Button
+        data-share-button
+        className="relative mt-5 w-full border-0 bg-accent-1 px-10 text-accent-contrast hover:bg-accent-2"
+      >
+        <span>{shareLabel}</span>
+        <Icon name="arrow-up-right" class="absolute right-3 size-4" />
+      </Button>
+    )
+  }
+</aside>
+

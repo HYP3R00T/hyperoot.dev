@@ -1,0 +1,79 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className, ...attributes } = Astro.props as Props;
+---
+
+<div {...attributes} class:list={["editorial-grid grid bg-background-0 md:grid-cols-2 xl:grid-cols-3", className]}>
+  <slot />
+</div>
+
+<style>
+  .editorial-grid {
+    position: relative;
+  }
+
+  .editorial-grid::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(20rem - 1px),
+      var(--border) calc(20rem - 1px),
+      var(--border) 20rem
+    );
+  }
+
+  @media (min-width: 48rem) {
+    .editorial-grid::after {
+      background-image:
+        linear-gradient(
+          to right,
+          transparent calc(50% - 0.5px),
+          var(--border) calc(50% - 0.5px),
+          var(--border) calc(50% + 0.5px),
+          transparent calc(50% + 0.5px)
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(20rem - 1px),
+          var(--border) calc(20rem - 1px),
+          var(--border) 20rem
+        );
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .editorial-grid::after {
+      background-image:
+        linear-gradient(
+          to right,
+          transparent calc(33.333333% - 0.5px),
+          var(--border) calc(33.333333% - 0.5px),
+          var(--border) calc(33.333333% + 0.5px),
+          transparent calc(33.333333% + 0.5px)
+        ),
+        linear-gradient(
+          to right,
+          transparent calc(66.666667% - 0.5px),
+          var(--border) calc(66.666667% - 0.5px),
+          var(--border) calc(66.666667% + 0.5px),
+          transparent calc(66.666667% + 0.5px)
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(22rem - 1px),
+          var(--border) calc(22rem - 1px),
+          var(--border) 22rem
+        );
+    }
+  }
+</style>
+

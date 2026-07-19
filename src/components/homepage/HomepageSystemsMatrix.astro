@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects").then((entries) =>
+  entries.filter((entry) => !entry.data.draft && entry.data.featured),
+);
+
+const domainStats = new Map<string, { projects: number; open: number; live: number }>();
+
+for (const project of projects) {
+  for (const domain of project.data.domains) {
+    const current = domainStats.get(domain) ?? { projects: 0, open: 0, live: 0 };
+    current.projects += 1;
+    current.open += Number(project.data.openSource);
+    current.live += Number(Boolean(project.data.website));
+    domainStats.set(domain, current);
+  }
+}
+
+const matrixRows = [...domainStats.entries()]
+  .map(([domain, stats]) => ({ domain, ...stats }))
+  .sort((a, b) => b.projects - a.projects || a.domain.localeCompare(b.domain));
+
+const openProjects = projects.filter((project) => project.data.openSource).length;
+const liveProjects = projects.filter((project) => project.data.website).length;
+---
+
+<div class="matrix-surface flex h-full min-h-[34rem] flex-col border-t border-border bg-background-1 px-5 py-10 md:px-10 md:py-12 lg:min-h-[38rem] lg:border-t-0 lg:border-l lg:px-12 lg:py-14">
+  <div class="flex items-center justify-between gap-6">
+    <div>
+      <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">Portfolio matrix</p>
+      <p class="mt-2 max-w-xs text-sm leading-6 text-foreground-2">A live readout of the projects selected for this catalog.</p>
+    </div>
+    <span class="flex size-11 items-center justify-center rounded-full border border-accent-1/45 bg-accent-1/10 font-mono text-xs text-accent-1">
+      {String(projects.length).padStart(2, "0")}
+    </span>
+  </div>
+
+  <div class="mt-10 grid grid-cols-3 border-y border-border bg-background-0/70">
+    <div class="px-3 py-4 md:px-4">
+      <p class="font-display text-2xl font-medium tracking-tight text-foreground-0">{projects.length}</p>
+      <p class="mt-1 font-mono text-[0.5625rem] tracking-[0.12em] text-foreground-3 uppercase">Curated</p>
+    </div>
+    <div class="border-l border-border px-3 py-4 md:px-4">
+      <p class="font-display text-2xl font-medium tracking-tight text-foreground-0">{openProjects}</p>
+      <p class="mt-1 font-mono text-[0.5625rem] tracking-[0.12em] text-foreground-3 uppercase">Open</p>
+    </div>
+    <div class="border-l border-border px-3 py-4 md:px-4">
+      <p class="font-display text-2xl font-medium tracking-tight text-foreground-0">{liveProjects}</p>
+      <p class="mt-1 font-mono text-[0.5625rem] tracking-[0.12em] text-foreground-3 uppercase">Live</p>
+    </div>
+  </div>
+
+  <div class="mt-8 border border-border bg-background-0/82">
+    <div class="grid grid-cols-[minmax(0,1fr)_3.5rem_3.5rem_3.5rem] border-b border-border px-4 py-3 font-mono text-[0.5625rem] tracking-[0.12em] text-foreground-3 uppercase">
+      <span>Focus area</span>
+      <span class="text-center">Build</span>
+      <span class="text-center">Open</span>
+      <span class="text-center">Live</span>
+    </div>
+    {
+      matrixRows.map((row) => (
+        <div class="grid min-h-12 grid-cols-[minmax(0,1fr)_3.5rem_3.5rem_3.5rem] items-center border-b border-border px-4 last:border-b-0">
+          <span class="truncate pr-3 text-sm text-foreground-1">{row.domain}</span>
+          <span class="matrix-cell">{String(row.projects).padStart(2, "0")}</span>
+          <span class:list={["matrix-cell", row.open > 0 && "is-active"]}>{String(row.open).padStart(2, "0")}</span>
+          <span class:list={["matrix-cell", row.live > 0 && "is-active"]}>{String(row.live).padStart(2, "0")}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-auto flex items-center justify-between gap-4 pt-8 font-mono text-[0.625rem] tracking-[0.1em] text-foreground-3 uppercase">
+    <span>{matrixRows.length} focus areas</span>
+    <span class="inline-flex items-center gap-2"><span class="size-1.5 rounded-full bg-accent-1"></span> Metadata driven</span>
+  </div>
+</div>
+
+<style>
+  .matrix-surface {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--border) 38%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--border) 38%, transparent) 1px, transparent 1px);
+    background-size: 2.25rem 2.25rem;
+  }
+
+  .matrix-cell {
+    display: flex;
+    min-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--foreground-3);
+  }
+
+  .matrix-cell.is-active {
+    color: var(--accent-1);
+  }
+</style>

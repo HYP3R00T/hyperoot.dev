@@ -1,131 +1,55 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection, type CollectionEntry } from "astro:content";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import Carousel from "@/components/common/Carousel";
-import PageHero from "@/components/common/PageHero.astro";
 import { Icon } from "astro-icon/components";
-import placeholder1 from "@/assets/placeholder1.png";
-import placeholder2 from "@/assets/placeholder2.png";
-import placeholder3 from "@/assets/placeholder3.png";
-import placeholder4 from "@/assets/placeholder4.png";
-import placeholder5 from "@/assets/placeholder5.png";
-import { homepageIntro } from "@data/homepage";
-
-type ProjectEntry = CollectionEntry<"projects">;
-
-const allProjects = await getCollection("projects");
-const projects = allProjects.filter((project) => !project.data.draft);
-const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
-
-const projectRank = (project: ProjectEntry) => {
-  if (project.data.featured) return project.data.order ?? 100;
-  return (project.data.order ?? 100) + 100;
-};
-
-const featuredProjects = [...projects].sort((a, b) => projectRank(a) - projectRank(b)).slice(0, 5);
-
-const projectHref = (project: ProjectEntry) => `/${project.id}/`;
+import SiteSection from "@/components/core/SiteSection.astro";
+import HomepageSystemsMatrix from "@/components/homepage/HomepageSystemsMatrix.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 ---
 
-<PageHero id="hero" dataHomeSection bottomRightClass="w-full">
-  <Fragment slot="topLeft">
-    <h1
-      class="font-display text-5xl leading-none font-semibold tracking-tighter text-foreground-0 sm:text-6xl lg:text-5xl xl:text-6xl"
-    >
-      {homepageIntro.heading}
-    </h1>
-  </Fragment>
+<SiteSection id="hero" data-home-section aria-labelledby="homepage-title" frameClass="grid lg:grid-cols-2">
+  <div class="flex min-w-0 items-center px-5 py-14 md:px-10 md:py-18 lg:min-h-[38rem] lg:p-15">
+    <div class="max-w-xl">
+      <p class="flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.14em] text-foreground-1 uppercase">
+        <span aria-hidden="true" class="size-1.5 rounded-full bg-accent-1"></span>
+        Open systems, practical outcomes
+      </p>
 
-  <Fragment slot="topRight">
-    <a href={homepageIntro.personalSite.href} target="_blank" rel="noopener noreferrer" aria-label="Open Rajesh Das personal website">
-      <Badge
-        variant="outline"
-        className="border-accent-1/70 bg-transparent px-2 font-mono text-[10px] font-medium tracking-widest text-accent-1 uppercase hover:border-accent-1 hover:text-accent-1"
+      <h1
+        id="homepage-title"
+        class="mt-8 text-balance font-display text-[clamp(3rem,4.2vw,4rem)] leading-[0.98] font-medium tracking-[-0.035em] text-foreground-0"
       >
-        {homepageIntro.personalSite.label}
-      </Badge>
-    </a>
-  </Fragment>
+        Projects built to remove friction and compound usefulness.
+      </h1>
 
-  <Fragment slot="bottomLeft">
-    <p class="font-mono text-xs tracking-widest text-foreground-2 uppercase">
-      {homepageIntro.eyebrow}
-    </p>
-    <p class="mt-4 max-w-lg text-base leading-relaxed text-foreground-1 md:text-lg">
-      {homepageIntro.body}
-    </p>
-    <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-      <a href={homepageIntro.primaryCta.href} class={buttonVariants({ variant: "default", size: "lg" })}>
-        {homepageIntro.primaryCta.label}
-        <Icon name="arrow-right" class="size-4" />
-      </a>
-      <a href={homepageIntro.secondaryCta.href} class={buttonVariants({ variant: "outline", size: "lg" })}>
-        {homepageIntro.secondaryCta.label}
-        <Icon name="arrow-up-right" class="size-4" />
-      </a>
+      <p class="mt-7 max-w-lg text-base leading-7 text-foreground-2 md:text-lg md:leading-8">
+        Hyperoot brings together developer tools, automation, infrastructure, and experiments that stay understandable, reusable, and source-owned.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="#projects"
+          class={cn(
+            buttonVariants({ variant: "default", size: "lg" }),
+            "bg-accent-1 px-5 text-accent-contrast hover:bg-accent-2",
+          )}
+        >
+          Browse projects
+          <Icon name="arrow-right" class="size-4" />
+        </a>
+        <a
+          href="https://github.com/HYP3R00T"
+          target="_blank"
+          rel="noopener noreferrer"
+          class={cn(buttonVariants({ variant: "outline", size: "lg" }), "px-5")}
+        >
+          View GitHub
+          <Icon name="arrow-up-right" class="size-4" />
+        </a>
+      </div>
     </div>
-  </Fragment>
+  </div>
 
-  <Fragment slot="bottomRight">
-    <Carousel client:load label="Featured work" itemSelector="[data-project-card]">
-      {
-        featuredProjects.map((project, index) => {
-          const hasPage = project.data.hasPage !== false;
-          const href = projectHref(project);
-          const image = project.data.images?.[0] ?? projectImages[index] ?? placeholder1;
-          const cardContent = (
-            <>
-              <div class="aspect-video overflow-hidden rounded-md bg-background-1">
-                <Image
-                  src={image}
-                  alt={project.data.imageAlt || `${project.data.title} preview`}
-                  class:list={[
-                    "h-full w-full object-cover",
-                    hasPage && "transition-transform duration-500 group-hover:scale-105",
-                  ]}
-                  widths={[480, 720, 960]}
-                  sizes="(max-width: 1024px) 86vw, 420px"
-                />
-              </div>
-              <div class="flex flex-1 flex-col px-1 pt-4 pb-1 xl:pt-5">
-                <h2 class="font-display text-xl leading-tight text-foreground-0 xl:text-2xl">
-                  {project.data.title}
-                </h2>
-                <p class="mt-2 mb-6 text-sm leading-relaxed text-foreground-1">{project.data.description}</p>
-                {hasPage && (
-                  <div class="mt-auto pt-4 font-display text-sm font-medium text-foreground-1 transition-colors group-hover:text-accent-1">
-                    <span class="inline-flex items-center gap-2">
-                      View project
-                      <Icon name="arrow-up-right" class="size-4" />
-                    </span>
-                  </div>
-                )}
-              </div>
-            </>
-          );
-
-          return hasPage ? (
-            <a
-              href={href}
-              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3 transition-colors hover:bg-background-0"
-              data-project-card
-              data-carousel-item
-            >
-              {cardContent}
-            </a>
-          ) : (
-            <article
-              class="group flex h-full min-w-0 snap-start flex-col overflow-hidden rounded-lg border border-border/80 bg-background-1 p-3"
-              data-project-card
-              data-carousel-item
-            >
-              {cardContent}
-            </article>
-          );
-        })
-      }
-    </Carousel>
-  </Fragment>
-</PageHero>
+  <div class="min-w-0 lg:min-h-[38rem]">
+    <HomepageSystemsMatrix />
+  </div>
+</SiteSection>

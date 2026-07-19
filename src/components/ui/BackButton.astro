@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+interface Props {
+  href: string;
+  label: string;
+  className?: string;
+  dataArticlesBack?: boolean;
+  dataNotesBack?: boolean;
+  dataProjectBack?: boolean;
+}
+
+const { href, label, className, dataArticlesBack = false, dataNotesBack = false, dataProjectBack = false } = Astro.props as Props;
+const dataAttributes = {
+  ...(dataArticlesBack ? { "data-articles-back": "" } : {}),
+  ...(dataNotesBack ? { "data-notes-back": "" } : {}),
+  ...(dataProjectBack ? { "data-project-back": "" } : {}),
+};
+---
+
+<a
+  {...dataAttributes}
+  href={href}
+  class={cn(
+    buttonVariants({ variant: "outline" }),
+    "group w-full gap-2 border-border bg-background-0 text-foreground-1 hover:bg-background-1 hover:text-accent-1 dark:bg-background-0 dark:hover:bg-background-1",
+    className,
+  )}
+>
+  <Icon
+    name="arrow-left"
+    class="size-4 transition-transform group-hover:-translate-x-1 motion-reduce:transition-none"
+  />
+  <span>{label}</span>
+</a>

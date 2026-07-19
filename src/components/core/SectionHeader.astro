@@ -1,0 +1,56 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"header"> {
+  eyebrow: string;
+  title: string;
+  titleId: string;
+  description: string;
+  headingLevel?: 1 | 2;
+  transitionName?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  titleId,
+  description,
+  headingLevel = 2,
+  transitionName,
+  class: className,
+  ...attributes
+} = Astro.props as Props;
+const Heading = headingLevel === 1 ? "h1" : "h2";
+const hasAction = Astro.slots.has("action");
+---
+
+<header
+  {...attributes}
+  class:list={[
+    "site-section-heading grid gap-8 px-5 py-16 md:px-10 md:py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(22rem,0.6fr)] lg:gap-x-16 lg:gap-y-0 lg:px-15 lg:py-24",
+    className,
+  ]}
+>
+  <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase lg:col-start-1 lg:row-start-1">
+    {eyebrow}
+  </p>
+  {
+    hasAction && (
+      <div class="justify-self-start lg:col-start-2 lg:row-start-1 lg:justify-self-end">
+        <slot name="action" />
+      </div>
+    )
+  }
+  <Heading
+    id={titleId}
+    transition:name={transitionName}
+    class="mt-5 max-w-2xl text-balance font-display text-4xl leading-[1.05] font-medium tracking-[-0.03em] text-foreground-0 md:text-5xl lg:col-start-1 lg:row-start-2"
+  >
+    {title}
+  </Heading>
+
+  <p class="max-w-xl text-base leading-7 text-foreground-2 md:text-lg md:leading-8 lg:col-start-2 lg:row-start-2 lg:mt-5 lg:justify-self-end">
+    {description}
+  </p>
+</header>
+
