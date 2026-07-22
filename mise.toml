@@ -8,13 +8,14 @@ uv = "latest"
 
 [settings]
 experimental = true
+lockfile = true
 
 [hooks]
-enter = "bash ./scripts/enter_project.sh"
+enter = { run = "bash ./scripts/enter_project.sh", run_windows = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/enter_project.ps1" }
 
 [env]
-_.file = '.env'                                # for sensitive data
-_.path = ['{{config_root}}/node_modules/.bin']
+_.file = ".env"  # for sensitive data
+_.path = ["{{config_root}}/node_modules/.bin"]
 
 [tasks.dev]
 description = "Dev Mode"
