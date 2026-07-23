@@ -13,49 +13,30 @@ openSource: true
 private: false
 sourceRepo: "https://github.com/HYP3R00T/homelab"
 
-hasPage: false
+hasPage: true
 ---
 
-## Summary
+## The Problem
 
-Self-hosted infrastructure lab for exploring Kubernetes, networking, automation, and observability practices.
+Infrastructure concepts become useful when they are operated, broken, and rebuilt. The homelab creates a practical environment for that work without pretending that a personal lab has the same constraints as a large production platform.
 
-`homelab` is a public/open-source project in the Infrastructure, DevOps area of the Hyperoot project catalog. This case study is the place to explain the project beyond the repository link: the intent, constraints, implementation shape, and evidence that the work is useful.
+## The Approach
 
-## Objective
+The project brings Kubernetes, networking, automation, and observability into one evolving system. Configuration is kept in source control so experiments leave a trail and successful changes can be repeated.
 
-The objective is to make the project understandable to someone who did not watch it being built. A good case study should answer three questions quickly: what workflow does it improve, why was this approach chosen, and what can someone inspect or reuse today?
+The lab is intentionally treated as a long-lived learning environment. New services and operational ideas can be introduced in small steps, with the surrounding system providing realistic dependencies and failure modes.
 
-## Constraints
+## What Matters
 
-The project should be documented with the real limits around it. That can include hosting cost, local hardware, private infrastructure boundaries, repeatability, security, maintainability, or the need to keep the workflow simple enough to revisit later.
-
-## Design Decisions
-
-The current implementation sits in these domains: Infrastructure, DevOps. The working stack includes Homelab, Kubernetes, Networking, Observability. Expand this section with the decisions that shaped the project: why the stack fits, what was intentionally avoided, and which parts are designed to change over time.
-
-## Implementation
-
-Use this section for concrete implementation evidence:
-
-- architecture diagrams or screenshots
-- important commands or workflows
-- folder structure and data flow notes
-- deployment, automation, or integration details
-- tradeoffs that would matter to another engineer
-
-## Evidence
-
-A genuine case study needs proof. Add anything that shows the project working: screenshots, terminal output, live URLs, package usage, uptime notes, before/after workflow comparisons, or examples of the project solving the problem it claims to solve.
+- Infrastructure changes are documented through versioned configuration.
+- Automation makes rebuilding part of the design, not an emergency procedure.
+- Observability is considered alongside deployment and networking.
+- The environment stays useful for both focused experiments and ongoing services.
 
 ## Outcome
 
-The outcome for `homelab` is a stable project page that connects the implementation to the reason it exists. The repository or live site shows the artifact; this page explains the thinking, constraints, and lessons behind it.
+The homelab turns infrastructure learning into an inspectable body of work. The repository captures the operational structure and the decisions that make the environment repeatable.
 
-## Next Steps
+## Explore
 
-Good follow-up material for this case study would include richer screenshots, a short architecture diagram, measurable results, and one or two implementation notes that could help someone reuse the idea.
-
-## Links
-
-- Repository: [homelab](https://github.com/HYP3R00T/homelab)
+- [View the source repository](https://github.com/HYP3R00T/homelab)

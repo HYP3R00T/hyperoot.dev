@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
 import SectionHeader from "@/components/core/SectionHeader.astro";
 import SiteSection from "@/components/core/SiteSection.astro";
 import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro";
@@ -13,14 +12,12 @@ import placeholder5 from "@/assets/placeholder5.png";
 const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
 const projects = await getCollection("projects").then((entries) =>
   entries
-    .filter((entry) => !entry.data.draft && entry.data.featured)
+    .filter((entry) => !entry.data.draft)
     .sort((a, b) => {
       const featuredDelta = Number(b.data.featured) - Number(a.data.featured);
       return featuredDelta || (a.data.order ?? 999) - (b.data.order ?? 999);
     }),
 );
-const archivePageSize = 12;
-const archiveTotalPages = Math.max(1, Math.ceil(projects.length / archivePageSize));
 const domainCounts = new Map<string, number>();
 
 for (const project of projects) {
@@ -42,13 +39,12 @@ const domains = [...domainCounts.entries()]
     description="Browse the complete Hyperoot catalog across developer tooling, automation, infrastructure, content systems, and applied AI."
   />
 
-  <div class="site-section-heading px-5 py-8 md:px-10 md:py-10 lg:px-15" data-project-filter data-page-size={archivePageSize}>
+  <div class="site-section-heading px-5 py-8 md:px-10 md:py-10 lg:px-15" data-project-filter>
     <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">Pick a domain</p>
         <p class="mt-2 text-sm text-foreground-3" aria-live="polite">
-          Showing <span data-visible-count>{Math.min(projects.length, archivePageSize)}</span> of
-          <span data-project-count>{projects.length}</span> curated projects
+          Showing <span data-visible-count>{projects.length}</span> projects
         </p>
       </div>
 
@@ -85,40 +81,10 @@ const domains = [...domainCounts.entries()]
         <ProjectArchiveCard
           project={project}
           image={project.data.images?.[0] ?? projectImages[index % projectImages.length] ?? placeholder1}
-          initiallyHidden={index >= archivePageSize}
         />
       ))
     }
   </div>
-
-  <nav
-    aria-label="Projects pagination"
-    class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-7 md:px-10 lg:px-15"
-    data-project-pagination
-    hidden={archiveTotalPages <= 1}
-  >
-    <button
-      type="button"
-      class="group inline-flex w-fit items-center gap-2 text-sm text-foreground-1 transition-colors hover:text-accent-1 disabled:pointer-events-none disabled:text-foreground-3/45"
-      data-page-previous
-      disabled
-    >
-      <Icon name="arrow-left" class="size-4 transition-transform group-hover:-translate-x-1 motion-reduce:transition-none" />
-      Previous
-    </button>
-    <span class="font-mono text-[0.6875rem] tracking-[0.14em] text-foreground-3 uppercase" data-page-status aria-live="polite">
-      01 / {String(archiveTotalPages).padStart(2, "0")}
-    </span>
-    <button
-      type="button"
-      class="group inline-flex w-fit items-center gap-2 justify-self-end text-sm text-foreground-1 transition-colors hover:text-accent-1 disabled:pointer-events-none disabled:text-foreground-3/45"
-      data-page-next
-      disabled={archiveTotalPages <= 1}
-    >
-      Next
-      <Icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
-    </button>
-  </nav>
 </SiteSection>
 
 <style>
@@ -137,19 +103,11 @@ const domains = [...domainCounts.entries()]
     const buttons = [...filterRoot.querySelectorAll<HTMLButtonElement>("[data-domain-filter]")];
     const cards = [...document.querySelectorAll<HTMLElement>("[data-project-archive-card]")];
     const grid = document.querySelector<HTMLElement>("#projects-grid");
-    const count = filterRoot.querySelector<HTMLElement>("[data-project-count]");
     const visibleCount = filterRoot.querySelector<HTMLElement>("[data-visible-count]");
-    const pagination = document.querySelector<HTMLElement>("[data-project-pagination]");
-    const previous = pagination?.querySelector<HTMLButtonElement>("[data-page-previous]");
-    const next = pagination?.querySelector<HTMLButtonElement>("[data-page-next]");
-    const pageStatus = pagination?.querySelector<HTMLElement>("[data-page-status]");
-    const pageSize = Number(filterRoot.dataset.pageSize ?? "12");
     const availableDomains = new Set(buttons.map((button) => button.dataset.domainFilter ?? "all"));
     const initialUrl = new URL(window.location.href);
     const domainFromUrl = initialUrl.searchParams.get("domain");
-    const pageFromUrl = Number.parseInt(initialUrl.searchParams.get("project-page") ?? "1", 10);
     let selectedDomain = domainFromUrl && availableDomains.has(domainFromUrl) ? domainFromUrl : "all";
-    let currentPage = Number.isFinite(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
 
     for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-project-case-study-link]")) {
       link.addEventListener("click", () => {
@@ -161,8 +119,7 @@ const domains = [...domainCounts.entries()]
       const url = new URL(window.location.href);
       if (selectedDomain === "all") url.searchParams.delete("domain");
       else url.searchParams.set("domain", selectedDomain);
-      if (currentPage === 1) url.searchParams.delete("project-page");
-      else url.searchParams.set("project-page", String(currentPage));
+      url.searchParams.delete("project-page");
       window.history.replaceState(window.history.state, "", url);
     };
 
@@ -173,43 +130,25 @@ const domains = [...domainCounts.entries()]
       });
       const featured = matchingCards.find((card) => card.dataset.featuredCandidate === "true");
       const filteredCards = featured ? [featured, ...matchingCards.filter((card) => card !== featured)] : matchingCards;
-      const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
-      currentPage = Math.min(currentPage, totalPages);
-      const pageStart = (currentPage - 1) * pageSize;
-      const pageEnd = pageStart + pageSize;
 
       if (grid) grid.append(...filteredCards, ...cards.filter((card) => !filteredCards.includes(card)));
       for (const card of cards) {
         const filteredIndex = filteredCards.indexOf(card);
-        card.hidden = filteredIndex < pageStart || filteredIndex >= pageEnd;
+        card.hidden = filteredIndex < 0;
       }
       for (const button of buttons) {
         button.setAttribute("aria-pressed", String(button.dataset.domainFilter === selectedDomain));
       }
-      if (count) count.textContent = String(filteredCards.length);
-      if (visibleCount) visibleCount.textContent = String(Math.min(pageSize, Math.max(0, filteredCards.length - pageStart)));
-      if (pageStatus) pageStatus.textContent = `${String(currentPage).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")}`;
-      if (previous) previous.disabled = currentPage === 1;
-      if (next) next.disabled = currentPage === totalPages;
-      if (pagination) pagination.hidden = filteredCards.length <= pageSize;
+      if (visibleCount) visibleCount.textContent = String(filteredCards.length);
       persistView();
     };
 
     for (const button of buttons) {
       button.addEventListener("click", () => {
         selectedDomain = button.dataset.domainFilter ?? "all";
-        currentPage = 1;
         applyView();
       });
     }
-    previous?.addEventListener("click", () => {
-      currentPage = Math.max(1, currentPage - 1);
-      applyView();
-    });
-    next?.addEventListener("click", () => {
-      currentPage += 1;
-      applyView();
-    });
 
     filterRoot.dataset.filterReady = "true";
     applyView();

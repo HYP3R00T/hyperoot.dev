@@ -1,8 +1,11 @@
 import { readdir, readFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import { extname, relative, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import type { Loader } from 'astro/loaders'
-import { parse } from 'yaml'
+
+const require = createRequire(import.meta.url)
+const { parse } = require('yaml') as typeof import('yaml')
 
 interface LocalContentLoaderOptions {
   base: string
