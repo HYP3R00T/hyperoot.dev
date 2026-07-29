@@ -1,55 +1,87 @@
 ---
 // Header Component - Navigation and branding
-import { Icon } from 'astro-icon/components'
-import { navItems } from '@data/config'
-import { buttonVariants } from '@/components/ui/button'
-import { ModeToggle } from '@/components/core/ModeToggle'
-import AnimatedText from '@/components/common/AnimatedText.tsx'
-import MobileMenuToggle from '@/components/core/MobileMenuToggle.astro'
-import MobileMenuPanel from '@/components/core/MobileMenuPanel.astro'
-import HeaderNavigation from '@/components/core/HeaderNavigation'
+import { navItems } from "@data/config";
+import { Icon } from "astro-icon/components";
+import { ModeToggle } from "@/components/core/ModeToggle";
+import AnimatedText from "@/components/common/AnimatedText.tsx";
+import MobileMenuToggle from "@/components/core/MobileMenuToggle.astro";
+import MobileMenuPanel from "@/components/core/MobileMenuPanel.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const headerNavItems = navItems.filter((item) => !item.special)
-const personalLink = navItems.find((item) => item.special && item.label.toLowerCase() === 'personal')
+const visibleNavItems = navItems.filter((item) => !item.special);
+const contactItem = visibleNavItems.find((item) => item.label === "Contact");
+const primaryNavItems = visibleNavItems.filter((item) => item.label !== "Contact");
+const pathname = Astro.url.pathname;
+const isCurrent = (href: string) => href.startsWith("/") && (href === "/" ? pathname === href : pathname.startsWith(href));
 ---
 
-<header data-header-shell data-menu-open='false' class='sticky top-0 z-80 px-4 py-4 md:px-8 md:py-5'>
-  <nav
+<header
+  data-header-shell
+  data-menu-open="false"
+  class="sticky top-0 z-80 border-b border-border bg-background-0/90 backdrop-blur-xl"
+>
+  <div
     data-header-nav
-    data-menu-open='false'
-    class='mx-auto w-full max-w-site rounded-lg border border-border bg-background-1/90 px-4 py-3 backdrop-blur-xl transition-[border-radius] data-[menu-open=true]:rounded-b-none md:px-6'
+    data-menu-open="false"
+    class="site-grid-frame grid min-h-16 grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(12rem,1fr)_auto_minmax(12rem,1fr)]"
   >
-    <div class='flex items-center gap-4'>
-      <a href='/' class='flex flex-1 flex-row font-mono text-base md:text-lg'>
-        <AnimatedText client:load text='hyperoot' className='text-accent-1' auto={true} hover={true} />
-        <div class='text-foreground-3'>.dev</div>
+    <div class="flex min-w-0 items-center px-5 lg:px-8">
+      <a href="/" class="flex min-w-0 flex-row font-mono text-base md:text-lg" aria-label="Hyperoot home">
+        <AnimatedText client:load text="hyperoot" className="text-accent-1" auto={true} hover={true} />
+        <div class="text-foreground-3">.dev</div>
       </a>
+    </div>
 
-      <div class='hidden flex-1 items-center justify-center gap-2 md:flex'>
-        <HeaderNavigation client:load navItems={headerNavItems} />
-      </div>
+    <nav class="hidden items-center gap-7 font-mono lg:gap-9 md:flex" aria-label="Primary navigation">
+      {
+        primaryNavItems.map((item) => {
+          const isExternal = item.blank || item.href.startsWith("http");
 
-      <div class='hidden flex-1 items-center justify-end gap-2 md:flex text-foreground-2'>
-        {
-          personalLink && (
+          return (
             <a
-              href={personalLink.href}
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='Open personal website'
-              title='Personal website'
-              class={buttonVariants({ variant: 'ghost', size: 'icon' })}
+              href={item.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              class="inline-flex items-center gap-1.5 py-2 text-sm text-foreground-2 transition-colors duration-150 hover:text-foreground-0 focus-visible:text-foreground-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring aria-[current=page]:text-accent-1"
             >
-              <Icon name='user' class='size-4' />
+              {item.label}
+              {isExternal && <Icon name="arrow-up-right" class="size-3.5" aria-hidden="true" />}
             </a>
-          )
-        }
-        <ModeToggle client:load />
-      </div>
+          );
+        })
+      }
+    </nav>
 
+    <div class="hidden min-w-0 items-center justify-end gap-2 px-5 md:flex lg:px-8">
+      <ModeToggle
+        client:load
+        className="size-10 border-0 hover:bg-transparent hover:text-foreground-0"
+      />
+      {
+        contactItem && (
+          <a
+            href={contactItem.href}
+            target={contactItem.blank ? "_blank" : undefined}
+            rel={contactItem.blank ? "noopener noreferrer" : undefined}
+            class={cn(
+              buttonVariants({ variant: "default" }),
+              "h-9 gap-1.5 border-0 bg-accent-1 px-4 text-accent-contrast hover:bg-accent-2",
+            )}
+          >
+            {contactItem.label}
+            {contactItem.blank && <Icon name="arrow-up-right" class="size-3.5" aria-hidden="true" />}
+          </a>
+        )
+      }
+    </div>
+
+    <div class="md:hidden">
       <MobileMenuToggle />
     </div>
-  </nav>
+  </div>
+  <MobileMenuPanel navItems={primaryNavItems} contactItem={contactItem} />
 </header>
 
-<MobileMenuPanel navItems={headerNavItems} personalLink={personalLink} />
+<!-- AnimatedText component handles the animation behavior -->

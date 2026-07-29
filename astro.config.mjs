@@ -6,16 +6,21 @@ import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import icon from 'astro-icon'
+import rehypeCodeBlocks from './src/lib/rehype-code-blocks.mjs'
+import rehypeHeadingLinks from './src/lib/rehype-heading-links.mjs'
+
+/** @type {import("@astrojs/markdown-remark").RehypePlugins} */
+const rehypePlugins = [[rehypeCodeBlocks, { theme: 'houston' }], rehypeHeadingLinks]
 
 export default defineConfig({
   site: 'https://hyperoot.dev',
   prefetch: true,
 
   markdown: {
-    processor: unified(),
-    shikiConfig: {
-      theme: 'poimandres',
-    },
+    processor: unified({
+      rehypePlugins,
+    }),
+    syntaxHighlight: false,
   },
 
   integrations: [
@@ -38,5 +43,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ['picomatch', 'tinyglobby', 'fdir'],
+    },
   },
 })

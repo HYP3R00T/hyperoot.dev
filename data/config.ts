@@ -11,22 +11,13 @@ export const SITE: SiteConfig = {
   imageAlt: 'Check out hyperoot.dev',
   contentType: 'Portfolio',
   twitterHandle: '@HYP3R00T',
-  pageSize: 10,
+  pageSize: 12,
   lang: 'en',
 }
 
 export const navItems: NavItem[] = [
-  {
-    href: '/#projects',
-    label: 'Projects',
-    children: [
-      { href: 'https://celestialdocs.hyperoot.dev', label: 'CelestialDocs', blank: true },
-      { href: 'https://voicepad.hyperoot.dev/', label: 'VoicePad', blank: true },
-      { href: 'https://utilityhub.hyperoot.dev', label: 'UtilityHub', blank: true },
-    ],
-  },
-  { href: 'https://github.com/HYP3R00T', label: 'GitHub', blank: true },
-  { href: 'https://rajeshdas.dev', label: 'Personal', blank: true, special: true },
+  { href: '/#projects', label: 'Projects' },
+  { href: 'https://rajeshdas.dev', label: 'Contact', blank: true },
 ]
 
 export const SOCIAL_LINKS = [
@@ -34,18 +25,18 @@ export const SOCIAL_LINKS = [
     name: 'github',
     href: 'https://github.com/HYP3R00T',
     active: true,
-    linkTitle: 'Visit my GitHub profile',
+    linkTitle: 'Visit the Hyperoot GitHub profile',
   },
   {
     name: 'linkedin',
     href: 'https://linkedin.com/in/rajesh-kumar-das',
     active: true,
-    linkTitle: 'Connect with me on LinkedIn',
+    linkTitle: 'Connect with Rajesh on LinkedIn',
   },
   {
     name: 'mail',
     href: 'mailto:hello@rajeshdas.dev',
     active: true,
-    linkTitle: 'Send me an email',
+    linkTitle: 'Send Rajesh an email',
   },
 ]

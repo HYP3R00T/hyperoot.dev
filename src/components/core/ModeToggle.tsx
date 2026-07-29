@@ -2,10 +2,15 @@ import { Moon, Sun } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 type Theme = 'light' | 'dark' | 'system'
 
 const STORAGE_KEY = 'theme'
+
+interface ModeToggleProps {
+  className?: string
+}
 
 function getSystemTheme(): Exclude<Theme, 'system'> {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
@@ -23,7 +28,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.style.colorScheme = resolvedTheme
 }
 
-export function ModeToggle() {
+export function ModeToggle({ className }: ModeToggleProps) {
   const [theme, setThemeState] = React.useState<Theme>('system')
   const [resolvedTheme, setResolvedTheme] = React.useState<Exclude<Theme, 'system'>>('light')
 
@@ -66,7 +71,7 @@ export function ModeToggle() {
       type="button"
       variant="ghost"
       size="icon"
-      className="relative text-foreground-2"
+      className={cn('relative text-foreground-2', className)}
       onClick={toggleTheme}
       aria-label={`Switch to ${nextTheme} theme`}
       title={`Switch to ${nextTheme} theme`}

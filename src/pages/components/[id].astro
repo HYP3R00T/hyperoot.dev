@@ -1,39 +1,52 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import SectionHeader from "@/components/core/SectionHeader.astro";
+import SiteSection from "@/components/core/SiteSection.astro";
+import BackButton from "@/components/ui/BackButton.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-// 1. Generate a new path for every collection entry
-export async function getStaticPaths() {
-  const entries = await getCollection("components");
-  return entries.map((entry) => ({
-    params: { id: entry.id },
-    props: { entry },
-  }));
+interface Props {
+  entry: CollectionEntry<"components">;
 }
 
-// 2. For your template, you can get the entry directly from the prop
-const { entry } = Astro.props;
+export async function getStaticPaths() {
+  const entries = await getCollection("components");
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props as Props;
 const { Content } = await render(entry);
+const description = entry.data.description ?? "A reusable Hyperoot interface component.";
 ---
 
-<BaseLayout title={`${entry.data.title} - Components`} description={entry.data.description}>
-  <section class="relative flex items-center justify-center px-4 md:px-12">
-    <div class="mx-auto w-full max-w-5xl my-16">
-      <header class="mb-6">
-        <h1 class="text-section-heading my-8">
-          {entry.data.title}
-        </h1>
-        {
-          entry.data.description && (
-            <p class="text-foreground-1 max-w-2xl space-y-6 text-base leading-relaxed md:text-lg">
-              {entry.data.description}
-            </p>
-          )
-        }
-      </header>
-      <div class="prose">
-        <Content />
-      </div>
+<BaseLayout title={`${entry.data.title} | Components`} description={description}>
+  <section aria-labelledby="component-title">
+    <div class="site-grid-frame">
+      <SectionHeader eyebrow="Component" title={entry.data.title} titleId="component-title" headingLevel={1} description={description} />
     </div>
   </section>
+
+  <SiteSection aria-label="Component documentation" frameClass="lg:grid lg:grid-cols-[minmax(14rem,1fr)_minmax(0,3fr)]">
+    <aside class="hidden min-w-0 border-r border-border px-8 py-10 lg:block xl:px-10">
+      <BackButton href="/components/" label="Back to components" />
+      <div class="mt-8 border-t border-border pt-8">
+        <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">Component details</p>
+        <dl class="mt-5 grid gap-4">
+          <div>
+            <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Category</dt>
+            <dd class="mt-1.5 text-sm text-foreground-1">{entry.data.category ?? "Interface"}</dd>
+          </div>
+        </dl>
+      </div>
+    </aside>
+
+    <article class="min-w-0">
+      <div class="prose max-w-none px-5 py-12 md:px-10 md:py-16 lg:px-12 xl:px-16">
+        <Content />
+      </div>
+      <div class="border-t border-border px-5 py-10 md:px-10 lg:hidden">
+        <BackButton href="/components/" label="Back to components" />
+      </div>
+    </article>
+  </SiteSection>
 </BaseLayout>

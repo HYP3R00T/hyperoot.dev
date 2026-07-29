@@ -1,0 +1,159 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "@/components/core/SectionHeader.astro";
+import SiteSection from "@/components/core/SiteSection.astro";
+import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro";
+import placeholder1 from "@/assets/placeholder1.png";
+import placeholder2 from "@/assets/placeholder2.png";
+import placeholder3 from "@/assets/placeholder3.png";
+import placeholder4 from "@/assets/placeholder4.png";
+import placeholder5 from "@/assets/placeholder5.png";
+
+const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
+const projects = await getCollection("projects").then((entries) =>
+  entries
+    .filter((entry) => !entry.data.draft)
+    .sort((a, b) => {
+      const featuredDelta = Number(b.data.featured) - Number(a.data.featured);
+      return featuredDelta || (a.data.order ?? 999) - (b.data.order ?? 999);
+    }),
+);
+const domainCounts = new Map<string, number>();
+
+for (const project of projects) {
+  for (const domain of project.data.domains) {
+    domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + 1);
+  }
+}
+
+const domains = [...domainCounts.entries()]
+  .map(([label, count]) => ({ label, value: label.toLowerCase(), count }))
+  .sort((a, b) => a.label.localeCompare(b.label));
+---
+
+<SiteSection id="projects" aria-label="Project catalog" data-projects-list>
+  <SectionHeader
+    eyebrow="Project catalog"
+    title="Tools, platforms, and experiments made to be used."
+    titleId="projects-title"
+    description="Browse the complete Hyperoot catalog across developer tooling, automation, infrastructure, content systems, and applied AI."
+  />
+
+  <div class="site-section-heading px-5 py-8 md:px-10 md:py-10 lg:px-15" data-project-filter>
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">Pick a domain</p>
+        <p class="mt-2 text-sm text-foreground-3" aria-live="polite">
+          Showing <span data-visible-count>{projects.length}</span> projects
+        </p>
+      </div>
+
+      <div class="flex max-w-3xl flex-wrap gap-2" role="group" aria-label="Filter projects by domain">
+        <button
+          type="button"
+          class="project-filter rounded-md border border-border bg-background-0 px-3 py-2 font-mono text-[0.6875rem] tracking-[0.08em] text-foreground-1 uppercase transition-colors hover:border-foreground-3 hover:text-foreground-0"
+          data-domain-filter="all"
+          aria-controls="projects-grid"
+          aria-pressed="true"
+        >
+          All <span class="opacity-60">{projects.length}</span>
+        </button>
+        {
+          domains.map(({ label, value, count }) => (
+            <button
+              type="button"
+              class="project-filter rounded-md border border-border bg-background-0 px-3 py-2 font-mono text-[0.6875rem] tracking-[0.08em] text-foreground-1 uppercase transition-colors hover:border-foreground-3 hover:text-foreground-0"
+              data-domain-filter={value}
+              aria-controls="projects-grid"
+              aria-pressed="false"
+            >
+              {label} <span class="opacity-60">{count}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div id="projects-grid" class="grid items-stretch gap-6 bg-background-0 p-5 md:grid-cols-2 md:p-8 xl:grid-cols-3 xl:gap-7 xl:p-12">
+    {
+      projects.map((project, index) => (
+        <ProjectArchiveCard
+          project={project}
+          image={project.data.images?.[0] ?? projectImages[index % projectImages.length] ?? placeholder1}
+        />
+      ))
+    }
+  </div>
+</SiteSection>
+
+<style>
+  .project-filter[aria-pressed="true"] {
+    border-color: var(--accent-1);
+    background: var(--accent-1);
+    color: var(--accent-contrast);
+  }
+</style>
+
+<script>
+  const setupProjectFilter = () => {
+    const filterRoot = document.querySelector<HTMLElement>("[data-project-filter]");
+    if (!filterRoot || filterRoot.dataset.filterReady === "true") return;
+
+    const buttons = [...filterRoot.querySelectorAll<HTMLButtonElement>("[data-domain-filter]")];
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-project-archive-card]")];
+    const grid = document.querySelector<HTMLElement>("#projects-grid");
+    const visibleCount = filterRoot.querySelector<HTMLElement>("[data-visible-count]");
+    const availableDomains = new Set(buttons.map((button) => button.dataset.domainFilter ?? "all"));
+    const initialUrl = new URL(window.location.href);
+    const domainFromUrl = initialUrl.searchParams.get("domain");
+    let selectedDomain = domainFromUrl && availableDomains.has(domainFromUrl) ? domainFromUrl : "all";
+
+    for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-project-case-study-link]")) {
+      link.addEventListener("click", () => {
+        window.sessionStorage.setItem("projectArchiveReturnUrl", window.location.href);
+      });
+    }
+
+    const persistView = () => {
+      const url = new URL(window.location.href);
+      if (selectedDomain === "all") url.searchParams.delete("domain");
+      else url.searchParams.set("domain", selectedDomain);
+      url.searchParams.delete("project-page");
+      window.history.replaceState(window.history.state, "", url);
+    };
+
+    const applyView = () => {
+      const matchingCards = cards.filter((card) => {
+        const domains = new Set((card.dataset.projectDomains ?? "").split("|").filter(Boolean));
+        return selectedDomain === "all" || domains.has(selectedDomain);
+      });
+      const featured = matchingCards.find((card) => card.dataset.featuredCandidate === "true");
+      const filteredCards = featured ? [featured, ...matchingCards.filter((card) => card !== featured)] : matchingCards;
+
+      if (grid) grid.append(...filteredCards, ...cards.filter((card) => !filteredCards.includes(card)));
+      for (const card of cards) {
+        const filteredIndex = filteredCards.indexOf(card);
+        card.hidden = filteredIndex < 0;
+      }
+      for (const button of buttons) {
+        button.setAttribute("aria-pressed", String(button.dataset.domainFilter === selectedDomain));
+      }
+      if (visibleCount) visibleCount.textContent = String(filteredCards.length);
+      persistView();
+    };
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        selectedDomain = button.dataset.domainFilter ?? "all";
+        applyView();
+      });
+    }
+
+    filterRoot.dataset.filterReady = "true";
+    applyView();
+  };
+
+  setupProjectFilter();
+  document.addEventListener("astro:page-load", setupProjectFilter);
+</script>

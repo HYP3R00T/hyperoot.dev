@@ -13,49 +13,30 @@ openSource: true
 private: false
 sourceRepo: "https://github.com/HYP3R00T/gitops-deployment-platform"
 
-hasPage: false
+hasPage: true
 ---
 
-## Summary
+## The Problem
 
-Kubernetes-focused reference architecture for production-style GitOps and platform engineering workflows.
+Kubernetes examples often explain individual tools without showing how the pieces form an operating model. This project focuses on the shape of a production-style GitOps platform: how desired state is organized, how changes move through the system, and where platform responsibilities belong.
 
-`gitops-deployment-platform` is a public/open-source project in the DevOps, Infrastructure area of the Hyperoot project catalog. This case study is the place to explain the project beyond the repository link: the intent, constraints, implementation shape, and evidence that the work is useful.
+## The Approach
 
-## Objective
+The repository is structured as a reference architecture rather than a single prescribed product. Kubernetes provides the runtime model, while GitOps keeps infrastructure and application changes declarative and reviewable.
 
-The objective is to make the project understandable to someone who did not watch it being built. A good case study should answer three questions quickly: what workflow does it improve, why was this approach chosen, and what can someone inspect or reuse today?
+Separating platform concerns from workloads makes the system easier to reason about. It also creates clear boundaries for experimentation: a tool can be replaced without losing the overall deployment model.
 
-## Constraints
+## What Matters
 
-The project should be documented with the real limits around it. That can include hosting cost, local hardware, private infrastructure boundaries, repeatability, security, maintainability, or the need to keep the workflow simple enough to revisit later.
-
-## Design Decisions
-
-The current implementation sits in these domains: DevOps, Infrastructure. The working stack includes Kubernetes, GitOps, Platform Engineering, Architecture. Expand this section with the decisions that shaped the project: why the stack fits, what was intentionally avoided, and which parts are designed to change over time.
-
-## Implementation
-
-Use this section for concrete implementation evidence:
-
-- architecture diagrams or screenshots
-- important commands or workflows
-- folder structure and data flow notes
-- deployment, automation, or integration details
-- tradeoffs that would matter to another engineer
-
-## Evidence
-
-A genuine case study needs proof. Add anything that shows the project working: screenshots, terminal output, live URLs, package usage, uptime notes, before/after workflow comparisons, or examples of the project solving the problem it claims to solve.
+- Git remains the source of truth for desired state.
+- Reconciliation replaces manual, one-off cluster changes.
+- Platform and workload concerns are kept distinct.
+- The repository can be studied as an architecture, not only executed as a demo.
 
 ## Outcome
 
-The outcome for `gitops-deployment-platform` is a stable project page that connects the implementation to the reason it exists. The repository or live site shows the artifact; this page explains the thinking, constraints, and lessons behind it.
+The result is an inspectable foundation for learning and discussing production-minded GitOps workflows. It makes the relationships between Kubernetes, automation, and platform engineering concrete enough to adapt.
 
-## Next Steps
+## Explore
 
-Good follow-up material for this case study would include richer screenshots, a short architecture diagram, measurable results, and one or two implementation notes that could help someone reuse the idea.
-
-## Links
-
-- Repository: [gitops-deployment-platform](https://github.com/HYP3R00T/gitops-deployment-platform)
+- [View the source repository](https://github.com/HYP3R00T/gitops-deployment-platform)

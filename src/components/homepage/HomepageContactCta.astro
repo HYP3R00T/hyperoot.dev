@@ -1,0 +1,38 @@
+---
+import { Icon } from "astro-icon/components";
+import SiteSection from "@/components/core/SiteSection.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+---
+
+<SiteSection id="contact-cta" data-home-section aria-labelledby="contact-cta-title" frameClass="bg-accent-1 text-accent-contrast">
+  <div class="grid min-h-[28rem] content-between gap-16 px-5 py-12 md:min-h-[32rem] md:px-10 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end lg:gap-20 lg:px-15 lg:py-20">
+    <div>
+      <p class="font-mono text-[0.6875rem] tracking-[0.14em] uppercase">Build with Hyperoot</p>
+      <h2
+        id="contact-cta-title"
+        class="mt-7 max-w-4xl text-balance font-display text-5xl leading-[0.98] font-medium tracking-[-0.045em] md:text-6xl lg:text-7xl"
+      >
+        Turn recurring friction into a system that lasts.
+      </h2>
+    </div>
+
+    <div class="lg:justify-self-end">
+      <p class="max-w-md text-base leading-7 text-accent-contrast/75 md:text-lg md:leading-8">
+        Bring the rough workflow, repeated task, or half-built idea. We can shape it into something clear, reliable, and easier to operate.
+      </p>
+      <a
+        href="https://rajeshdas.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class={cn(
+          buttonVariants({ variant: "default", size: "lg" }),
+          "mt-7 w-fit bg-background-0 px-5 text-foreground-0 hover:bg-background-1",
+        )}
+      >
+        Start a conversation
+        <Icon name="arrow-up-right" class="size-4" />
+      </a>
+    </div>
+  </div>
+</SiteSection>

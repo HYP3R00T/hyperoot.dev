@@ -1,9 +1,11 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import { SITE } from "@data/config";
 import Header from "@/components/core/Header.astro";
 import HeadSEO from "@/components/core/HeadSEO.astro";
 import type { BaseLayoutProps } from "@/lib/types";
 import Footer from "@/components/core/Footer.astro";
+import CodeCopyButton from "@/components/core/CodeCopyButton.astro";
 
 const { title, description, image, imageAlt, contentType } = Astro.props as BaseLayoutProps;
 ---
@@ -11,18 +13,27 @@ const { title, description, image, imageAlt, contentType } = Astro.props as Base
 <html lang=`${SITE.lang ?? "en"}`>
   <head>
     <HeadSEO title={title} description={description} image={image} imageAlt={imageAlt} contentType={contentType} />
+    <ClientRouter />
   </head>
 
-  <body class="flex flex-col">
+  <body class="relative flex min-h-screen flex-col">
+    <a
+      href="#main-content"
+      class="sr-only fixed top-4 left-4 z-100 rounded-md bg-foreground-0 px-4 py-3 text-sm font-medium text-background-0 focus:not-sr-only"
+    >
+      Skip to content
+    </a>
+    <div aria-hidden="true" class="site-page-rails"></div>
     <Header />
     <div class="flex flex-1">
-      <main class="flex h-full w-full justify-center">
+      <main id="main-content" class="flex h-full w-full justify-center" tabindex="-1">
         <div class="flex w-full flex-col justify-center">
           <slot />
         </div>
       </main>
     </div>
     <Footer />
+    <CodeCopyButton />
   </body>
 </html>
 

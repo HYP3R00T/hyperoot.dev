@@ -1,43 +1,43 @@
 ---
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import SectionHeader from "@/components/core/SectionHeader.astro";
+import SiteSection from "@/components/core/SiteSection.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { Badge } from "@/components/ui/badge";
-import CardGrid from "@/components/common/CardGrid.astro";
 
 const components = await getCollection("components");
 ---
 
-<BaseLayout title="Components" description="A concise list of the custom components available in this project.">
-  <section class="relative flex items-center justify-center px-4 md:px-12">
-    <div class="mx-auto w-full max-w-5xl my-16">
-      <!-- Greeter -->
-      <div class="mb-16">
-        <Badge variant="default">Components</Badge>
-        <h1 class="text-section-heading my-8">
-          <div>User</div>
-          <div>Interface</div>
-        </h1>
-
-        <p class="text-foreground-1 max-w-2xl space-y-6 text-base leading-relaxed md:text-lg">
-          Click a link to view the source layout for that component.
-        </p>
-      </div>
-
-      <!-- All projects -->
-      <div class="space-y-4">
-        {
-          components.map((component) => (
-            <CardGrid>
-              <a href={`/components/${component.id}`} class="flex flex-row justify-between items-center gap-3">
-                <span class="font-display text-foreground-1 group-hover:text-accent-1 text-xl font-semibold">
-                  {component.data.title}
-                </span>
-                <span class="text-foreground-2 text-sm leading-relaxed">view component</span>
-              </a>
-            </CardGrid>
-          ))
-        }
-      </div>
+<BaseLayout title="Components | Hyperoot Labs" description="Reusable interface and content components used across Hyperoot.">
+  <section aria-labelledby="components-title">
+    <div class="site-grid-frame">
+      <SectionHeader
+        eyebrow="Components"
+        title="Reusable pieces, documented in the same system."
+        titleId="components-title"
+        headingLevel={1}
+        description="A concise index of interface and content primitives available in this project, with source-ready examples."
+      />
     </div>
   </section>
+
+  <SiteSection aria-label="Component archive">
+    <div class="grid items-stretch gap-6 bg-background-0 p-5 md:grid-cols-2 md:p-8 xl:grid-cols-3 xl:gap-7 xl:p-12">
+      {
+        components.map((component) => (
+          <a href={`/components/${component.id}/`} class="group flex min-h-64 flex-col rounded-lg border border-border bg-background-0 p-6 transition-colors hover:bg-background-1">
+            <p class="font-mono text-[0.625rem] tracking-[0.14em] text-accent-1 uppercase">Interface primitive</p>
+            <h2 class="mt-8 font-display text-2xl font-medium tracking-tight text-foreground-0 transition-colors group-hover:text-accent-1">
+              {component.data.title}
+            </h2>
+            <p class="mt-3 text-sm leading-6 text-foreground-2">{component.data.description ?? "View the component source and usage."}</p>
+            <span class="mt-auto flex items-center justify-between gap-4 pt-8 text-sm text-foreground-1 group-hover:text-accent-1">
+              View component
+              <Icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </SiteSection>
 </BaseLayout>

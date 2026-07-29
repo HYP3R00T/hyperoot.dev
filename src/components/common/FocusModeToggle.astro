@@ -1,0 +1,81 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+---
+
+<button
+  type="button"
+  class:list={[
+    "inline-flex h-9 items-center justify-center gap-3 rounded-md border border-border bg-background-0 px-3 font-mono text-[0.6875rem] tracking-[0.08em] text-foreground-1 uppercase transition-colors hover:border-accent-1 hover:text-accent-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+    className,
+  ]}
+  data-focus-mode-toggle
+  aria-pressed="false"
+  aria-keyshortcuts="Z"
+  title="Toggle Zen mode (Z)"
+>
+  <span data-focus-mode-label>Zen mode</span>
+  <kbd class="rounded-sm border border-border bg-background-1 px-1.5 py-0.5 text-[0.625rem] text-foreground-3">Z</kbd>
+</button>
+
+<script>
+  const setFocusMode = (enabled: boolean) => {
+    document.body.dataset.focusMode = String(enabled);
+
+    document.querySelectorAll<HTMLButtonElement>("[data-focus-mode-toggle]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(enabled));
+      const label = button.querySelector<HTMLElement>("[data-focus-mode-label]");
+      if (label) label.textContent = enabled ? "Exit Zen mode" : "Zen mode";
+    });
+  };
+
+  const isTextEntry = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    return (
+      target.matches("input, textarea, select, [contenteditable='true']") ||
+      Boolean(target.closest("[contenteditable='true']"))
+    );
+  };
+
+  const hasFocusMode = () => Boolean(document.querySelector("[data-focus-content-section]"));
+
+  const setupFocusMode = () => {
+    setFocusMode(false);
+    if (document.documentElement.dataset.focusModeReady === "true") return;
+    document.documentElement.dataset.focusModeReady = "true";
+
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest("[data-focus-mode-toggle]")) return;
+      setFocusMode(document.body.dataset.focusMode !== "true");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (
+        !hasFocusMode() ||
+        event.defaultPrevented ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.altKey ||
+        isTextEntry(event.target)
+      )
+        return;
+
+      if (event.key === "Escape" && document.body.dataset.focusMode === "true") {
+        event.preventDefault();
+        setFocusMode(false);
+        return;
+      }
+
+      if (event.key.toLowerCase() === "z") {
+        event.preventDefault();
+        setFocusMode(document.body.dataset.focusMode !== "true");
+      }
+    });
+  };
+
+  document.addEventListener("astro:page-load", setupFocusMode);
+</script>
+
