@@ -1,55 +1,26 @@
 ---
-import { Icon } from "astro-icon/components";
 import SiteSection from "@/components/core/SiteSection.astro";
-import HomepageHeroVisual from "@/components/homepage/HomepageHeroVisual.astro";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 ---
 
-<SiteSection id="hero" data-home-section aria-labelledby="homepage-title" frameClass="grid lg:grid-cols-2">
-  <div class="flex min-w-0 items-center px-5 py-14 md:px-10 md:py-18 lg:min-h-[38rem] lg:p-15">
-    <div class="max-w-xl">
+<SiteSection id="hero" data-home-section aria-labelledby="homepage-title">
+  <div class="flex min-w-0 items-center px-5 py-16 md:px-10 md:py-24 lg:min-h-[36rem] lg:px-15 lg:py-28">
+    <div class="max-w-4xl">
       <p class="flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.14em] text-foreground-1 uppercase">
         <span aria-hidden="true" class="size-1.5 rounded-full bg-accent-1"></span>
-        Open systems, practical outcomes
+        Independent software and systems lab
       </p>
 
       <h1
         id="homepage-title"
-        class="mt-8 text-balance font-display text-[clamp(3rem,4.2vw,4rem)] leading-[0.98] font-medium tracking-[-0.035em] text-foreground-0"
+        class="mt-8 max-w-3xl text-balance font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.96] font-medium tracking-[-0.04em] text-foreground-0"
       >
-        Projects built to remove friction and compound usefulness.
+        Practical tools for real technical work.
       </h1>
 
-      <p class="mt-7 max-w-lg text-base leading-7 text-foreground-2 md:text-lg md:leading-8">
-        Hyperoot brings together developer tools, automation, infrastructure, and experiments that stay understandable, reusable, and source-owned.
+      <p class="mt-8 max-w-2xl text-base leading-7 text-foreground-2 md:text-lg md:leading-8">
+        Hyperoot Labs is a focused catalog of developer tools, automation, infrastructure systems, templates, and technical experiments built to be useful, inspectable, and reusable.
       </p>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a
-          href="#projects"
-          class={cn(
-            buttonVariants({ variant: "default", size: "lg" }),
-            "bg-accent-1 px-5 text-accent-contrast hover:bg-accent-2",
-          )}
-        >
-          Browse projects
-          <Icon name="arrow-right" class="size-4" />
-        </a>
-        <a
-          href="https://github.com/HYP3R00T"
-          target="_blank"
-          rel="noopener noreferrer"
-          class={cn(buttonVariants({ variant: "outline", size: "lg" }), "px-5")}
-        >
-          View GitHub
-          <Icon name="arrow-up-right" class="size-4" />
-        </a>
-      </div>
     </div>
-  </div>
-
-  <div class="min-w-0 lg:min-h-[38rem]">
-    <HomepageHeroVisual />
   </div>
 </SiteSection>

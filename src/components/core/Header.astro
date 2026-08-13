@@ -27,7 +27,7 @@ const isCurrent = (href: string) => href.startsWith("/") && (href === "/" ? path
     class="site-grid-frame grid min-h-16 grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(12rem,1fr)_auto_minmax(12rem,1fr)]"
   >
     <div class="flex min-w-0 items-center px-5 lg:px-8">
-      <a href="/" class="flex min-w-0 flex-row font-mono text-base md:text-lg" aria-label="Hyperoot home">
+      <a href="/" class="flex min-w-0 flex-row font-mono text-base md:text-lg" aria-label="Hyperoot Labs home">
         <AnimatedText client:load text="hyperoot" className="text-accent-1" auto={true} hover={true} />
         <div class="text-foreground-3">.dev</div>
       </a>
@@ -67,11 +67,10 @@ const isCurrent = (href: string) => href.startsWith("/") && (href === "/" ? path
             rel={contactItem.blank ? "noopener noreferrer" : undefined}
             class={cn(
               buttonVariants({ variant: "default" }),
-              "h-9 gap-1.5 border-0 bg-accent-1 px-4 text-accent-contrast hover:bg-accent-2",
+              "h-9 border-0 bg-accent-1 px-4 text-background-0 hover:bg-accent-2",
             )}
           >
             {contactItem.label}
-            {contactItem.blank && <Icon name="arrow-up-right" class="size-3.5" aria-hidden="true" />}
           </a>
         )
       }

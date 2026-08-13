@@ -6,7 +6,8 @@ const currentYear = new Date().getFullYear();
 const activeSocials = SOCIAL_LINKS.filter((social) => social.active);
 const utilityLinks = [
   { href: SITE.repo, label: "Source", blank: true },
-  { href: "https://rajeshdas.dev", label: "Contact", blank: true },
+  { href: "/#projects", label: "Catalog" },
+  { href: "https://rajeshdas.dev", label: "About the maker", blank: true },
 ];
 ---
 
@@ -19,7 +20,7 @@ const utilityLinks = [
         <span class="text-accent-1">hyperoot</span><span class="text-foreground-3">.dev</span>
       </a>
       <p class="mt-5 max-w-md text-base leading-7 text-foreground-2">
-        Open projects, practical tools, and engineering systems built to stay understandable and useful.
+        A focused catalog of developer tools, automation, infrastructure systems, and practical technical experiments.
       </p>
     </div>
 
@@ -31,8 +32,8 @@ const utilityLinks = [
             navItems.map((item) => (
               <a
                 href={item.href}
-                target={item.blank || item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.blank || item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                target={item.blank ? "_blank" : undefined}
+                rel={item.blank ? "noopener noreferrer" : undefined}
                 class="w-fit text-sm text-foreground-1 transition-colors hover:text-accent-1"
               >
                 {item.label}
