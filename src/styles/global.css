@@ -5,36 +5,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background-0: hsl(40, 18%, 97%);
-  --background-1: hsl(40, 14%, 94%);
-  --background-2: hsl(40, 10%, 87%);
-  --background-3: hsl(40, 8%, 82%);
-  --background-4: hsl(40, 7%, 68%);
-  --background-5: hsl(40, 6%, 58%);
+  /* Warm neutral surfaces with golden-ratio lightness intervals */
+  --background-0: oklch(0.9800 0.006 85);
+  --background-1: oklch(0.9543 0.006 85);
+  --background-2: oklch(0.9126 0.006 85);
+  --background-3: oklch(0.8453 0.006 85);
 
-  --foreground-3: hsl(220, 5%, 58%);
-  --foreground-2: hsl(220, 6%, 42%);
-  --foreground-1: hsl(220, 8%, 24%);
-  --foreground-0: hsl(220, 10%, 8%);
+  /* Cool neutral text, ordered from quiet to high emphasis */
+  --foreground-3: oklch(0.5300 0.012 250);
+  --foreground-2: oklch(0.5000 0.012 250);
+  --foreground-1: oklch(0.3500 0.012 250);
+  --foreground-0: oklch(0.2000 0.012 250);
 
-  --accent-0: hsl(197, 100%, 92%);
-  --accent-1: hsl(202, 100%, 36%);
-  --accent-2: hsl(205, 100%, 31%);
-  --accent-contrast: hsl(0, 0%, 100%);
+  /* Cyan-blue interaction family */
+  --accent-1: oklch(0.5400 0.110 245);
+  --accent-2: color-mix(in oklch, var(--accent-1), black 12%);
 
-  --hero-field-0: hsl(205, 74%, 91%);
-  --hero-field-1: hsl(196, 72%, 82%);
-  --hero-field-2: hsl(216, 68%, 87%);
-
-  --red-0: hsl(2, 68%, 44%);
-  --orange-0: hsl(28, 74%, 42%);
-  --yellow-0: hsl(42, 72%, 38%);
-  --green-0: hsl(140, 54%, 34%);
-  --teal-0: hsl(170, 64%, 34%);
-  --cyan-0: hsl(195, 66%, 40%);
-  --blue-0: hsl(220, 72%, 48%);
-  --purple-0: hsl(268, 62%, 48%);
-  --pink-0: hsl(334, 68%, 48%);
+  /* Semantic and chart colors balanced for light surfaces */
+  --red-0: oklch(0.5500 0.140 25);
+  --orange-0: oklch(0.5400 0.110 55);
+  --yellow-0: oklch(0.5300 0.100 85);
+  --green-0: oklch(0.5150 0.100 150);
+  --teal-0: oklch(0.5050 0.090 180);
+  --cyan-0: oklch(0.5100 0.090 220);
+  --blue-0: oklch(0.5300 0.130 260);
+  --purple-0: oklch(0.5200 0.140 300);
+  --pink-0: oklch(0.5500 0.140 355);
 
   --background: var(--background-0);
   --foreground: var(--foreground-0);
@@ -53,7 +49,7 @@
   --accent: var(--background-2);
   --accent-foreground: var(--foreground-0);
   --destructive: var(--red-0);
-  --destructive-foreground: var(--foreground-0);
+  --destructive-foreground: var(--background-0);
   --ring: var(--accent-1);
   --chart-1: var(--teal-0);
   --chart-2: var(--cyan-0);
@@ -80,45 +76,39 @@
 }
 
 .dark {
-  /* base */
-  --background-0: hsl(220, 10%, 3%);
-  --background-1: hsl(220, 8%, 9%);
-  --background-2: hsl(220, 7%, 17%);
-  --background-3: hsl(220, 6%, 20%);
-  --background-4: hsl(220, 6%, 32%);
-  --background-5: hsl(220, 5%, 42%);
+  /* Cool neutral surfaces with golden-ratio lightness intervals */
+  --background-0: oklch(0.1800 0.009 250);
+  --background-1: oklch(0.2057 0.009 250);
+  --background-2: oklch(0.2474 0.009 250);
+  --background-3: oklch(0.3147 0.009 250);
 
-  --foreground-3: hsl(220, 5%, 48%);
-  --foreground-2: hsl(220, 5%, 66%);
-  --foreground-1: hsl(40, 10%, 84%);
-  --foreground-0: hsl(40, 16%, 94%);
+  /* Warm primary text with cool supporting neutrals */
+  --foreground-3: oklch(0.6000 0.012 250);
+  --foreground-2: oklch(0.7200 0.012 250);
+  --foreground-1: oklch(0.8700 0.010 85);
+  --foreground-0: oklch(0.9500 0.008 85);
 
-  --accent-0: hsl(205, 64%, 18%);
-  --accent-1: hsl(197, 100%, 50%);
-  --accent-2: hsl(190, 100%, 62%);
-  --accent-contrast: hsl(220, 10%, 5%);
+  /* Brighter cyan-blue interaction family for dark surfaces */
+  --accent-1: oklch(0.7000 0.110 240);
+  --accent-2: color-mix(in oklch, var(--accent-1), white 10%);
 
-  --hero-field-0: hsl(205, 74%, 91%);
-  --hero-field-1: hsl(196, 72%, 82%);
-  --hero-field-2: hsl(216, 68%, 87%);
-
-  /* colors */
-  --red-0: hsl(2, 82%, 68%);
-  --orange-0: hsl(28, 86%, 66%);
-  --yellow-0: hsl(43, 88%, 66%);
-  --green-0: hsl(142, 72%, 60%);
-  --teal-0: hsl(170, 78%, 58%);
-  --cyan-0: hsl(193, 86%, 64%);
-  --blue-0: hsl(218, 96%, 70%);
-  --purple-0: hsl(266, 82%, 74%);
-  --pink-0: hsl(334, 86%, 72%);
+  /* Semantic and chart colors balanced for dark surfaces */
+  --red-0: oklch(0.7000 0.120 25);
+  --orange-0: oklch(0.7600 0.100 60);
+  --yellow-0: oklch(0.8200 0.100 90);
+  --green-0: oklch(0.7600 0.120 150);
+  --teal-0: oklch(0.7800 0.100 180);
+  --cyan-0: oklch(0.7800 0.090 220);
+  --blue-0: oklch(0.7000 0.110 260);
+  --purple-0: oklch(0.7200 0.120 300);
+  --pink-0: oklch(0.7200 0.120 355);
 
   /* shadcn */
   --background: var(--background-0);
   --foreground: var(--foreground-0);
-  --muted: var(--background-4);
-  --muted-foreground: var(--foreground-1);
-  --border: var(--background-1);
+  --muted: var(--background-2);
+  --muted-foreground: var(--foreground-2);
+  --border: var(--background-2);
   --input: var(--background-3);
   --card: var(--background-1);
   --card-foreground: var(--foreground-0);
@@ -131,7 +121,7 @@
   --accent: var(--background-2);
   --accent-foreground: var(--foreground-0);
   --destructive: var(--red-0);
-  --destructive-foreground: var(--foreground-0);
+  --destructive-foreground: var(--background-0);
   --ring: var(--accent-1);
   --chart-1: var(--teal-0);
   --chart-2: var(--cyan-0);
@@ -176,10 +166,8 @@
   --color-blue-0: var(--blue-0);
   --color-purple-0: var(--purple-0);
   --color-pink-0: var(--pink-0);
-  --color-accent-0: var(--accent-0);
   --color-accent-1: var(--accent-1);
   --color-accent-2: var(--accent-2);
-  --color-accent-contrast: var(--accent-contrast);
 
   /* Shadcn */
   --color-background: var(--background);
@@ -322,7 +310,7 @@ body[data-focus-mode="true"] .focus-mode-only {
   }
 
   ::selection {
-    @apply bg-accent-1 text-accent-contrast;
+    @apply bg-accent-1 text-background-0;
   }
 
   ::-webkit-scrollbar {
@@ -406,13 +394,13 @@ body[data-focus-mode="true"] .focus-mode-only {
     @apply mt-0;
   }
 
-  .prose p + p {
+  .prose p+p {
     @apply mt-5;
   }
 
-  .prose p + :is(ul, ol, blockquote, pre, table, hr, div, a),
-  .prose :is(ul, ol, blockquote, pre, table, hr, div, a) + p,
-  .prose :is(ul, ol, blockquote, pre, table, hr, div, a) + :is(ul, ol, blockquote, pre, table, hr, div, a) {
+  .prose p+ :is(ul, ol, blockquote, pre, table, hr, div, a),
+  .prose :is(ul, ol, blockquote, pre, table, hr, div, a)+p,
+  .prose :is(ul, ol, blockquote, pre, table, hr, div, a)+ :is(ul, ol, blockquote, pre, table, hr, div, a) {
     @apply mt-7;
   }
 
@@ -441,7 +429,7 @@ body[data-focus-mode="true"] .focus-mode-only {
     @apply text-foreground-3;
   }
 
-  .prose li + li {
+  .prose li+li {
     @apply mt-1;
   }
 
@@ -485,11 +473,11 @@ body[data-focus-mode="true"] .focus-mode-only {
     @apply mt-2 text-foreground-1;
   }
 
-  .prose .callout-body > :first-child {
+  .prose .callout-body> :first-child {
     @apply mt-0;
   }
 
-  .prose .callout-body > :last-child {
+  .prose .callout-body> :last-child {
     @apply mb-0;
   }
 
@@ -545,6 +533,44 @@ body[data-focus-mode="true"] .focus-mode-only {
   }
 }
 
+.dashed-grid-cell {
+  position: relative;
+}
+
+.dashed-grid-cell::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  height: 1px;
+  pointer-events: none;
+  content: "";
+  background-image: repeating-linear-gradient(to right,
+      var(--border) 0,
+      var(--border) 4px,
+      transparent 4px,
+      transparent 12px);
+}
+
+@media (min-width: 48rem) {
+  .dashed-grid-cell::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 1px;
+    pointer-events: none;
+    content: "";
+    background-image: repeating-linear-gradient(to bottom,
+        var(--border) 0,
+        var(--border) 4px,
+        transparent 4px,
+        transparent 12px);
+  }
+}
+
 /* Interactive Dot Pattern */
 .dot-pattern-interactive {
   --dot-size: 1px;
@@ -568,22 +594,18 @@ body[data-focus-mode="true"] .focus-mode-only {
 }
 
 .dot-pattern-interactive::before {
-  background-image: radial-gradient(
-    circle,
-    color-mix(in hsl, var(--secondary-foreground) 5%, transparent) var(--dot-size),
-    transparent calc(var(--dot-size) + 0.6px)
-  );
+  background-image: radial-gradient(circle,
+      color-mix(in oklch, var(--secondary-foreground) 5%, transparent) var(--dot-size),
+      transparent calc(var(--dot-size) + 0.6px));
   background-size: var(--dot-grid) var(--dot-grid);
   opacity: 0.3;
   z-index: 0;
 }
 
 .dot-pattern-interactive::after {
-  background-image: radial-gradient(
-    circle,
-    color-mix(in hsl, var(--foreground) 20%, transparent) var(--dot-size),
-    transparent calc(var(--dot-size) + 0.6px)
-  );
+  background-image: radial-gradient(circle,
+      color-mix(in oklch, var(--foreground) 20%, transparent) var(--dot-size),
+      transparent calc(var(--dot-size) + 0.6px));
   background-size: var(--dot-grid) var(--dot-grid);
   mask-image: radial-gradient(circle var(--dot-spot-size) at var(--dot-mx) var(--dot-my), black 0%, transparent 78%);
   opacity: calc(0.5 * var(--dot-highlight-opacity));
@@ -591,7 +613,7 @@ body[data-focus-mode="true"] .focus-mode-only {
   z-index: 0;
 }
 
-.dot-pattern-interactive > * {
+.dot-pattern-interactive>* {
   position: relative;
   z-index: 1;
 }
@@ -603,7 +625,7 @@ mjx-container[jax="SVG"] {
   vertical-align: baseline;
 }
 
-mjx-container[jax="SVG"] > svg {
+mjx-container[jax="SVG"]>svg {
   display: inline-block;
   max-width: none !important;
   height: auto;

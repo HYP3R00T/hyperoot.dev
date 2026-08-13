@@ -14,9 +14,9 @@ const href = `/${project.id}/`;
 const hasPage = project.data.hasPage;
 const domains = project.data.domains.map((domain) => domain.toLowerCase()).join("|");
 const imageAlt = project.data.imageAlt ?? `${project.data.title} project preview`;
-const imageClasses = "project-card-image block h-full w-full object-cover";
-const actionClasses = "inline-flex size-9 items-center justify-center rounded-md border border-border bg-background-1 text-foreground-2 transition-colors hover:border-accent-1 hover:bg-accent-1 hover:text-accent-contrast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
-const caseStudyClasses = "group/case-study inline-flex h-9 items-center gap-2 rounded-md bg-accent-1 px-3 font-mono text-[0.625rem] tracking-[0.1em] text-accent-contrast uppercase transition-colors hover:bg-accent-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
+const primaryHref = hasPage ? href : project.data.website ?? project.data.sourceRepo;
+const primaryExternal = !hasPage && Boolean(primaryHref);
+const actionClasses = "inline-flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-background-1 text-foreground-1 transition-colors duration-200 ease-out hover:border-accent-1 hover:bg-accent-1 hover:text-background-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 ---
 
 <article
@@ -24,71 +24,118 @@ const caseStudyClasses = "group/case-study inline-flex h-9 items-center gap-2 ro
   data-project-domains={domains}
   data-featured-candidate={project.data.featured ? "true" : "false"}
   class:list={[
-    "project-archive-card group/card flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-border bg-background-0",
+    "project-archive-card dashed-grid-cell group h-full min-w-0 overflow-hidden bg-background-0 p-5 transition-colors duration-200 ease-out hover:bg-background-1 motion-reduce:transition-none md:p-8 xl:p-10",
     project.data.featured && "is-featured",
   ]}
 >
-  <div class="aspect-video overflow-hidden bg-background-2 leading-none">
-    {
-      hasPage ? (
-        <a href={href} data-project-case-study-link class="block h-full" aria-label={`Read the ${project.data.title} case study`}>
-          <Image src={image} alt={imageAlt} class={imageClasses} widths={[480, 720, 960]} sizes="(max-width: 767px) calc(100vw - 4.5rem), (max-width: 1199px) calc(50vw - 5rem), 25rem" />
-        </a>
-      ) : (
-        <Image src={image} alt={imageAlt} class={imageClasses} widths={[480, 720, 960]} sizes="(max-width: 767px) calc(100vw - 4.5rem), (max-width: 1199px) calc(50vw - 5rem), 25rem" />
-      )
-    }
-  </div>
-
-  <div class="flex min-w-0 flex-1 flex-col p-5">
-    <h3 class="line-clamp-2 font-display text-[1.375rem] leading-tight font-medium tracking-[-0.02em] text-foreground-0">
+  <div class="grid min-w-0 sm:min-h-52 sm:grid-cols-[13rem_minmax(0,1fr)] xl:min-h-60 xl:grid-cols-[15rem_minmax(0,1fr)]">
+    <div class="aspect-square overflow-hidden bg-background-2 sm:aspect-auto sm:h-full">
       {
-        hasPage ? (
-          <a href={href} data-project-case-study-link class="transition-colors hover:text-accent-1">
-            {project.data.title}
+        primaryHref ? (
+          <a
+            href={primaryHref}
+            target={primaryExternal ? "_blank" : undefined}
+            rel={primaryExternal ? "noopener noreferrer" : undefined}
+            data-project-case-study-link={hasPage ? true : undefined}
+            class="block h-full"
+            aria-label={`Open ${project.data.title}`}
+          >
+            <Image
+              src={image}
+              alt={imageAlt}
+              class="project-card-image h-full w-full object-cover object-center"
+              width={240}
+              height={240}
+              widths={[320, 480, 640, 960, 1280]}
+              sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1279px) 13rem, 15rem"
+              fit="cover"
+              position="center"
+              quality="max"
+            />
           </a>
         ) : (
-          project.data.title
-        )
-      }
-    </h3>
-    <p class="mt-3 line-clamp-3 text-sm leading-6 text-foreground-2">{project.data.description}</p>
-
-    <div class="mt-auto flex items-center justify-between gap-4 pt-5">
-      <div class="flex min-w-0 items-center gap-2" aria-label={`${project.data.title} external links`}>
-        {
-          project.data.sourceRepo && (
-            <a href={project.data.sourceRepo} target="_blank" rel="noopener noreferrer" class={actionClasses} aria-label={`View ${project.data.title} on GitHub`} title="View GitHub repository">
-              <Icon name="github" class="size-4" aria-hidden="true" />
-            </a>
-          )
-        }
-        {
-          project.data.website && (
-            <a href={project.data.website} target="_blank" rel="noopener noreferrer" class={actionClasses} aria-label={`Open ${project.data.title} documentation or website`} title="Open documentation or website">
-              <Globe class="size-4" aria-hidden="true" />
-            </a>
-          )
-        }
-      </div>
-
-      {
-        hasPage && (
-          <a href={href} data-project-case-study-link class={caseStudyClasses} aria-label={`Read the ${project.data.title} case study`}>
-            <span>Case study</span>
-            <Icon name="arrow-right" class="size-4 transition-transform group-hover/case-study:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
-          </a>
+          <Image
+            src={image}
+            alt={imageAlt}
+            class="project-card-image h-full w-full object-cover object-center"
+            width={240}
+            height={240}
+            widths={[320, 480, 640, 960, 1280]}
+            sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1279px) 13rem, 15rem"
+            fit="cover"
+            position="center"
+            quality="max"
+          />
         )
       }
     </div>
+
+    <div class="flex min-w-0 flex-col pt-6 sm:pt-0 sm:pl-7 xl:pl-8">
+      <h3 class="project-card__title line-clamp-2 font-display text-[1.375rem] leading-tight font-medium tracking-[-0.02em] text-foreground-0 transition-colors duration-200 ease-out motion-reduce:transition-none">
+        {
+          primaryHref ? (
+            <a
+              href={primaryHref}
+              target={primaryExternal ? "_blank" : undefined}
+              rel={primaryExternal ? "noopener noreferrer" : undefined}
+              data-project-case-study-link={hasPage ? true : undefined}
+            >
+              {project.data.title}
+            </a>
+          ) : (
+            project.data.title
+          )
+        }
+      </h3>
+      <p class="mt-3 line-clamp-3 text-sm leading-6 text-foreground-2">{project.data.description}</p>
+
+      <div class="mt-auto flex items-center justify-between gap-4 pt-5">
+        <div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.625rem] tracking-[0.14em] uppercase">
+          <span class="project-card__featured text-foreground-2">Featured project</span>
+          <span class="line-clamp-1 text-foreground-3">{project.data.domains.join(" · ") || "Project"}</span>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-2" aria-label={`${project.data.title} links`}>
+          {project.data.sourceRepo && (
+            <a href={project.data.sourceRepo} target="_blank" rel="noopener noreferrer" class={actionClasses} aria-label={`View ${project.data.title} on GitHub`}>
+              <Icon name="github" class="size-4" aria-hidden="true" />
+            </a>
+          )}
+          {project.data.website && (
+            <a href={project.data.website} target="_blank" rel="noopener noreferrer" class={actionClasses} aria-label={`Open ${project.data.title} website`}>
+              <Globe class="size-4" aria-hidden="true" />
+            </a>
+          )}
+          {hasPage && (
+            <a href={href} data-project-case-study-link class={actionClasses} aria-label={`Read the ${project.data.title} case study`}>
+              <Icon name="arrow-right" class="size-4" aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
   </div>
 </article>
+
+<style>
+  .project-card__featured {
+    display: none;
+  }
+
+  .project-archive-card.is-featured .project-card__featured {
+    display: inline;
+  }
+
+  .project-archive-card:hover .project-card__title {
+    color: var(--accent-1);
+  }
+</style>
 
 <style is:global>
   .project-archive-card .project-card-image {
     transform: scale(1);
     transform-origin: center;
-    transition: transform 400ms cubic-bezier(0.2, 0, 0, 1);
+    transition: transform 200ms ease-out;
   }
 
   .project-archive-card:hover .project-card-image {
