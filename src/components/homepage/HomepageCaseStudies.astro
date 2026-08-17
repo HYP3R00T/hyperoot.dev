@@ -4,17 +4,12 @@ import { getCollection } from "astro:content";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "astro-icon/components";
-import placeholder1 from "@/assets/placeholder1.png";
-import placeholder2 from "@/assets/placeholder2.png";
-import placeholder3 from "@/assets/placeholder3.png";
-import placeholder4 from "@/assets/placeholder4.png";
-import placeholder5 from "@/assets/placeholder5.png";
+import placeholder from "@/assets/placeholder.png";
 
 const allProjects = await getCollection("projects");
 const projects = allProjects
   .filter((project) => !project.data.draft)
   .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
-const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
 const projectTags = ["Web", "DevOps", "Automation", "Infrastructure", "Developer Tools", "Content", "Data/AI"];
 
 const normalizeTag = (tag: string) => tag.toLowerCase();
@@ -67,10 +62,10 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
 
       <div class="grid gap-6 pt-6 md:grid-cols-2 xl:grid-cols-3" data-project-grid>
         {
-          projects.map((project, index) => {
+          projects.map((project) => {
             const hasPage = project.data.hasPage !== false;
             const href = `/${project.id}/`;
-            const image = project.data.images?.[0] ?? projectImages[index % projectImages.length] ?? placeholder1;
+            const image = project.data.images?.[0] ?? placeholder;
             const tags = project.data.domains.map(normalizeTag).join("|");
 
             return (

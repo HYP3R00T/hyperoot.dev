@@ -4,13 +4,7 @@ import SectionHeader from "@/components/core/SectionHeader.astro";
 import SiteSection from "@/components/core/SiteSection.astro";
 import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro";
 import { ProjectDomainFilter } from "@/components/homepage/ProjectDomainFilter";
-import placeholder1 from "@/assets/placeholder1.png";
-import placeholder2 from "@/assets/placeholder2.png";
-import placeholder3 from "@/assets/placeholder3.png";
-import placeholder4 from "@/assets/placeholder4.png";
-import placeholder5 from "@/assets/placeholder5.png";
-
-const projectImages = [placeholder1, placeholder2, placeholder3, placeholder4, placeholder5] as const;
+import placeholder from "@/assets/placeholder.png";
 const projects = await getCollection("projects").then((entries) =>
   entries
     .filter((entry) => !entry.data.draft)
@@ -44,11 +38,8 @@ const domains = [...domainCounts.entries()]
 
   <div id="projects-grid" class="grid items-stretch bg-background-0 xl:grid-cols-2">
     {
-      projects.map((project, index) => (
-        <ProjectArchiveCard
-          project={project}
-          image={project.data.images?.[0] ?? projectImages[index % projectImages.length] ?? placeholder1}
-        />
+      projects.map((project) => (
+        <ProjectArchiveCard project={project} image={project.data.images?.[0] ?? placeholder} />
       ))
     }
   </div>

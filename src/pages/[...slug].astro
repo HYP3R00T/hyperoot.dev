@@ -12,7 +12,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { estimateReadTime, formatMonthYearRange } from "@/lib/utils";
 import { SITE } from "@data/config";
-import placeholder1 from "@/assets/placeholder1.png";
+import placeholder from "@/assets/placeholder.png";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props as Props;
 const { Content, headings } = await render(project);
-const heroImage = project.data.images?.[0] ?? placeholder1;
+const heroImage = project.data.images?.[0] ?? placeholder;
 const readTime = project.body ? estimateReadTime(project.body) : 4;
 const visibility = project.data.private ? "Private" : project.data.openSource ? "Open source" : "Public";
 const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate);
