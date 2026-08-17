@@ -26,12 +26,12 @@ const domains = [...domainCounts.entries()]
   .sort((a, b) => a.label.localeCompare(b.label));
 ---
 
-<SiteSection id="projects" aria-label="Project catalog" data-projects-list>
+<SiteSection id="projects" aria-label="Selected projects" data-projects-list>
   <SectionHeader
-    eyebrow="Project catalog"
-    title="Tools, platforms, and experiments made to be used."
+    eyebrow="Selected work"
+    title="Open-source systems built for real work."
     titleId="projects-title"
-    description="Browse the complete Hyperoot catalog across developer tooling, automation, infrastructure, content systems, and applied AI."
+    description="Explore a focused set of operational platforms, developer tools, and automation projects chosen for their practical use, technical depth, or demonstrated impact."
   />
 
   <ProjectDomainFilter client:load domains={domains} projectCount={projects.length} />
