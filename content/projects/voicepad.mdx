@@ -1,61 +1,198 @@
 ---
-title: voicepad
-description: "Linux- and Wayland-native local transcription tool that preserves original audio alongside searchable text."
+title: VoicePad
+description: "Private, local-first dictation for Linux that preserves original audio alongside searchable text."
 icon: "monitor"
 order: 1
-technologies: ["Python", "Wayland", "Local AI", "Speech-to-Text"]
+technologies: ["Python", "Textual", "PyTorch", "Parakeet", "Silero VAD", "CUDA"]
 domains: ["Developer Tools", "Data/AI"]
 featured: true
 draft: false
 images: []
-imageAlt: "voicepad project preview"
+imageAlt: "VoicePad local transcription interface"
 openSource: true
 private: false
 sourceRepo: "https://github.com/HYP3R00T/voicepad"
-
-hasPage: false
+website: "https://voicepad.hyperoot.dev"
+hasPage: true
 ---
 
-## Summary
+> Every spoken answer I gave while reviewing the projects in this portfolio passed through VoicePad.
 
-Terminal-first voice note and transcription tool built with Python and Whisper.
+I built VoicePad because privacy is non-negotiable for me. I wanted dictation that runs entirely on my own
+machine, without sending recordings or transcripts to a hosted API. Local transcription alone was not enough,
+though. A transcript preserves words; it usually loses the pace, hesitation, emphasis, and emotion behind them.
 
-`voicepad` is a public/open-source project in the Developer Tools, Data/AI area of the Hyperoot project catalog. This case study is the place to explain the project beyond the repository link: the intent, constraints, implementation shape, and evidence that the work is useful.
+VoicePad therefore keeps both. The transcript gives me text I can search, edit, and paste into another
+application. The original audio remains available when I need to hear how I expressed the thought, not merely
+what the model thought I said.
 
-## Objective
+## The latency problem
 
-The objective is to make the project understandable to someone who did not watch it being built. A good case study should answer three questions quickly: what workflow does it improve, why was this approach chosen, and what can someone inspect or reuse today?
+The first difficult decision was deciding when transcription should happen.
 
-## Constraints
+Processing very small pieces of audio feels responsive, but the model receives too little context. Accuracy
+suffers, sentences fragment, and some output becomes unusable.
 
-The project should be documented with the real limits around it. That can include hosting cost, local hardware, private infrastructure boundaries, repeatability, security, maintainability, or the need to keep the workflow simple enough to revisit later.
+Waiting until the recording ends creates the opposite problem. The model receives the full context, but a
+ten-minute recording may need several more minutes of local processing on modest hardware. That is acceptable
+for offline transcription, but frustrating for dictation. When I stop speaking, I want text that is nearly ready
+to paste.
 
-## Design Decisions
+VoicePad needed a middle ground: enough context for reliable transcription without making me wait for the entire
+recording to be processed at the end.
 
-The current implementation sits in these domains: Developer Tools, Data/AI. The working stack includes Python, CLI, Whisper, Transcription. Expand this section with the decisions that shaped the project: why the stack fits, what was intentionally avoided, and which parts are designed to change over time.
+## An adaptive, incremental pipeline
 
-## Implementation
+VoicePad records and transcribes at the same time.
 
-Use this section for concrete implementation evidence:
+The microphone callback sends audio into a bounded persistence queue. A separate writer continuously commits it
+to a disk-backed WAV spool, making audio preservation independent of inference. If transcription slows down or
+fails, it does not get to decide whether the recording survives.
 
-- architecture diagrams or screenshots
-- important commands or workflows
-- folder structure and data flow notes
-- deployment, automation, or integration details
-- tradeoffs that would matter to another engineer
+Meanwhile, Silero VAD examines the committed audio on the CPU and identifies speech regions and natural pauses.
+Once a logical chunk reaches 25 seconds, the planner looks for the first confirmed pause. If no suitable pause
+appears, it forces a boundary at roughly 30 seconds so continuous speech cannot create an unbounded job.
 
-## Evidence
+The input sent to the model can be slightly longer because adjacent chunks share context. Natural boundaries can
+carry the previous pause-to-pause speech unit into the next chunk, capped at 12 seconds. A forced boundary uses a
+smaller two-second overlap.
 
-A genuine case study needs proof. Add anything that shows the project working: screenshots, terminal output, live URLs, package usage, uptime notes, before/after workflow comparisons, or examples of the project solving the problem it claims to solve.
+```text
+Microphone
+    ↓
+Bounded persistence queue
+    ↓
+Continuously written WAV
+    ├──→ CPU voice-activity detection
+    ├──→ Adaptive chunk planner
+    └──→ Resident CUDA transcription
+              ↓
+       Overlap reconciliation
+              ↓
+     Provisional text in the TUI
+```
 
-## Outcome
+The overlap matters because speech does not respect arbitrary timestamps. A word or phrase may cross a chunk
+boundary, and independent model calls may interpret that boundary differently. VoicePad compares timestamped
+words from the shared region and removes a duplicate only when the timing and text provide enough evidence. If
+the observations disagree, it preserves the uncertain text and records a warning instead of silently deleting
+content.
 
-The outcome for `voicepad` is a stable project page that connects the implementation to the reason it exists. The repository or live site shows the artifact; this page explains the thinking, constraints, and lessons behind it.
+The transcript shown while recording is provisional. Only the result produced after the remaining audio has been
+processed and checked is authoritative.
 
-## Next Steps
+## Audio is the source of truth
 
-Good follow-up material for this case study would include richer screenshots, a short architecture diagram, measurable results, and one or two implementation notes that could help someone reuse the idea.
+VoicePad treats the WAV recording as the durable artifact and the transcript as derived data.
+
+Audio is written continuously, flushed, and atomically promoted to its final file. Existing recordings and
+transcripts are never overwritten automatically. If final publication fails, the temporary spool remains
+recoverable.
+
+That priority also shapes failure behaviour:
+
+- Inference cannot block microphone persistence.
+- A failed inference read does not terminate the audio writer.
+- Disk backpressure stops capture explicitly instead of dropping audio silently.
+- Incomplete transcription is saved honestly and is never copied automatically.
+- Private logs contain timings, state changes, paths, and failures, but not audio or transcript text.
+
+This is more conservative than treating transcription as a simple model call, but it matches why I built
+VoicePad. I can regenerate text from preserved audio. I cannot reconstruct tone, emphasis, or a lost recording
+from a transcript.
+
+## Ready while I am speaking
+
+The current runtime uses NVIDIA's official Parakeet TDT 0.6B v3 model through PyTorch FP16 CUDA. VoicePad verifies
+the model artifacts, loads the model once, warms it, and keeps it resident while the terminal interface is open.
+After the first preparation, the runtime can start and transcribe offline.
+
+After each chunk is processed, provisional text appears in the TUI. When I stop recording, VoicePad only needs to
+drain the remaining speech-bearing tail, assemble the final text, persist the Markdown result, and optionally copy
+the complete transcription to the clipboard.
+
+That changes the experience of local transcription. A two-minute dictation does not become a two-minute job after
+I stop speaking; most of it has already been processed.
+
+### Measured on the maintained machine
+
+These measurements come from an RTX 3050 Laptop GPU with 4 GB of physical VRAM. They document one tested system,
+not a universal performance claim.
+
+| Measurement | Result |
+| --- | ---: |
+| Repeated warm inference on 30 seconds of audio | 0.168-0.234 seconds |
+| Mean across 49 warm runs | 0.181 seconds |
+| Complete 141.792-second finite pipeline | 6.2-6.5 seconds |
+| Resident GPU memory reported by `nvidia-smi` | About 1.46 GB |
+
+The complete benchmark method, artifact identities, and limitations are documented in the
+[transcription pipeline design](https://voicepad.hyperoot.dev/docs/designs/transcription-pipeline/).
+
+## From speech to any text field
+
+VoicePad stays open as a resident terminal application. I press Space to begin recording and Space again to stop.
+
+On Wayland, I can bind `voicepad toggle` to a compositor-managed global shortcut and control the same running
+session while another application has focus. VoicePad communicates with the TUI through a user-only local Unix
+socket and reports recording state through native desktop notifications.
+
+Once a complete result is available, VoicePad can copy it automatically. I return to the application I was using
+and paste the text into a message, document, issue, prompt, or form.
+
+The recording, Markdown transcript, model artifacts, and operational logs remain on my machine.
+
+## Evidence without inflated claims
+
+VoicePad has been my default dictation system for the past several months. That is the strongest evidence available
+today: it solves my own recurring problem and remains in active daily use.
+
+Earlier Whisper-based releases were published to PyPI. Package publication is currently frozen while the newer
+Parakeet runtime is qualified, so historical package downloads should not be presented as adoption of the current
+architecture. There are no third-party user numbers I can defend yet.
+
+The repository tests audio persistence, adaptive planning, overlap assembly, model lifecycle, artifact
+verification, failure recovery, clipboard rules, the TUI, and the local desktop-control path. CI enforces linting,
+formatting, type checking, and a coverage threshold. Hardware-dependent CUDA checks remain separate because a
+hosted runner cannot substitute for the physical system VoicePad claims to support.
+
+## What exists today
+
+VoicePad is an open-source alpha built for a deliberately narrow environment:
+
+- Linux x86_64
+- Python 3.13 or newer
+- NVIDIA CUDA
+- A tested physical GPU class of 4 GB VRAM or larger
+- Parakeet TDT 0.6B v3 through PyTorch FP16
+- Silero VAD running on the CPU
+
+There is no silent CPU transcription fallback. AMD GPUs and macOS are not supported, and the current architecture
+has not been revalidated on Windows. Unsupported hardware fails before recording begins instead of quietly
+switching to a slower or unverified path.
+
+This narrow target is intentional. I would rather maintain one path that I use and can measure than claim broad
+support I have not tested.
+
+## What I learned
+
+VoicePad began as a private dictation tool. The difficult part was not connecting a microphone to a speech model.
+It was deciding what the application must protect when components run at different speeds or fail independently.
+
+That led to the principles that now define the project:
+
+- Preserve audio before optimizing inference.
+- Process bounded work while recording continues.
+- Prefer natural speech boundaries over fixed slicing.
+- Treat live text as provisional.
+- Copy only a complete result.
+- Reject unsupported environments explicitly.
+- Measure one real deployment before promising several.
+
+The result is a tool shaped by actual use rather than a demonstration wrapped around a model.
 
 ## Links
 
-- Repository: [voicepad](https://github.com/HYP3R00T/voicepad)
+- [VoicePad documentation](https://voicepad.hyperoot.dev/)
+- [Source repository](https://github.com/HYP3R00T/voicepad)
+- [Published package history](https://pypi.org/project/voicepad/)
