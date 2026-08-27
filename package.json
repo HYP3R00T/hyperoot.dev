@@ -44,7 +44,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.5",
+    "@biomejs/biome": "2.5.9",
     "globals": "^17.11.0"
   }
 }
