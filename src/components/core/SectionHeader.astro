@@ -1,13 +1,13 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes } from "astro/types"
 
 interface Props extends HTMLAttributes<"header"> {
-  eyebrow: string;
-  title: string;
-  titleId: string;
-  description: string;
-  headingLevel?: 1 | 2;
-  transitionName?: string;
+  eyebrow: string
+  title: string
+  titleId: string
+  description: string
+  headingLevel?: 1 | 2
+  transitionName?: string
 }
 
 const {
@@ -19,9 +19,9 @@ const {
   transitionName,
   class: className,
   ...attributes
-} = Astro.props as Props;
-const Heading = headingLevel === 1 ? "h1" : "h2";
-const hasAction = Astro.slots.has("action");
+} = Astro.props as Props
+const Heading = headingLevel === 1 ? "h1" : "h2"
+const hasAction = Astro.slots.has("action")
 ---
 
 <header
@@ -34,13 +34,11 @@ const hasAction = Astro.slots.has("action");
   <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase lg:col-start-1 lg:row-start-1">
     {eyebrow}
   </p>
-  {
-    hasAction && (
-      <div class="justify-self-start lg:col-start-2 lg:row-start-1 lg:justify-self-end">
-        <slot name="action" />
-      </div>
-    )
-  }
+  {hasAction && (
+    <div class="justify-self-start lg:col-start-2 lg:row-start-1 lg:justify-self-end">
+      <slot name="action" />
+    </div>
+  )}
   <Heading
     id={titleId}
     transition:name={transitionName}
@@ -49,7 +47,9 @@ const hasAction = Astro.slots.has("action");
     {title}
   </Heading>
 
-  <p class="max-w-xl text-base leading-7 text-foreground-2 md:text-lg md:leading-8 lg:col-start-2 lg:row-start-2 lg:mt-5 lg:justify-self-end">
+  <p
+    class="max-w-xl text-base leading-7 text-foreground-2 md:text-lg md:leading-8 lg:col-start-2 lg:row-start-2 lg:mt-5 lg:justify-self-end"
+  >
     {description}
   </p>
 </header>

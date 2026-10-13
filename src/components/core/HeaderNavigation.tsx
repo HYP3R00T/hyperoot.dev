@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon } from 'lucide-react'
+import { ArrowUpRightIcon } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -6,8 +6,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-import type { NavItem } from '@/lib/types'
+} from "@/components/ui/navigation-menu"
+import type { NavItem } from "@/lib/types"
 
 interface HeaderNavigationProps {
   navItems: NavItem[]
@@ -25,10 +25,10 @@ function MenuEntry({ item }: { item: NavItem }) {
             <div className="grid gap-1 grid-cols-[repeat(auto-fit,minmax(11rem,1fr))]">
               {item.children.map((child) => (
                 <NavigationMenuLink
-                  key={[item.label, child.label, child.href].join('::')}
+                  key={[item.label, child.label, child.href].join("::")}
                   href={child.href}
-                  target={child.blank ? '_blank' : undefined}
-                  rel={child.blank ? 'noopener noreferrer' : undefined}
+                  target={child.blank ? "_blank" : undefined}
+                  rel={child.blank ? "noopener noreferrer" : undefined}
                   className="group/item rounded-md px-3 py-3 hover:bg-background-0/50 focus:bg-background-0/15"
                 >
                   <span className="flex items-center gap-2 font-display text-base leading-tight text-foreground-0 transition-colors group-hover/item:text-accent-1">
@@ -50,8 +50,8 @@ function MenuEntry({ item }: { item: NavItem }) {
     <NavigationMenuItem>
       <NavigationMenuLink
         href={item.href}
-        target={item.blank ? '_blank' : undefined}
-        rel={item.blank ? 'noopener noreferrer' : undefined}
+        target={item.blank ? "_blank" : undefined}
+        rel={item.blank ? "noopener noreferrer" : undefined}
         className="group/top-link px-4 py-2 text-sm text-foreground-2 hover:bg-transparent hover:text-accent-1 focus:bg-transparent focus:text-accent-1"
       >
         <span className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export default function HeaderNavigation({ navItems }: HeaderNavigationProps) {
     <NavigationMenu viewport={false} className="font-mono">
       <NavigationMenuList>
         {navItems.map((item) => (
-          <MenuEntry key={[item.label, item.href].join('::')} item={item} />
+          <MenuEntry key={[item.label, item.href].join("::")} item={item} />
         ))}
       </NavigationMenuList>
     </NavigationMenu>

@@ -1,47 +1,52 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection, render, type CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
-import DesktopContentToc from "@/components/common/DesktopContentToc";
-import FocusModeToggle from "@/components/common/FocusModeToggle.astro";
-import MobileContentMeta from "@/components/common/MobileContentMeta.astro";
-import SectionHeader from "@/components/core/SectionHeader.astro";
-import SiteSection from "@/components/core/SiteSection.astro";
-import BackButton from "@/components/ui/BackButton.astro";
-import { Button, buttonVariants } from "@/components/ui/button";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { estimateReadTime, formatMonthYearRange } from "@/lib/utils";
-import { SITE } from "@data/config";
-import placeholder from "@/assets/placeholder.png";
+import { Image } from "astro:assets"
+import { type CollectionEntry, getCollection, render } from "astro:content"
+import { SITE } from "@data/config"
+import { Icon } from "astro-icon/components"
+import placeholder from "@/assets/placeholder.png"
+import DesktopContentToc from "@/components/common/DesktopContentToc"
+import FocusModeToggle from "@/components/common/FocusModeToggle.astro"
+import MobileContentMeta from "@/components/common/MobileContentMeta.astro"
+import SectionHeader from "@/components/core/SectionHeader.astro"
+import SiteSection from "@/components/core/SiteSection.astro"
+import BackButton from "@/components/ui/BackButton.astro"
+import { Button, buttonVariants } from "@/components/ui/button"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { estimateReadTime, formatMonthYearRange } from "@/lib/utils"
 
 interface Props {
-  project: CollectionEntry<"projects">;
+  project: CollectionEntry<"projects">
 }
 
 export async function getStaticPaths() {
-  const projects = await getCollection("projects");
+  const projects = await getCollection("projects")
   return projects
     .filter((project) => !project.data.draft && project.data.hasPage)
-    .map((project) => ({ params: { slug: project.id }, props: { project } }));
+    .map((project) => ({ params: { slug: project.id }, props: { project } }))
 }
 
-const { project } = Astro.props as Props;
-const { Content, headings } = await render(project);
-const heroImage = project.data.images?.[0] ?? placeholder;
-const readTime = project.body ? estimateReadTime(project.body) : 4;
-const visibility = project.data.private ? "Private" : project.data.openSource ? "Open source" : "Public";
-const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate);
-const visibleHeadings = headings.filter((heading) => heading.depth > 1 && heading.depth < 4);
+const { project } = Astro.props as Props
+const { Content, headings } = await render(project)
+const heroImage = project.data.images?.[0] ?? placeholder
+const readTime = project.body ? estimateReadTime(project.body) : 4
+const visibility = project.data.private ? "Private" : project.data.openSource ? "Open source" : "Public"
+const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate)
+const visibleHeadings = headings.filter((heading) => heading.depth > 1 && heading.depth < 4)
 const mobileMetaItems = [
   { label: "Visibility", value: visibility },
   { label: "Read time", value: `${readTime} min` },
   { label: "Domains", value: project.data.domains.join(" · ") || "Project" },
   ...(projectDates ? [{ label: "Timeline", value: projectDates }] : []),
   { label: "Author", value: SITE.author },
-];
+]
 ---
 
-<BaseLayout title={project.data.title} description={project.data.description} image={heroImage} imageAlt={project.data.imageAlt}>
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  image={heroImage}
+  imageAlt={project.data.imageAlt}
+>
   <section aria-labelledby="project-title" data-focus-introduction>
     <div class="site-grid-frame">
       <SectionHeader
@@ -82,58 +87,61 @@ const mobileMetaItems = [
             <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Read time</dt>
             <dd class="mt-1.5 text-sm text-foreground-1">{readTime} min</dd>
           </div>
-          {
-            projectDates && (
-              <div class="col-span-2">
-                <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Timeline</dt>
-                <dd class="mt-1.5 text-sm text-foreground-1">{projectDates}</dd>
-              </div>
-            )
-          }
+          {projectDates && (
+            <div class="col-span-2">
+              <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Timeline</dt>
+              <dd class="mt-1.5 text-sm text-foreground-1">{projectDates}</dd>
+            </div>
+          )}
           <div class="col-span-2">
             <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Domains</dt>
             <dd class="mt-1.5 text-sm leading-6 text-foreground-1">{project.data.domains.join(" · ") || "Project"}</dd>
           </div>
-          {
-            project.data.technologies.length > 0 && (
-              <div class="col-span-2">
-                <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Stack</dt>
-                <dd class="mt-1.5 text-sm leading-6 text-foreground-1">{project.data.technologies.join(" · ")}</dd>
-              </div>
-            )
-          }
+          {project.data.technologies.length > 0 && (
+            <div class="col-span-2">
+              <dt class="font-mono text-[0.625rem] tracking-[0.12em] text-foreground-3 uppercase">Stack</dt>
+              <dd class="mt-1.5 text-sm leading-6 text-foreground-1">{project.data.technologies.join(" · ")}</dd>
+            </div>
+          )}
         </dl>
 
         <div class="mt-5 grid gap-2">
-          {
-            project.data.website && (
-              <a href={project.data.website} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: "outline" })}>
-                Live project
-                <Icon name="arrow-up-right" class="size-4" />
-              </a>
-            )
-          }
-          {
-            project.data.sourceRepo && (
-              <a href={project.data.sourceRepo} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: "outline" })}>
-                View source
-                <Icon name="arrow-up-right" class="size-4" />
-              </a>
-            )
-          }
+          {project.data.website && (
+            <a
+              href={project.data.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={buttonVariants({ variant: "outline" })}
+            >
+              Live project
+              <Icon name="arrow-up-right" class="size-4" />
+            </a>
+          )}
+          {project.data.sourceRepo && (
+            <a
+              href={project.data.sourceRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={buttonVariants({ variant: "outline" })}
+            >
+              View source
+              <Icon name="arrow-up-right" class="size-4" />
+            </a>
+          )}
         </div>
 
-        <Button data-share-button className="relative mt-2 w-full border-0 bg-accent-1 px-10 text-accent-contrast hover:bg-accent-2">
+        <Button
+          data-share-button
+          className="relative mt-2 w-full border-0 bg-accent-1 px-10 text-accent-contrast hover:bg-accent-2"
+        >
           <span>Share project</span>
           <Icon name="arrow-up-right" class="absolute right-3 size-4" />
         </Button>
       </div>
 
-      {
-        visibleHeadings.length > 0 && (
-          <DesktopContentToc client:load headings={visibleHeadings} label="Project sections" variant="sidebar" />
-        )
-      }
+      {visibleHeadings.length > 0 && (
+        <DesktopContentToc client:load headings={visibleHeadings} label="Project sections" variant="sidebar" />
+      )}
     </aside>
 
     <article class="min-w-0" data-focus-reading-content>
@@ -154,22 +162,33 @@ const mobileMetaItems = [
       <div class="border-t border-border px-5 py-10 md:px-10 md:py-12 lg:hidden" data-focus-mobile-meta>
         <BackButton href="/#projects" label="Back to projects" dataProjectBack />
         <div class="mt-5 grid gap-2 sm:grid-cols-2">
-          {
-            project.data.website && (
-              <a href={project.data.website} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: "outline" })}>
-                Live project <Icon name="arrow-up-right" class="size-4" />
-              </a>
-            )
-          }
-          {
-            project.data.sourceRepo && (
-              <a href={project.data.sourceRepo} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: "outline" })}>
-                View source <Icon name="arrow-up-right" class="size-4" />
-              </a>
-            )
-          }
+          {project.data.website && (
+            <a
+              href={project.data.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={buttonVariants({ variant: "outline" })}
+            >
+              Live project <Icon name="arrow-up-right" class="size-4" />
+            </a>
+          )}
+          {project.data.sourceRepo && (
+            <a
+              href={project.data.sourceRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={buttonVariants({ variant: "outline" })}
+            >
+              View source <Icon name="arrow-up-right" class="size-4" />
+            </a>
+          )}
         </div>
-        <MobileContentMeta label="Project details" items={mobileMetaItems} tags={project.data.technologies} shareLabel="Share project" />
+        <MobileContentMeta
+          label="Project details"
+          items={mobileMetaItems}
+          tags={project.data.technologies}
+          shareLabel="Share project"
+        />
       </div>
 
       <div class="focus-mode-only justify-end border-t border-border px-5 py-6 md:px-10 lg:px-12 xl:px-16">
@@ -180,80 +199,87 @@ const mobileMetaItems = [
 </BaseLayout>
 
 <script>
-  const setupProjectBackLinks = () => {
-    const links = document.querySelectorAll<HTMLAnchorElement>("[data-project-back]");
-    if (links.length === 0) return;
-    try {
-      const storedUrl = window.sessionStorage.getItem("projectArchiveReturnUrl");
-      if (!storedUrl) return;
-      const returnUrl = new URL(storedUrl);
-      if (returnUrl.origin !== window.location.origin || returnUrl.pathname !== "/" || returnUrl.hash !== "#projects") return;
-      for (const link of links) link.href = returnUrl.toString();
-    } catch {
-      // The fallback project archive link remains valid.
-    }
-  };
+const setupProjectBackLinks = () => {
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-project-back]")
+  if (links.length === 0) return
+  try {
+    const storedUrl = window.sessionStorage.getItem("projectArchiveReturnUrl")
+    if (!storedUrl) return
+    const returnUrl = new URL(storedUrl)
+    if (returnUrl.origin !== window.location.origin || returnUrl.pathname !== "/" || returnUrl.hash !== "#projects")
+      return
+    for (const link of links) link.href = returnUrl.toString()
+  } catch {
+    // The fallback project archive link remains valid.
+  }
+}
 
-  const setupShareButton = () => {
-    document.querySelectorAll<HTMLElement>("[data-share-button]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const url = window.location.href;
-        const title = document.title;
-        if (navigator.share) {
-          try {
-            await navigator.share({ title, url });
-          } catch {
-            // Sharing was dismissed.
-          }
-          return;
-        }
+const setupShareButton = () => {
+  document.querySelectorAll<HTMLElement>("[data-share-button]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const url = window.location.href
+      const title = document.title
+      if (navigator.share) {
         try {
-          await navigator.clipboard.writeText(url);
-          const originalText = button.innerHTML;
-          button.innerHTML = "Copied";
-          window.setTimeout(() => {
-            button.innerHTML = originalText;
-          }, 1600);
+          await navigator.share({ title, url })
         } catch {
-          button.setAttribute("data-copy-failed", "true");
+          // Sharing was dismissed.
         }
-      });
-    });
-  };
-
-  const setupActiveTableOfContents = () => {
-    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
-    if (links.length === 0) return;
-    const linkById = new Map(links.map((link) => [link.dataset.tocLink, link]));
-    const headings = Array.from(document.querySelectorAll<HTMLElement>(".prose :is(h2, h3)[id]")).filter((heading) => linkById.has(heading.id));
-    if (headings.length === 0) return;
-
-    const setActive = (id: string) => {
-      for (const link of links) {
-        const isActive = link.dataset.tocLink === id;
-        link.classList.toggle("border-accent-1", isActive);
-        link.classList.toggle("text-accent-1", isActive);
-        link.classList.toggle("translate-x-1", isActive);
-        link.classList.toggle("text-foreground-2", !isActive);
-        link.setAttribute("aria-current", isActive ? "location" : "false");
+        return
       }
-    };
+      try {
+        await navigator.clipboard.writeText(url)
+        const originalText = button.innerHTML
+        button.innerHTML = "Copied"
+        window.setTimeout(() => {
+          button.innerHTML = originalText
+        }, 1600)
+      } catch {
+        button.setAttribute("data-copy-failed", "true")
+      }
+    })
+  })
+}
 
-    setActive(headings[0].id);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        if (visible?.target instanceof HTMLElement) setActive(visible.target.id);
-      },
-      { rootMargin: "-22% 0px -62% 0px", threshold: [0, 1] },
-    );
-    headings.forEach((heading) => observer.observe(heading));
-    document.addEventListener("astro:before-swap", () => observer.disconnect(), { once: true });
-  };
+const setupActiveTableOfContents = () => {
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"))
+  if (links.length === 0) return
+  const linkById = new Map(links.map((link) => [link.dataset.tocLink, link]))
+  const headings = Array.from(document.querySelectorAll<HTMLElement>(".prose :is(h2, h3)[id]")).filter((heading) =>
+    linkById.has(heading.id),
+  )
+  if (headings.length === 0) return
 
-  document.addEventListener("astro:page-load", () => {
-    setupProjectBackLinks();
-    setupShareButton();
-    setupActiveTableOfContents();
-  });
+  const setActive = (id: string) => {
+    for (const link of links) {
+      const isActive = link.dataset.tocLink === id
+      link.classList.toggle("border-accent-1", isActive)
+      link.classList.toggle("text-accent-1", isActive)
+      link.classList.toggle("translate-x-1", isActive)
+      link.classList.toggle("text-foreground-2", !isActive)
+      link.setAttribute("aria-current", isActive ? "location" : "false")
+    }
+  }
+
+  setActive(headings[0].id)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+      if (visible?.target instanceof HTMLElement) setActive(visible.target.id)
+    },
+    { rootMargin: "-22% 0px -62% 0px", threshold: [0, 1] },
+  )
+  headings.forEach((heading) => {
+    observer.observe(heading)
+  })
+  document.addEventListener("astro:before-swap", () => observer.disconnect(), { once: true })
+}
+
+document.addEventListener("astro:page-load", () => {
+  setupProjectBackLinks()
+  setupShareButton()
+  setupActiveTableOfContents()
+})
 </script>

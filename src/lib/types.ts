@@ -1,5 +1,5 @@
-import type { CollectionEntry } from 'astro:content'
-import type { ImageMetadata } from 'astro'
+import type { CollectionEntry } from "astro:content"
+import type { ImageMetadata } from "astro"
 
 // For HeadSEO.astro
 export interface HeadSEOProps {
@@ -62,4 +62,4 @@ export interface FooterSocialLink {
   linkTitle: string
 }
 
-export type ProjectEntry = CollectionEntry<'projects'>
+export type ProjectEntry = CollectionEntry<"projects">

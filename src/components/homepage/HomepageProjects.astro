@@ -1,29 +1,30 @@
 ---
-import { getCollection } from "astro:content";
-import SectionHeader from "@/components/core/SectionHeader.astro";
-import SiteSection from "@/components/core/SiteSection.astro";
-import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro";
-import { ProjectDomainFilter } from "@/components/homepage/ProjectDomainFilter";
-import placeholder from "@/assets/placeholder.png";
+import { getCollection } from "astro:content"
+import placeholder from "@/assets/placeholder.png"
+import SectionHeader from "@/components/core/SectionHeader.astro"
+import SiteSection from "@/components/core/SiteSection.astro"
+import { ProjectDomainFilter } from "@/components/homepage/ProjectDomainFilter"
+import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro"
+
 const projects = await getCollection("projects").then((entries) =>
   entries
     .filter((entry) => !entry.data.draft)
     .sort((a, b) => {
-      const featuredDelta = Number(b.data.featured) - Number(a.data.featured);
-      return featuredDelta || (a.data.order ?? 999) - (b.data.order ?? 999);
+      const featuredDelta = Number(b.data.featured) - Number(a.data.featured)
+      return featuredDelta || (a.data.order ?? 999) - (b.data.order ?? 999)
     }),
-);
-const domainCounts = new Map<string, number>();
+)
+const domainCounts = new Map<string, number>()
 
 for (const project of projects) {
   for (const domain of project.data.domains) {
-    domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + 1);
+    domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + 1)
   }
 }
 
 const domains = [...domainCounts.entries()]
   .map(([label, count]) => ({ label, value: label.toLowerCase(), count }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+  .sort((a, b) => a.label.localeCompare(b.label))
 ---
 
 <SiteSection id="projects" aria-label="Selected projects" data-projects-list>
@@ -37,10 +38,8 @@ const domains = [...domainCounts.entries()]
   <ProjectDomainFilter client:load domains={domains} projectCount={projects.length} />
 
   <div id="projects-grid" class="grid items-stretch bg-background-0 xl:grid-cols-2">
-    {
-      projects.map((project) => (
-        <ProjectArchiveCard project={project} image={project.data.images?.[0] ?? placeholder} />
-      ))
-    }
+    {projects.map((project) => (
+      <ProjectArchiveCard project={project} image={project.data.images?.[0] ?? placeholder} />
+    ))}
   </div>
 </SiteSection>

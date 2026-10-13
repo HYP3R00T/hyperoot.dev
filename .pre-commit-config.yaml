@@ -27,11 +27,8 @@ repos:
       - id: rumdl-fmt
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: v2.5.0
+    rev: v2.5.15
     hooks:
       - id: biome-check
-        exclude: '\.astro$'
       - id: biome-format
-        exclude: '\.astro$'
       - id: biome-lint
-        exclude: '\.astro$'
