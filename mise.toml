@@ -31,6 +31,14 @@ run = "astro dev --host 0.0.0.0"
 description = "Sync Astro types and check TypeScript and Astro files"
 run = "pnpm exec astro check"
 
+[tasks.build]
+description = "Refresh repository metadata and build the site"
+run = "pnpm build"
+
+[tasks.projects-sync]
+description = "Refresh GitHub metadata for MDX projects"
+run = "pnpm projects:sync"
+
 [tasks.dicon]
 description = "Downloads an SVG from svgrepo and saves it to src/assets/icons/"
 run = "bash ./scripts/download-icon.sh"

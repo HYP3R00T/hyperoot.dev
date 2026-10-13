@@ -1,5 +1,6 @@
 import { defineCollection } from "astro:content"
 import { z } from "astro/zod"
+import { mergeProjectMetadata, readSnapshot, SNAPSHOT_PATH, syncRepositories } from "@/lib/github-projects.mjs"
 import { localContentLoader } from "@/lib/local-content-loader"
 
 const components = defineCollection({
@@ -12,9 +13,20 @@ const components = defineCollection({
 })
 
 const projects = defineCollection({
-  loader: localContentLoader({ base: "./content/projects" }),
+  loader: localContentLoader({
+    base: "./content/projects",
+    prepare: async (root) => {
+      await syncRepositories(root, { offline: process.env.PROJECTS_OFFLINE === "1" })
+    },
+    transformData: async (data, root) => {
+      const snapshot = await readSnapshot(root)
+      return mergeProjectMetadata(data, snapshot.repositories[String(data.repo).toLowerCase()])
+    },
+    watchFiles: [SNAPSHOT_PATH],
+  }),
   schema: ({ image }) =>
     z.object({
+      repo: z.string().regex(/^[a-z\d](?:[a-z\d-]*[a-z\d])?\/[a-z\d._-]+$/i),
       title: z.string(),
       description: z.string(),
       technologies: z.array(z.string()).default([]),
@@ -29,9 +41,31 @@ const projects = defineCollection({
       imageAlt: z.string().optional(),
       openSource: z.boolean().default(true),
       private: z.boolean().optional().default(false),
-      sourceRepo: z.string().optional(),
-      website: z.string().optional(),
+      sourceRepo: z.url().optional(),
+      website: z.url().optional(),
+      links: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
       hasPage: z.boolean().optional().default(false),
+      activity: z.enum(["recently-active", "quiet", "archived", "unknown"]),
+      syncStatus: z.enum(["fresh", "stale", "unavailable"]),
+      github: z
+        .object({
+          name: z.string(),
+          description: z.string(),
+          url: z.url(),
+          website: z.string().nullable(),
+          topics: z.array(z.string()),
+          language: z.string().nullable(),
+          stars: z.number().int().nonnegative(),
+          forks: z.number().int().nonnegative(),
+          createdAt: z.iso.datetime(),
+          pushedAt: z.iso.datetime().nullable(),
+          archived: z.boolean(),
+          fork: z.boolean(),
+          template: z.boolean(),
+          license: z.string().nullable(),
+          fetchedAt: z.iso.datetime(),
+        })
+        .optional(),
     }),
 })
 

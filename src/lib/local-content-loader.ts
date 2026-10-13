@@ -10,6 +10,9 @@ const { parse } = require("yaml") as typeof import("yaml")
 interface LocalContentLoaderOptions {
   base: string
   extensions?: string[]
+  prepare?: (root: string) => Promise<void>
+  transformData?: (data: Record<string, unknown>, root: string) => Promise<Record<string, unknown>>
+  watchFiles?: string[]
 }
 
 interface ParsedContentFile {
@@ -44,36 +47,59 @@ function parseContentFile(contents: string, filePath: string): ParsedContentFile
   return { data: parsed as Record<string, unknown>, body: match[2].trimStart() }
 }
 
-export function localContentLoader({ base, extensions = [".md", ".mdx"] }: LocalContentLoaderOptions): Loader {
+export function localContentLoader({
+  base,
+  extensions = [".md", ".mdx"],
+  prepare,
+  transformData,
+  watchFiles = [],
+}: LocalContentLoaderOptions): Loader {
   return {
     name: `hyperoot-local-content:${base}`,
-    async load({ config, store, parseData, renderMarkdown, generateDigest, logger }) {
+    async load({ config, store, parseData, renderMarkdown, generateDigest, logger, watcher }) {
       const rootPath = fileURLToPath(config.root)
       const basePath = resolve(rootPath, base)
-      const files = await walkFiles(basePath, new Set(extensions))
+      const extraPaths = watchFiles.map((path) => resolve(rootPath, path))
+      async function reload() {
+        await prepare?.(rootPath)
+        const files = await walkFiles(basePath, new Set(extensions))
+        const loaded = []
+        for (const filePath of files) {
+          const contents = await readFile(filePath, "utf8")
+          const { data, body } = parseContentFile(contents, filePath)
+          const id = normalizePath(relative(basePath, filePath)).replace(/\.(md|mdx)$/i, "")
+          const relativeFilePath = normalizePath(relative(rootPath, filePath))
+          const transformed = transformData ? await transformData(data, rootPath) : data
+          if (transformed.hasPage && !body.trim()) throw new Error(`hasPage requires a write-up in ${filePath}`)
+          const parsedData = await parseData({ id, data: transformed, filePath })
+          const rendered = await renderMarkdown(body, { fileURL: pathToFileURL(filePath) })
 
-      store.clear()
-
-      for (const filePath of files) {
-        const contents = await readFile(filePath, "utf8")
-        const { data, body } = parseContentFile(contents, filePath)
-        const id = normalizePath(relative(basePath, filePath)).replace(/\.(md|mdx)$/i, "")
-        const relativeFilePath = normalizePath(relative(rootPath, filePath))
-        const parsedData = await parseData({ id, data, filePath })
-        const rendered = await renderMarkdown(body, { fileURL: pathToFileURL(filePath) })
-
-        store.set({
-          id,
-          data: parsedData,
-          body,
-          filePath: relativeFilePath,
-          digest: generateDigest(contents),
-          rendered,
-          assetImports: rendered.metadata?.imagePaths,
-        })
+          loaded.push({
+            id,
+            data: parsedData,
+            body,
+            filePath: relativeFilePath,
+            digest: generateDigest({ contents, data: transformed }),
+            rendered,
+            assetImports: rendered.metadata?.imagePaths,
+          })
+        }
+        store.clear()
+        for (const entry of loaded) store.set(entry)
+        logger.info(`Loaded ${files.length} entries from ${base}`)
       }
-
-      logger.info(`Loaded ${files.length} entries from ${base}`)
+      await reload()
+      if (watcher) {
+        watcher.add([basePath, ...extraPaths])
+        let pending = Promise.resolve()
+        const onChange = (path: string) => {
+          const absolute = resolve(path)
+          if (!absolute.startsWith(`${basePath}/`) && !extraPaths.includes(absolute)) return
+          if (absolute.startsWith(`${basePath}/`) && !extensions.includes(extname(absolute))) return
+          pending = pending.then(reload).catch((error) => logger.error(error.message))
+        }
+        watcher.on("add", onChange).on("change", onChange).on("unlink", onChange)
+      }
     },
   }
 }

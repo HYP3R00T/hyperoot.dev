@@ -1,0 +1,30 @@
+name: Refresh project catalog
+
+on:
+  schedule:
+    - cron: "23 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: refresh-project-catalog
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Trigger Cloudflare Pages build
+        env:
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "Configure CLOUDFLARE_PAGES_DEPLOY_HOOK to enable scheduled catalog deployments."
+            exit 1
+          fi
+          curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK" --output /dev/null

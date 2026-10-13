@@ -1,0 +1,259 @@
+{
+  "version": 1,
+  "repositories": {
+    "hyp3r00t/celestialdocs": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "CelestialDocs",
+        "description": "CelestialDocs is a modern documentation platform and Astro template designed for scalable, developer-friendly knowledge systems. It combines structured navigation, hybrid content generation, MDX support, and customizable UI components to build fast, maintainable, and production-ready documentation sites.",
+        "url": "https://github.com/HYP3R00T/CelestialDocs",
+        "website": "https://celestialdocs.hyperoot.dev",
+        "topics": [
+          "astro",
+          "developer-tools",
+          "documentation",
+          "documentation-generator",
+          "mdx",
+          "shadcn-ui",
+          "ssg",
+          "tailwindcss",
+          "template-project"
+        ],
+        "language": "MDX",
+        "stars": 75,
+        "forks": 21,
+        "createdAt": "2024-07-22T11:28:59Z",
+        "pushedAt": "2026-10-01T03:39:25Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/devcontainer-template": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "devcontainer-template",
+        "description": "A development container template designed for streamlined and efficient project setups. Includes pre-configured tools and environments to enhance productivity and maintain coding standards.",
+        "url": "https://github.com/HYP3R00T/devcontainer-template",
+        "website": "https://hyp3r00t.github.io/devcontainer-template",
+        "topics": [
+          "devcontainer",
+          "github-copilot",
+          "template-project"
+        ],
+        "language": "PowerShell",
+        "stars": 1,
+        "forks": 0,
+        "createdAt": "2025-05-05T23:48:32Z",
+        "pushedAt": "2026-08-29T07:47:37Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/dotfiles": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "dotfiles",
+        "description": "dotfiles is a cross-platform environment provisioning and configuration toolkit for Linux, WSL, and DevContainers. It combines Ansible, chezmoi, mise, and Bash orchestration to deliver reproducible, zero-touch developer environments from a single declarative codebase.",
+        "url": "https://github.com/HYP3R00T/dotfiles",
+        "website": "http://dotfiles.hyperoot.dev",
+        "topics": [
+          "ansible",
+          "automation",
+          "bootstrap",
+          "chezmoi",
+          "devcontainers",
+          "dotfiles",
+          "mise-en-place"
+        ],
+        "language": "Shell",
+        "stars": 1,
+        "forks": 0,
+        "createdAt": "2025-04-15T05:46:50Z",
+        "pushedAt": "2026-10-06T15:46:16Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/gitops-deployment-platform": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "gitops-deployment-platform",
+        "description": "GitOps Deployment Platform is a Kubernetes-focused reference architecture for building reproducible, production-grade platform engineering environments using FluxCD, Infrastructure as Code, and declarative deployment workflows across self-hosted and cloud-native infrastructure.",
+        "url": "https://github.com/HYP3R00T/gitops-deployment-platform",
+        "website": "http://hyp3r00t.github.io/gitops-deployment-platform",
+        "topics": [
+          "devops",
+          "fluxcd",
+          "gitops",
+          "infrastructure-as-code",
+          "kubernetes",
+          "platform-engineering"
+        ],
+        "language": "HCL",
+        "stars": 0,
+        "forks": 0,
+        "createdAt": "2026-02-06T20:28:42Z",
+        "pushedAt": "2026-08-06T03:35:11Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/homelab": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "homelab",
+        "description": "homelab is a self-hosted infrastructure and experimentation environment for exploring Kubernetes, networking, automation, observability, and platform engineering workflows. It documents real-world operational practices, infrastructure design decisions, and production-inspired DevOps experimentation.",
+        "url": "https://github.com/HYP3R00T/homelab",
+        "website": "http://homelab.hyperoot.dev",
+        "topics": [
+          "automation",
+          "devops",
+          "homelab",
+          "kubernetes",
+          "networking",
+          "observability",
+          "self-hosted"
+        ],
+        "language": "HCL",
+        "stars": 4,
+        "forks": 2,
+        "createdAt": "2025-01-15T19:21:11Z",
+        "pushedAt": "2026-09-19T14:40:07Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/hypercli": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "hypercli",
+        "description": "hypercli is a Python package for building interactive, menu-driven command-line interfaces. It supports decorated menu entries, nested navigation, configurable visual styling, and a developer-friendly way to turn CLI workflows into structured user flows.",
+        "url": "https://github.com/HYP3R00T/hypercli",
+        "website": "https://hypercli.hyperoot.dev",
+        "topics": [
+          "cli",
+          "command-line",
+          "menu",
+          "menu-driven",
+          "python",
+          "rich"
+        ],
+        "language": "Python",
+        "stars": 8,
+        "forks": 2,
+        "createdAt": "2022-12-30T21:31:35Z",
+        "pushedAt": "2025-01-31T22:25:04Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/settings-organizer": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "settings-organizer",
+        "description": "Settings Organizer is a Visual Studio Code extension that helps structure, categorize, and maintain large settings.json files through automated grouping, formatting, and developer-friendly configuration management workflows.",
+        "url": "https://github.com/HYP3R00T/settings-organizer",
+        "website": "https://marketplace.visualstudio.com/items?itemName=hyperoot.settings-organizer",
+        "topics": [
+          "automation",
+          "configuration",
+          "developer-tools",
+          "json",
+          "productivity",
+          "vscode",
+          "vscode-extensions"
+        ],
+        "language": "TypeScript",
+        "stars": 5,
+        "forks": 1,
+        "createdAt": "2024-07-16T09:57:33Z",
+        "pushedAt": "2026-06-04T12:45:57Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/utilityhub": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "UtilityHub",
+        "description": "UtilityHub is a modular Python utility ecosystem for reusable developer tooling, automation helpers, configuration management, and everyday engineering workflows. Designed as a multi-package workspace with modern packaging, documentation, and reproducible development environments.",
+        "url": "https://github.com/HYP3R00T/UtilityHub",
+        "website": "https://utilityhub.hyperoot.dev",
+        "topics": [
+          "automation",
+          "developer-tools",
+          "python",
+          "utility-library"
+        ],
+        "language": "Python",
+        "stars": 0,
+        "forks": 0,
+        "createdAt": "2024-10-28T15:25:50Z",
+        "pushedAt": "2026-10-09T21:17:28Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/voicepad": {
+      "status": "fresh",
+      "checkedAt": "2026-10-13T15:29:26.952Z",
+      "fetchedAt": "2026-10-13T15:29:26.952Z",
+      "data": {
+        "name": "voicepad",
+        "description": "VoicePad is a terminal-first voice note and transcription tool built with Python and Whisper. It records audio, generates local AI-powered transcriptions, and streamlines voice-based workflows through an ergonomic CLI and developer-friendly automation features.",
+        "url": "https://github.com/HYP3R00T/voicepad",
+        "website": "http://voicepad.hyperoot.dev",
+        "topics": [
+          "cli",
+          "faster-whisper",
+          "python",
+          "speech-to-text",
+          "transcription-tool",
+          "tui-app",
+          "whisper"
+        ],
+        "language": "Python",
+        "stars": 2,
+        "forks": 0,
+        "createdAt": "2025-10-23T19:14:28Z",
+        "pushedAt": "2026-10-07T07:30:21Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
+    }
+  }
+}

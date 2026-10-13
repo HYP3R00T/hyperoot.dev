@@ -5,12 +5,11 @@ import { Icon } from "astro-icon/components"
 import placeholder from "@/assets/placeholder.png"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
+import { compareProjects } from "@/lib/project-catalog"
 
 const allProjects = await getCollection("projects")
-const projects = allProjects
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
-const projectTags = ["Web", "DevOps", "Automation", "Infrastructure", "Developer Tools", "Content", "Data/AI"]
+const projects = allProjects.filter((project) => !project.data.draft).sort(compareProjects)
+const projectTags = [...new Set(projects.flatMap((project) => project.data.domains))].sort()
 
 const normalizeTag = (tag: string) => tag.toLowerCase()
 ---
