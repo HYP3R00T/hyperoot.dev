@@ -1,9 +1,9 @@
 ---
 interface Props {
-  class?: string;
+  class?: string
 }
 
-const { class: className } = Astro.props as Props;
+const { class: className } = Astro.props as Props
 ---
 
 <button
@@ -22,60 +22,59 @@ const { class: className } = Astro.props as Props;
 </button>
 
 <script>
-  const setFocusMode = (enabled: boolean) => {
-    document.body.dataset.focusMode = String(enabled);
+const setFocusMode = (enabled: boolean) => {
+  document.body.dataset.focusMode = String(enabled)
 
-    document.querySelectorAll<HTMLButtonElement>("[data-focus-mode-toggle]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(enabled));
-      const label = button.querySelector<HTMLElement>("[data-focus-mode-label]");
-      if (label) label.textContent = enabled ? "Exit Zen mode" : "Zen mode";
-    });
-  };
+  document.querySelectorAll<HTMLButtonElement>("[data-focus-mode-toggle]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(enabled))
+    const label = button.querySelector<HTMLElement>("[data-focus-mode-label]")
+    if (label) label.textContent = enabled ? "Exit Zen mode" : "Zen mode"
+  })
+}
 
-  const isTextEntry = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) return false;
-    return (
-      target.matches("input, textarea, select, [contenteditable='true']") ||
-      Boolean(target.closest("[contenteditable='true']"))
-    );
-  };
+const isTextEntry = (target: EventTarget | null) => {
+  if (!(target instanceof HTMLElement)) return false
+  return (
+    target.matches("input, textarea, select, [contenteditable='true']") ||
+    Boolean(target.closest("[contenteditable='true']"))
+  )
+}
 
-  const hasFocusMode = () => Boolean(document.querySelector("[data-focus-content-section]"));
+const hasFocusMode = () => Boolean(document.querySelector("[data-focus-content-section]"))
 
-  const setupFocusMode = () => {
-    setFocusMode(false);
-    if (document.documentElement.dataset.focusModeReady === "true") return;
-    document.documentElement.dataset.focusModeReady = "true";
+const setupFocusMode = () => {
+  setFocusMode(false)
+  if (document.documentElement.dataset.focusModeReady === "true") return
+  document.documentElement.dataset.focusModeReady = "true"
 
-    document.addEventListener("click", (event) => {
-      if (!(event.target instanceof Element) || !event.target.closest("[data-focus-mode-toggle]")) return;
-      setFocusMode(document.body.dataset.focusMode !== "true");
-    });
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest("[data-focus-mode-toggle]")) return
+    setFocusMode(document.body.dataset.focusMode !== "true")
+  })
 
-    document.addEventListener("keydown", (event) => {
-      if (
-        !hasFocusMode() ||
-        event.defaultPrevented ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.altKey ||
-        isTextEntry(event.target)
-      )
-        return;
+  document.addEventListener("keydown", (event) => {
+    if (
+      !hasFocusMode() ||
+      event.defaultPrevented ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      isTextEntry(event.target)
+    )
+      return
 
-      if (event.key === "Escape" && document.body.dataset.focusMode === "true") {
-        event.preventDefault();
-        setFocusMode(false);
-        return;
-      }
+    if (event.key === "Escape" && document.body.dataset.focusMode === "true") {
+      event.preventDefault()
+      setFocusMode(false)
+      return
+    }
 
-      if (event.key.toLowerCase() === "z") {
-        event.preventDefault();
-        setFocusMode(document.body.dataset.focusMode !== "true");
-      }
-    });
-  };
+    if (event.key.toLowerCase() === "z") {
+      event.preventDefault()
+      setFocusMode(document.body.dataset.focusMode !== "true")
+    }
+  })
+}
 
-  document.addEventListener("astro:page-load", setupFocusMode);
+document.addEventListener("astro:page-load", setupFocusMode)
 </script>
-

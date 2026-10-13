@@ -2,4 +2,8 @@ allowBuilds:
   core-js: true
   esbuild: true
   msw: true
+  plyr: false
   sharp: true
+update:
+  ignoreDeps:
+    - typescript

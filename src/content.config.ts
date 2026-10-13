@@ -1,9 +1,9 @@
-import { defineCollection } from 'astro:content'
-import { z } from 'astro/zod'
-import { localContentLoader } from '@/lib/local-content-loader'
+import { defineCollection } from "astro:content"
+import { z } from "astro/zod"
+import { localContentLoader } from "@/lib/local-content-loader"
 
 const components = defineCollection({
-  loader: localContentLoader({ base: './content/components' }),
+  loader: localContentLoader({ base: "./content/components" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -12,7 +12,7 @@ const components = defineCollection({
 })
 
 const projects = defineCollection({
-  loader: localContentLoader({ base: './content/projects' }),
+  loader: localContentLoader({ base: "./content/projects" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

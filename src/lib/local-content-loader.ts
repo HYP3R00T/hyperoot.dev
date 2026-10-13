@@ -1,11 +1,11 @@
-import { readdir, readFile } from 'node:fs/promises'
-import { createRequire } from 'node:module'
-import { extname, relative, resolve } from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
-import type { Loader } from 'astro/loaders'
+import { readdir, readFile } from "node:fs/promises"
+import { createRequire } from "node:module"
+import { extname, relative, resolve } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
+import type { Loader } from "astro/loaders"
 
 const require = createRequire(import.meta.url)
-const { parse } = require('yaml') as typeof import('yaml')
+const { parse } = require("yaml") as typeof import("yaml")
 
 interface LocalContentLoaderOptions {
   base: string
@@ -17,7 +17,7 @@ interface ParsedContentFile {
   body: string
 }
 
-const normalizePath = (value: string) => value.replaceAll('\\', '/')
+const normalizePath = (value: string) => value.replaceAll("\\", "/")
 
 async function walkFiles(directory: string, extensions: Set<string>): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true })
@@ -37,14 +37,14 @@ function parseContentFile(contents: string, filePath: string): ParsedContentFile
   if (!match) throw new Error(`Missing frontmatter in ${filePath}`)
 
   const parsed = parse(match[1])
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     throw new Error(`Frontmatter must be an object in ${filePath}`)
   }
 
   return { data: parsed as Record<string, unknown>, body: match[2].trimStart() }
 }
 
-export function localContentLoader({ base, extensions = ['.md', '.mdx'] }: LocalContentLoaderOptions): Loader {
+export function localContentLoader({ base, extensions = [".md", ".mdx"] }: LocalContentLoaderOptions): Loader {
   return {
     name: `hyperoot-local-content:${base}`,
     async load({ config, store, parseData, renderMarkdown, generateDigest, logger }) {
@@ -55,9 +55,9 @@ export function localContentLoader({ base, extensions = ['.md', '.mdx'] }: Local
       store.clear()
 
       for (const filePath of files) {
-        const contents = await readFile(filePath, 'utf8')
+        const contents = await readFile(filePath, "utf8")
         const { data, body } = parseContentFile(contents, filePath)
-        const id = normalizePath(relative(basePath, filePath)).replace(/\.(md|mdx)$/i, '')
+        const id = normalizePath(relative(basePath, filePath)).replace(/\.(md|mdx)$/i, "")
         const relativeFilePath = normalizePath(relative(rootPath, filePath))
         const parsedData = await parseData({ id, data, filePath })
         const rendered = await renderMarkdown(body, { fileURL: pathToFileURL(filePath) })

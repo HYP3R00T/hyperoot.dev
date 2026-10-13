@@ -1,12 +1,14 @@
 ---
-import { Icon } from "astro-icon/components";
-import SiteSection from "@/components/core/SiteSection.astro";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Icon } from "astro-icon/components"
+import SiteSection from "@/components/core/SiteSection.astro"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 ---
 
 <SiteSection id="contact-cta" data-home-section aria-labelledby="contact-cta-title">
-  <div class="grid gap-10 px-5 py-12 md:px-10 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.65fr)] lg:items-end lg:gap-20 lg:px-15 lg:py-20">
+  <div
+    class="grid gap-10 px-5 py-12 md:px-10 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.65fr)] lg:items-end lg:gap-20 lg:px-15 lg:py-20"
+  >
     <div>
       <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-1 uppercase">Have something to build?</p>
       <h2
@@ -19,7 +21,8 @@ import { cn } from "@/lib/utils";
 
     <div class="lg:justify-self-end">
       <p class="max-w-lg text-base leading-7 text-foreground-2">
-        Hyperoot is built by Rajesh Das. Get in touch to discuss developer tooling, automation, infrastructure workflows, or a focused technical collaboration.
+        Hyperoot is built by Rajesh Das. Get in touch to discuss developer tooling, automation, infrastructure
+        workflows, or a focused technical collaboration.
       </p>
       <div class="mt-7 flex flex-col gap-3 sm:flex-row">
         <a

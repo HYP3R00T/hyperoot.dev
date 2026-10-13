@@ -1,18 +1,18 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
-import { buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Icon } from "astro-icon/components";
-import placeholder from "@/assets/placeholder.png";
+import { Image } from "astro:assets"
+import { getCollection } from "astro:content"
+import { Icon } from "astro-icon/components"
+import placeholder from "@/assets/placeholder.png"
+import { Badge } from "@/components/ui/badge"
+import { buttonVariants } from "@/components/ui/button"
 
-const allProjects = await getCollection("projects");
+const allProjects = await getCollection("projects")
 const projects = allProjects
   .filter((project) => !project.data.draft)
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
-const projectTags = ["Web", "DevOps", "Automation", "Infrastructure", "Developer Tools", "Content", "Data/AI"];
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+const projectTags = ["Web", "DevOps", "Automation", "Infrastructure", "Developer Tools", "Content", "Data/AI"]
 
-const normalizeTag = (tag: string) => tag.toLowerCase();
+const normalizeTag = (tag: string) => tag.toLowerCase()
 ---
 
 <section id="projects" class="px-4 py-16 md:px-8 md:py-20 lg:pt-28 lg:pb-20" data-home-section>
@@ -31,11 +31,12 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
         <div>
           <p class="font-mono text-xs tracking-widest text-foreground-2 uppercase">Filter projects</p>
           <p class="mt-2 text-sm leading-relaxed text-foreground-2">
-            <span data-visible-count>{projects.length}</span> of {projects.length} projects shown
+            <span data-visible-count>{projects.length}</span>
+            of {projects.length} projects shown
           </p>
         </div>
 
-        <div class="flex max-w-2xl flex-wrap gap-2 md:justify-end" aria-label="Project filters">
+        <fieldset class="flex max-w-2xl flex-wrap gap-2 md:justify-end" aria-label="Project filters">
           <button
             type="button"
             class="rounded-md border border-border/80 bg-background-0 px-3 py-2 font-mono text-xs tracking-widest text-foreground-1 uppercase transition-colors hover:bg-background-2 data-[active=true]:border-accent-1 data-[active=true]:bg-accent-1 data-[active=true]:text-background-0"
@@ -44,124 +45,120 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
           >
             All
           </button>
-          {
-            projectTags.map((tag) => (
-              <button
-                type="button"
-                class="rounded-md border border-border/80 bg-background-0 px-3 py-2 font-mono text-xs tracking-widest text-foreground-2 uppercase transition-colors hover:bg-background-2 hover:text-foreground-0 data-[active=true]:border-accent-1 data-[active=true]:bg-accent-1 data-[active=true]:text-background-0"
-                data-filter-tag={normalizeTag(tag)}
-                data-active="false"
-                aria-pressed="false"
-              >
-                {tag}
-              </button>
-            ))
-          }
-        </div>
+          {projectTags.map((tag) => (
+            <button
+              type="button"
+              class="rounded-md border border-border/80 bg-background-0 px-3 py-2 font-mono text-xs tracking-widest text-foreground-2 uppercase transition-colors hover:bg-background-2 hover:text-foreground-0 data-[active=true]:border-accent-1 data-[active=true]:bg-accent-1 data-[active=true]:text-background-0"
+              data-filter-tag={normalizeTag(tag)}
+              data-active="false"
+              aria-pressed="false"
+            >
+              {tag}
+            </button>
+          ))}
+        </fieldset>
       </div>
 
       <div class="grid gap-6 pt-6 md:grid-cols-2 xl:grid-cols-3" data-project-grid>
-        {
-          projects.map((project) => {
-            const hasPage = project.data.hasPage !== false;
-            const href = `/${project.id}/`;
-            const image = project.data.images?.[0] ?? placeholder;
-            const tags = project.data.domains.map(normalizeTag).join("|");
+        {projects.map((project) => {
+          const hasPage = project.data.hasPage !== false
+          const href = `/${project.id}/`
+          const image = project.data.images?.[0] ?? placeholder
+          const tags = project.data.domains.map(normalizeTag).join("|")
 
-            return (
-              <article
-                class:list={[
-                  "group flex min-h-full scroll-mt-28 flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors",
-                  hasPage && "hover:bg-background-1",
-                ]}
-                id={`project-${project.id}`}
-                data-project-card
-                data-project-tags={tags}
-              >
-                {hasPage ? (
-                  <a href={href} class="block overflow-hidden rounded-md bg-background-2">
-                    <Image
-                      src={image}
-                      alt={project.data.imageAlt || `${project.data.title} preview`}
-                      class="aspect-video h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      widths={[480, 720, 960]}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
-                  </a>
-                ) : (
-                  <div class="block overflow-hidden rounded-md bg-background-2">
-                    <Image
-                      src={image}
-                      alt={project.data.imageAlt || `${project.data.title} preview`}
-                      class="aspect-video h-full w-full object-cover"
-                      widths={[480, 720, 960]}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
-                  </div>
-                )}
-
-                <div class="flex flex-1 flex-col px-1 pt-4 pb-1">
-                  <div class="flex flex-wrap gap-2">
-                    {project.data.featured && <Badge variant="outline">Featured</Badge>}
-                    {project.data.private && <Badge variant="outline">Private</Badge>}
-                    {project.data.openSource && <Badge variant="outline">Open source</Badge>}
-                    {project.data.domains.map((domain) => (
-                      <Badge variant="outline">{domain}</Badge>
-                    ))}
-                  </div>
-
-                  <h3
-                    class:list={[
-                      "mt-3 font-display text-xl leading-tight text-foreground-0 transition-colors",
-                      hasPage && "group-hover:text-accent-1",
-                    ]}
-                  >
-                    {hasPage ? <a href={href}>{project.data.title}</a> : project.data.title}
-                  </h3>
-                  <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-foreground-2">{project.data.description}</p>
-
-                  <div class="mt-auto flex flex-wrap gap-2 pt-5">
-                    {hasPage && (
-                      <a
-                        href={href}
-                        class={buttonVariants({
-                          variant: "default",
-                          size: "sm",
-                          className: "bg-accent-1 text-background-0 hover:bg-accent-2 hover:text-background-0",
-                        })}
-                      >
-                        Project
-                        <Icon name="arrow-right" class="size-4" />
-                      </a>
-                    )}
-                    {project.data.sourceRepo && (
-                      <a
-                        href={project.data.sourceRepo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class={buttonVariants({ variant: "outline", size: "sm" })}
-                      >
-                        Source
-                        <Icon name="arrow-up-right" class="size-4" />
-                      </a>
-                    )}
-                    {project.data.website && (
-                      <a
-                        href={project.data.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class={buttonVariants({ variant: "outline", size: "sm" })}
-                      >
-                        Live
-                        <Icon name="arrow-up-right" class="size-4" />
-                      </a>
-                    )}
-                  </div>
+          return (
+            <article
+              class:list={[
+                "group flex min-h-full scroll-mt-28 flex-col overflow-hidden rounded-lg border border-border/80 bg-background-0 p-3 transition-colors",
+                hasPage && "hover:bg-background-1",
+              ]}
+              id={`project-${project.id}`}
+              data-project-card
+              data-project-tags={tags}
+            >
+              {hasPage ? (
+                <a href={href} class="block overflow-hidden rounded-md bg-background-2">
+                  <Image
+                    src={image}
+                    alt={project.data.imageAlt || `${project.data.title} preview`}
+                    class="aspect-video h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    widths={[480, 720, 960]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  />
+                </a>
+              ) : (
+                <div class="block overflow-hidden rounded-md bg-background-2">
+                  <Image
+                    src={image}
+                    alt={project.data.imageAlt || `${project.data.title} preview`}
+                    class="aspect-video h-full w-full object-cover"
+                    widths={[480, 720, 960]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  />
                 </div>
-              </article>
-            );
-          })
-        }
+              )}
+
+              <div class="flex flex-1 flex-col px-1 pt-4 pb-1">
+                <div class="flex flex-wrap gap-2">
+                  {project.data.featured && <Badge variant="outline">Featured</Badge>}
+                  {project.data.private && <Badge variant="outline">Private</Badge>}
+                  {project.data.openSource && <Badge variant="outline">Open source</Badge>}
+                  {project.data.domains.map((domain) => (
+                    <Badge variant="outline">{domain}</Badge>
+                  ))}
+                </div>
+
+                <h3
+                  class:list={[
+                    "mt-3 font-display text-xl leading-tight text-foreground-0 transition-colors",
+                    hasPage && "group-hover:text-accent-1",
+                  ]}
+                >
+                  {hasPage ? <a href={href}>{project.data.title}</a> : project.data.title}
+                </h3>
+                <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-foreground-2">{project.data.description}</p>
+
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  {hasPage && (
+                    <a
+                      href={href}
+                      class={buttonVariants({
+                        variant: "default",
+                        size: "sm",
+                        className: "bg-accent-1 text-background-0 hover:bg-accent-2 hover:text-background-0",
+                      })}
+                    >
+                      Project
+                      <Icon name="arrow-right" class="size-4" />
+                    </a>
+                  )}
+                  {project.data.sourceRepo && (
+                    <a
+                      href={project.data.sourceRepo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class={buttonVariants({ variant: "outline", size: "sm" })}
+                    >
+                      Source
+                      <Icon name="arrow-up-right" class="size-4" />
+                    </a>
+                  )}
+                  {project.data.website && (
+                    <a
+                      href={project.data.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class={buttonVariants({ variant: "outline", size: "sm" })}
+                    >
+                      Live
+                      <Icon name="arrow-up-right" class="size-4" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          )
+        })}
       </div>
 
       <div class="hidden px-1 py-12 text-center" data-empty-state>
@@ -173,57 +170,57 @@ const normalizeTag = (tag: string) => tag.toLowerCase();
 </section>
 
 <script>
-  const setupProjectFilters = () => {
-    const browsers = Array.from(document.querySelectorAll<HTMLElement>("[data-projects-browser]"));
+const setupProjectFilters = () => {
+  const browsers = Array.from(document.querySelectorAll<HTMLElement>("[data-projects-browser]"))
 
-    browsers.forEach((browser) => {
-      const filterButtons = Array.from(browser.querySelectorAll<HTMLButtonElement>("[data-filter-tag]"));
-      const clearButton = browser.querySelector<HTMLButtonElement>("[data-filter-clear]");
-      const cards = Array.from(browser.querySelectorAll<HTMLElement>("[data-project-card]"));
-      const visibleCount = browser.querySelector<HTMLElement>("[data-visible-count]");
-      const emptyState = browser.querySelector<HTMLElement>("[data-empty-state]");
-      const selectedTags = new Set<string>();
+  browsers.forEach((browser) => {
+    const filterButtons = Array.from(browser.querySelectorAll<HTMLButtonElement>("[data-filter-tag]"))
+    const clearButton = browser.querySelector<HTMLButtonElement>("[data-filter-clear]")
+    const cards = Array.from(browser.querySelectorAll<HTMLElement>("[data-project-card]"))
+    const visibleCount = browser.querySelector<HTMLElement>("[data-visible-count]")
+    const emptyState = browser.querySelector<HTMLElement>("[data-empty-state]")
+    const selectedTags = new Set<string>()
 
-      const update = () => {
-        filterButtons.forEach((button) => {
-          const tag = button.dataset.filterTag;
-          const active = Boolean(tag && selectedTags.has(tag));
-          button.dataset.active = String(active);
-          button.setAttribute("aria-pressed", String(active));
-        });
-
-        if (clearButton) clearButton.dataset.active = String(selectedTags.size === 0);
-
-        let shown = 0;
-        cards.forEach((card) => {
-          const tags = new Set((card.dataset.projectTags || "").split("|").filter(Boolean));
-          const visible = selectedTags.size === 0 || Array.from(selectedTags).every((tag) => tags.has(tag));
-          card.classList.toggle("hidden", !visible);
-          if (visible) shown += 1;
-        });
-
-        if (visibleCount) visibleCount.textContent = String(shown);
-        emptyState?.classList.toggle("hidden", shown > 0);
-      };
-
+    const update = () => {
       filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const tag = button.dataset.filterTag;
-          if (!tag) return;
-          if (selectedTags.has(tag)) selectedTags.delete(tag);
-          else selectedTags.add(tag);
-          update();
-        });
-      });
+        const tag = button.dataset.filterTag
+        const active = Boolean(tag && selectedTags.has(tag))
+        button.dataset.active = String(active)
+        button.setAttribute("aria-pressed", String(active))
+      })
 
-      clearButton?.addEventListener("click", () => {
-        selectedTags.clear();
-        update();
-      });
+      if (clearButton) clearButton.dataset.active = String(selectedTags.size === 0)
 
-      update();
-    });
-  };
+      let shown = 0
+      cards.forEach((card) => {
+        const tags = new Set((card.dataset.projectTags || "").split("|").filter(Boolean))
+        const visible = selectedTags.size === 0 || Array.from(selectedTags).every((tag) => tags.has(tag))
+        card.classList.toggle("hidden", !visible)
+        if (visible) shown += 1
+      })
 
-  document.addEventListener("astro:page-load", setupProjectFilters);
+      if (visibleCount) visibleCount.textContent = String(shown)
+      emptyState?.classList.toggle("hidden", shown > 0)
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const tag = button.dataset.filterTag
+        if (!tag) return
+        if (selectedTags.has(tag)) selectedTags.delete(tag)
+        else selectedTags.add(tag)
+        update()
+      })
+    })
+
+    clearButton?.addEventListener("click", () => {
+      selectedTags.clear()
+      update()
+    })
+
+    update()
+  })
+}
+
+document.addEventListener("astro:page-load", setupProjectFilters)
 </script>

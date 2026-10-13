@@ -59,16 +59,16 @@ const createTorus = (count: number): ParticleShape =>
 const easeInOutCubic = (value: number) => (value < 0.5 ? 4 * value * value * value : 1 - (-2 * value + 2) ** 3 / 2)
 
 const initParticleCanvas = (canvas: HTMLCanvasElement) => {
-  if (canvas.dataset.particlesReady === 'true') return
+  if (canvas.dataset.particlesReady === "true") return
 
-  const context = canvas.getContext('2d')
-  const field = canvas.closest<HTMLElement>('[data-particle-field]')
+  const context = canvas.getContext("2d")
+  const field = canvas.closest<HTMLElement>("[data-particle-field]")
   if (!context || !field) return
 
-  canvas.dataset.particlesReady = 'true'
+  canvas.dataset.particlesReady = "true"
 
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-  const compactViewport = window.matchMedia('(max-width: 767px)')
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+  const compactViewport = window.matchMedia("(max-width: 767px)")
   const particleCount = compactViewport.matches ? 380 : 760
   const shapes = [createSphere(particleCount), createCube(particleCount), createTorus(particleCount)]
   const cycleDuration = 8000
@@ -83,13 +83,13 @@ const initParticleCanvas = (canvas: HTMLCanvasElement) => {
   let pointerY = 0
   let targetPointerX = 0
   let targetPointerY = 0
-  let accentColor = ''
-  let quietColor = ''
+  let accentColor = ""
+  let quietColor = ""
 
   const readColors = () => {
     const styles = getComputedStyle(canvas)
-    accentColor = styles.getPropertyValue('--accent-1').trim()
-    quietColor = styles.getPropertyValue('--foreground-3').trim()
+    accentColor = styles.getPropertyValue("--accent-1").trim()
+    quietColor = styles.getPropertyValue("--foreground-3").trim()
   }
 
   const resize = () => {
@@ -210,11 +210,11 @@ const initParticleCanvas = (canvas: HTMLCanvasElement) => {
 
   resizeObserver.observe(canvas)
   visibilityObserver.observe(canvas)
-  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-  field.addEventListener('pointermove', handlePointerMove)
-  field.addEventListener('pointerleave', resetPointer)
-  document.addEventListener('visibilitychange', handleVisibilityChange)
-  reducedMotion.addEventListener('change', handleMotionChange)
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
+  field.addEventListener("pointermove", handlePointerMove)
+  field.addEventListener("pointerleave", resetPointer)
+  document.addEventListener("visibilitychange", handleVisibilityChange)
+  reducedMotion.addEventListener("change", handleMotionChange)
 
   resize()
   start()
@@ -224,10 +224,10 @@ const initParticleCanvas = (canvas: HTMLCanvasElement) => {
     resizeObserver.disconnect()
     visibilityObserver.disconnect()
     themeObserver.disconnect()
-    field.removeEventListener('pointermove', handlePointerMove)
-    field.removeEventListener('pointerleave', resetPointer)
-    document.removeEventListener('visibilitychange', handleVisibilityChange)
-    reducedMotion.removeEventListener('change', handleMotionChange)
+    field.removeEventListener("pointermove", handlePointerMove)
+    field.removeEventListener("pointerleave", resetPointer)
+    document.removeEventListener("visibilitychange", handleVisibilityChange)
+    reducedMotion.removeEventListener("change", handleMotionChange)
     delete canvas.dataset.particlesReady
   }
 }
@@ -236,7 +236,7 @@ const activeCanvases = new Map<HTMLCanvasElement, () => void>()
 let lifecycleReady = false
 
 const setupParticleCanvases = () => {
-  for (const canvas of document.querySelectorAll<HTMLCanvasElement>('[data-hero-particles]')) {
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-hero-particles]")) {
     if (activeCanvases.has(canvas)) continue
     const cleanup = initParticleCanvas(canvas)
     if (cleanup) activeCanvases.set(canvas, cleanup)
@@ -250,8 +250,8 @@ const cleanupParticleCanvases = () => {
 
 export const initHeroParticles = () => {
   if (!lifecycleReady) {
-    document.addEventListener('astro:page-load', setupParticleCanvases)
-    document.addEventListener('astro:before-swap', cleanupParticleCanvases)
+    document.addEventListener("astro:page-load", setupParticleCanvases)
+    document.addEventListener("astro:before-swap", cleanupParticleCanvases)
     lifecycleReady = true
   }
 

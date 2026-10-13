@@ -1,27 +1,27 @@
 ---
-import { Icon } from "astro-icon/components";
-import { buttonVariants } from "@/components/ui/button";
-import { formatMonthYearRange } from "@/lib/utils";
+import { Icon } from "astro-icon/components"
+import { buttonVariants } from "@/components/ui/button"
+import { formatMonthYearRange } from "@/lib/utils"
 
 interface Props {
   project: {
     data: {
-      icon?: string;
-      title: string;
-      description: string;
-      technologies: string[];
-      startDate?: Date;
-      endDate?: Date;
-      sourceRepo?: string;
-      website?: string;
-    };
-  };
-  index: number;
+      icon?: string
+      title: string
+      description: string
+      technologies: string[]
+      startDate?: Date
+      endDate?: Date
+      sourceRepo?: string
+      website?: string
+    }
+  }
+  index: number
 }
 
-const { project, index } = Astro.props;
-const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate);
-const showLinks = Boolean(project.data.sourceRepo || project.data.website);
+const { project, index } = Astro.props
+const projectDates = formatMonthYearRange(project.data.startDate, project.data.endDate)
+const showLinks = Boolean(project.data.sourceRepo || project.data.website)
 ---
 
 <div
@@ -57,32 +57,30 @@ const showLinks = Boolean(project.data.sourceRepo || project.data.website);
 
   {projectDates && <div class="text-foreground-2 mb-3 text-xs tracking-wide">{projectDates}</div>}
 
-  {
-    showLinks && (
-      <div class="mb-3 flex flex-wrap gap-2">
-        {project.data.sourceRepo && (
-          <a
-            href={project.data.sourceRepo}
-            target="_blank"
-            rel="noreferrer"
-            class={buttonVariants({ variant: "outline", size: "sm" })}
-          >
-            Source
-          </a>
-        )}
-        {project.data.website && (
-          <a
-            href={project.data.website}
-            target="_blank"
-            rel="noreferrer"
-            class={buttonVariants({ variant: "outline", size: "sm" })}
-          >
-            Website
-          </a>
-        )}
-      </div>
-    )
-  }
+  {showLinks && (
+    <div class="mb-3 flex flex-wrap gap-2">
+      {project.data.sourceRepo && (
+        <a
+          href={project.data.sourceRepo}
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: "outline", size: "sm" })}
+        >
+          Source
+        </a>
+      )}
+      {project.data.website && (
+        <a
+          href={project.data.website}
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: "outline", size: "sm" })}
+        >
+          Website
+        </a>
+      )}
+    </div>
+  )}
 
   <!-- Tech stack -->
   <div class="text-muted text-xs tracking-wide">

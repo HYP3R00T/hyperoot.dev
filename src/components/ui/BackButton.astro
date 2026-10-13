@@ -1,23 +1,30 @@
 ---
-import { Icon } from "astro-icon/components";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Icon } from "astro-icon/components"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface Props {
-  href: string;
-  label: string;
-  className?: string;
-  dataArticlesBack?: boolean;
-  dataNotesBack?: boolean;
-  dataProjectBack?: boolean;
+  href: string
+  label: string
+  className?: string
+  dataArticlesBack?: boolean
+  dataNotesBack?: boolean
+  dataProjectBack?: boolean
 }
 
-const { href, label, className, dataArticlesBack = false, dataNotesBack = false, dataProjectBack = false } = Astro.props as Props;
+const {
+  href,
+  label,
+  className,
+  dataArticlesBack = false,
+  dataNotesBack = false,
+  dataProjectBack = false,
+} = Astro.props as Props
 const dataAttributes = {
   ...(dataArticlesBack ? { "data-articles-back": "" } : {}),
   ...(dataNotesBack ? { "data-notes-back": "" } : {}),
   ...(dataProjectBack ? { "data-project-back": "" } : {}),
-};
+}
 ---
 
 <a

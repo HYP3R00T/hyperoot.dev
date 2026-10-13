@@ -1,23 +1,15 @@
 ---
-import { Image } from "astro:assets";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { formatDateUppercase, estimateReadTime } from "@/lib/utils";
-import { Icon } from "astro-icon/components";
-import { SITE } from "@data/config";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Image } from "astro:assets"
+import { SITE } from "@data/config"
+import { Icon } from "astro-icon/components"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { estimateReadTime, formatDateUppercase } from "@/lib/utils"
 
-const {
-  title,
-  description,
-  pubDatetime,
-  tags,
-  cover,
-  coverAlt,
-  body,
-} = Astro.props;
+const { title, description, pubDatetime, tags, cover, coverAlt, body } = Astro.props
 
-const readTime = body ? estimateReadTime(body) : 5;
+const readTime = body ? estimateReadTime(body) : 5
 ---
 
 <BaseLayout title={title} description={description} image={cover} imageAlt={coverAlt} contentType="Article">
@@ -87,31 +79,31 @@ const readTime = body ? estimateReadTime(body) : 5;
 </BaseLayout>
 
 <script>
-  document.getElementById("share-button")?.addEventListener("click", async () => {
-    const url = window.location.href;
-    const title = document.title;
+document.getElementById("share-button")?.addEventListener("click", async () => {
+  const url = window.location.href
+  const title = document.title
 
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, url });
-      } catch (err) {
-        console.log("Share canceled");
-      }
-    } else {
-      // Fallback: copy to clipboard
-      try {
-        await navigator.clipboard.writeText(url);
-        const button = document.getElementById("share-button");
-        if (button) {
-          const originalText = button.innerHTML;
-          button.innerHTML = `<svg class="h-4 w-4"><use href="#icon-check"></use></svg> COPIED`;
-          setTimeout(() => {
-            button.innerHTML = originalText;
-          }, 2000);
-        }
-      } catch (err) {
-        console.error("Failed to copy:", err);
-      }
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, url })
+    } catch (err) {
+      console.log("Share canceled")
     }
-  });
+  } else {
+    // Fallback: copy to clipboard
+    try {
+      await navigator.clipboard.writeText(url)
+      const button = document.getElementById("share-button")
+      if (button) {
+        const originalText = button.innerHTML
+        button.innerHTML = `<svg class="h-4 w-4"><use href="#icon-check"></use></svg> COPIED`
+        setTimeout(() => {
+          button.innerHTML = originalText
+        }, 2000)
+      }
+    } catch (err) {
+      console.error("Failed to copy:", err)
+    }
+  }
+})
 </script>

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from "react"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 
 interface ScrollRevealTextProps {
   text: string
@@ -29,7 +29,7 @@ export default function ScrollRevealText({ text, className, wordClassName }: Scr
     const root = rootRef.current
     if (!root) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (prefersReducedMotion) {
       setProgress(1)
       return
@@ -53,18 +53,18 @@ export default function ScrollRevealText({ text, className, wordClassName }: Scr
     }
 
     update()
-    window.addEventListener('scroll', requestUpdate, { passive: true })
-    window.addEventListener('resize', requestUpdate)
+    window.addEventListener("scroll", requestUpdate, { passive: true })
+    window.addEventListener("resize", requestUpdate)
 
     return () => {
-      window.removeEventListener('scroll', requestUpdate)
-      window.removeEventListener('resize', requestUpdate)
+      window.removeEventListener("scroll", requestUpdate)
+      window.removeEventListener("resize", requestUpdate)
       if (frame) window.cancelAnimationFrame(frame)
     }
   }, [])
 
   return (
-    <p ref={rootRef} className={cn('font-display text-4xl leading-tight tracking-tighter md:text-6xl', className)}>
+    <p ref={rootRef} className={cn("font-display text-4xl leading-tight tracking-tighter md:text-6xl", className)}>
       {words.map((word, index) => {
         const total = Math.max(words.length - 1, 1)
         const threshold = index / total
@@ -76,7 +76,7 @@ export default function ScrollRevealText({ text, className, wordClassName }: Scr
           <span
             key={word.id}
             className={cn(
-              'inline-block pr-[0.25em] text-foreground-0 transition-[filter,opacity] duration-200',
+              "inline-block pr-[0.25em] text-foreground-0 transition-[filter,opacity] duration-200",
               wordClassName,
             )}
             style={{ opacity, filter: `blur(${blur}px)` }}
