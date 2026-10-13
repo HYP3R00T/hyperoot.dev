@@ -1,0 +1,156 @@
+import { mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises"
+import { dirname, resolve } from "node:path"
+import { parse } from "yaml"
+
+export const SNAPSHOT_PATH = "data/github-repositories.json"
+export const ACTIVE_DAYS = 90
+const REPO_PATTERN = /^[a-z\d](?:[a-z\d-]*[a-z\d])?\/[a-z\d._-]+$/i
+
+export async function readProjectSources(root) {
+  const entries = []
+  async function walk(directory) {
+    for (const file of await readdir(directory, { withFileTypes: true })) {
+      const path = resolve(directory, file.name)
+      if (file.isDirectory()) await walk(path)
+      else if (/\.mdx?$/.test(file.name)) {
+        const text = await readFile(path, "utf8")
+        const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/)
+        if (!match) throw new Error(`Missing frontmatter: ${path}`)
+        const data = parse(match[1])
+        if (!data || !REPO_PATTERN.test(data.repo ?? "")) throw new Error(`Expected repo: owner/name in ${path}`)
+        if (data.hasPage && !match[2].trim()) throw new Error(`hasPage requires a write-up in ${path}`)
+        entries.push({ path, data })
+      }
+    }
+  }
+  await walk(resolve(root, "content/projects"))
+  const seen = new Set()
+  for (const { data } of entries) {
+    const key = data.repo.toLowerCase()
+    if (seen.has(key)) throw new Error(`Duplicate project repository: ${data.repo}`)
+    seen.add(key)
+  }
+  return entries
+}
+
+export async function readSnapshot(root) {
+  try {
+    const snapshot = JSON.parse(await readFile(resolve(root, SNAPSHOT_PATH), "utf8"))
+    if (snapshot.version !== 1 || !snapshot.repositories) throw new Error("Invalid GitHub snapshot")
+    return snapshot
+  } catch (error) {
+    if (error.code === "ENOENT") return { version: 1, repositories: {} }
+    throw error
+  }
+}
+
+/** Fetch only public metadata; never serialize API credentials or the full response. */
+export async function fetchRepository(repo, { fetchImpl = fetch, token = process.env.GITHUB_TOKEN } = {}) {
+  const response = await fetchImpl(`https://api.github.com/repos/${repo}`, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2026-03-10",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    signal: AbortSignal.timeout(15000),
+  })
+  if (!response.ok) throw new Error(`GitHub returned ${response.status} for ${repo}`)
+  const data = await response.json()
+  if (data.private || data.visibility === "private") throw new Error(`Repository is private: ${repo}`)
+  if (!data.name || !data.html_url) throw new Error(`Invalid GitHub response for ${repo}`)
+  return {
+    name: data.name,
+    description: data.description ?? "",
+    url: data.html_url,
+    website: data.homepage || null,
+    topics: data.topics ?? [],
+    language: data.language ?? null,
+    stars: data.stargazers_count,
+    forks: data.forks_count,
+    createdAt: data.created_at,
+    pushedAt: data.pushed_at,
+    archived: data.archived,
+    fork: data.fork,
+    template: data.is_template,
+    license: data.license?.spdx_id ?? null,
+  }
+}
+
+export async function syncRepositories(
+  root,
+  {
+    force = false,
+    offline = false,
+    strict = false,
+    fetchImpl = fetch,
+    token,
+    now = new Date(),
+    warn = console.warn,
+  } = {},
+) {
+  const sources = await readProjectSources(root)
+  const previous = await readSnapshot(root)
+  const repositories = {}
+  let failures = 0
+  for (const { data } of sources) {
+    if (data.draft || data.private) continue
+    const key = data.repo.toLowerCase()
+    const cached = previous.repositories[key]
+    if (
+      offline ||
+      (!force && cached && now.getTime() - Date.parse(cached.checkedAt ?? cached.fetchedAt) < 6 * 60 * 60 * 1000)
+    ) {
+      repositories[key] = cached ?? { status: "unavailable", fetchedAt: null, data: null }
+      continue
+    }
+    try {
+      repositories[key] = {
+        status: "fresh",
+        checkedAt: now.toISOString(),
+        fetchedAt: now.toISOString(),
+        data: await fetchRepository(data.repo, { fetchImpl, token }),
+      }
+    } catch (error) {
+      failures++
+      warn(`${error.message}; ${cached?.data ? "using the last successful snapshot" : "using local metadata only"}.`)
+      repositories[key] = {
+        status: cached?.data ? "stale" : "unavailable",
+        checkedAt: now.toISOString(),
+        fetchedAt: cached?.fetchedAt ?? null,
+        data: cached?.data ?? null,
+      }
+    }
+  }
+  if (strict && failures) throw new Error(`Could not refresh ${failures} repositories`)
+  const snapshot = { version: 1, repositories }
+  const path = resolve(root, SNAPSHOT_PATH)
+  if (!offline && JSON.stringify(previous) !== JSON.stringify(snapshot)) {
+    await mkdir(dirname(path), { recursive: true })
+    const temporaryPath = `${path}.${process.pid}.tmp`
+    await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`)
+    await rename(temporaryPath, path)
+  }
+  return snapshot
+}
+
+export function repositoryActivity(data, now = new Date()) {
+  if (data?.archived) return "archived"
+  if (!data?.pushedAt) return "unknown"
+  return now.getTime() - Date.parse(data.pushedAt) <= ACTIVE_DAYS * 86400000 ? "recently-active" : "quiet"
+}
+
+export function mergeProjectMetadata(local, record, now = new Date()) {
+  const github = record?.data
+  return {
+    ...local,
+    title: local.title ?? github?.name ?? local.repo.split("/")[1],
+    description: local.description ?? github?.description ?? "",
+    technologies: local.technologies ?? github?.topics ?? [],
+    domains: local.domains ?? [],
+    sourceRepo: local.private ? undefined : (local.sourceRepo ?? github?.url ?? `https://github.com/${local.repo}`),
+    website: local.website ?? github?.website ?? undefined,
+    github: github ? { ...github, fetchedAt: record.fetchedAt } : undefined,
+    syncStatus: record?.status ?? "unavailable",
+    activity: repositoryActivity(github, now),
+  }
+}

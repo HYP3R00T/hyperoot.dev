@@ -5,14 +5,10 @@ import SectionHeader from "@/components/core/SectionHeader.astro"
 import SiteSection from "@/components/core/SiteSection.astro"
 import { ProjectDomainFilter } from "@/components/homepage/ProjectDomainFilter"
 import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro"
+import { compareProjects } from "@/lib/project-catalog"
 
 const projects = await getCollection("projects").then((entries) =>
-  entries
-    .filter((entry) => !entry.data.draft)
-    .sort((a, b) => {
-      const featuredDelta = Number(b.data.featured) - Number(a.data.featured)
-      return featuredDelta || (a.data.order ?? 999) - (b.data.order ?? 999)
-    }),
+  entries.filter((entry) => !entry.data.draft).sort(compareProjects),
 )
 const domainCounts = new Map<string, number>()
 

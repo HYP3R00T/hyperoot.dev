@@ -6,6 +6,7 @@ import react from "@astrojs/react"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import icon from "astro-icon"
+import projectGitHubIntegration from "./src/lib/project-github-integration.mjs"
 import rehypeCodeBlocks from "./src/lib/rehype-code-blocks.mjs"
 import rehypeHeadingLinks from "./src/lib/rehype-heading-links.mjs"
 
@@ -24,6 +25,7 @@ export default defineConfig({
   },
 
   integrations: [
+    projectGitHubIntegration(),
     icon({
       iconDir: "src/assets/icons",
       svgoOptions: {
