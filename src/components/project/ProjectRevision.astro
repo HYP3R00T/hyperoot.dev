@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content"
-import GitBranch from "@lucide/astro/icons/git-branch"
 import GitCommitHorizontal from "@lucide/astro/icons/git-commit-horizontal"
 import { projectUpdatedAt } from "@/lib/project-catalog"
 
@@ -11,7 +10,6 @@ const { project } = Astro.props
 const { github, commit: authoredCommit } = project.data
 const commit = github?.latestCommit ?? authoredCommit
 const date = projectUpdatedAt(project.data)
-const branch = github?.defaultBranch ?? authoredCommit?.branch
 const commitUrl = github?.latestCommit?.url
 const formatted = date
   ? new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(
@@ -23,7 +21,7 @@ const precise = date
   : null
 ---
 
-{(date || branch || commit) && (
+{(date || commit) && (
   <div class="project-revision">
     {date && (
       <span>
@@ -31,13 +29,6 @@ const precise = date
         <time datetime={date} title={precise ?? undefined}>
           {formatted}
         </time>
-      </span>
-    )}
-    {branch && (
-      <span class="revision-code" title="Default branch">
-        <GitBranch size={13} aria-hidden="true" />
-        <span class="sr-only">Branch </span>
-        {branch}
       </span>
     )}
     {commit && (

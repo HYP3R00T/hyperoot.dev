@@ -1,16 +1,14 @@
 ---
-import ChevronDown from "@lucide/astro/icons/chevron-down"
 import FolderOpen from "@lucide/astro/icons/folder-open"
 import ThemeToggle from "@/components/core/ThemeToggle.astro"
+import BrandMark from "./BrandMark.astro"
 
 const isHome = Astro.url.pathname === "/"
 ---
 
 <header class="lab-header" data-header-shell>
   <div class="catalog-width lab-header-inner">
-    <a class="lab-brand" href="/" aria-label="Hyperoot home"
-      ><span class="header-symbol" aria-hidden="true">h/</span>hyperoot</a
-    >
+    <a class="lab-brand" href="/" aria-label="Hyperoot home" title="Hyperoot home"><BrandMark /></a>
     <nav class="header-path" aria-label="Breadcrumb">
       <span aria-hidden="true">/</span><a href="/#projects"><FolderOpen size={14} aria-hidden="true" />Projects</a>
       {!isHome && (
@@ -21,40 +19,7 @@ const isHome = Astro.url.pathname === "/"
       )}
     </nav>
     <div class="header-tools">
-      <details class="header-connect">
-        <summary>Links <ChevronDown size={13} aria-hidden="true" /></summary>
-        <nav class="connect-menu" aria-label="Connect with Rajesh">
-          <a href="https://rajeshdas.dev" target="_blank" rel="noopener noreferrer"
-            >Personal website <span aria-hidden="true">↗</span></a
-          ><a href="https://github.com/HYP3R00T" target="_blank" rel="noopener noreferrer"
-            >GitHub <span aria-hidden="true">↗</span></a
-          ><a href="mailto:hello@rajeshdas.dev">Email <span aria-hidden="true">↗</span></a>
-        </nav>
-      </details>
       <ThemeToggle />
     </div>
   </div>
 </header>
-
-<script>
-function setupConnectMenu() {
-  const menu = document.querySelector<HTMLDetailsElement>(".header-connect")
-  if (!menu || menu.dataset.initialized) return
-  menu.dataset.initialized = "true"
-  const dismiss = (event: MouseEvent) => {
-    if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false
-  }
-  menu.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return
-    menu.open = false
-    menu.querySelector("summary")?.focus()
-  })
-  menu.addEventListener("click", (event) => {
-    if (event.target instanceof Element && event.target.closest("a")) menu.open = false
-  })
-  document.addEventListener("click", dismiss)
-  document.addEventListener("astro:before-swap", () => document.removeEventListener("click", dismiss), { once: true })
-}
-setupConnectMenu()
-document.addEventListener("astro:page-load", setupConnectMenu)
-</script>

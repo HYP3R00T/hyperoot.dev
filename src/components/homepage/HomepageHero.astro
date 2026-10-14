@@ -1,12 +1,13 @@
 ---
 import { getCollection } from "astro:content"
+import BrandMark from "@/components/core/BrandMark.astro"
 
 const projects = (await getCollection("projects")).filter((project) => !project.data.draft)
 const activeCount = projects.filter((project) => project.data.active).length
 ---
 
 <section class="catalog-hero" aria-labelledby="homepage-title">
-  <div class="profile-monogram" aria-hidden="true">rd.</div>
+  <div class="profile-monogram" aria-hidden="true"><BrandMark /></div>
   <div class="profile-copy">
     <p class="eyebrow">Rajesh Das / independent developer</p>
     <h1 id="homepage-title">Projects by Hyperoot.</h1>
@@ -19,4 +20,10 @@ const activeCount = projects.filter((project) => project.data.active).length
     <span><strong>{projects.length}</strong> projects</span
     ><span><i class="activity-dot" aria-hidden="true"></i><strong>{activeCount}</strong> active this month</span>
   </div>
+  <nav class="profile-socials" aria-label="Find Rajesh elsewhere">
+    <span>Find me elsewhere</span
+    ><a href="https://rajeshdas.dev" target="_blank" rel="noopener noreferrer">Personal website ↗</a
+    ><a href="https://github.com/HYP3R00T" target="_blank" rel="noopener noreferrer">GitHub ↗</a
+    ><a href="mailto:hello@rajeshdas.dev">Email ↗</a>
+  </nav>
 </section>
