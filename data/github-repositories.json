@@ -1,36 +1,6 @@
 {
   "version": 1,
   "repositories": {
-    "hyp3r00t/agents": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "agents",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/agents",
-        "website": "https://hyp3r00t.github.io/agents/",
-        "topics": [],
-        "language": "Python",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "0413a9dc13b1c0d0d15a49882a964e716ef23c0b",
-          "url": "https://github.com/HYP3R00T/agents/commit/0413a9dc13b1c0d0d15a49882a964e716ef23c0b",
-          "date": "2026-07-26T13:41:01Z"
-        },
-        "commitCount": 25,
-        "createdAt": "2026-04-15T02:27:52Z",
-        "pushedAt": "2026-07-26T13:41:01Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
     "hyp3r00t/ansitoolkit": {
       "status": "fresh",
       "checkedAt": "2026-10-14T06:16:28.738Z",
@@ -105,78 +75,6 @@
         "archived": false,
         "fork": false,
         "template": true,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/cheatsheetify": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "Cheatsheetify",
-        "description": "A python tool to generate cheatsheet of command line tools as a PDF",
-        "url": "https://github.com/HYP3R00T/Cheatsheetify",
-        "website": "http://cheatsheetify.hyperoot.dev/",
-        "topics": [
-          "cheatsheet",
-          "pdf-generation",
-          "poetry",
-          "python",
-          "python3",
-          "tldr"
-        ],
-        "language": "Python",
-        "stars": 2,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "fc9a1a3db9a4c7f30b3cf6c1e640690184c9374a",
-          "url": "https://github.com/HYP3R00T/Cheatsheetify/commit/fc9a1a3db9a4c7f30b3cf6c1e640690184c9374a",
-          "date": "2024-05-10T10:27:39Z"
-        },
-        "commitCount": 39,
-        "createdAt": "2024-05-02T10:28:18Z",
-        "pushedAt": "2024-06-17T15:16:46Z",
-        "archived": true,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/costcutter": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "CostCutter",
-        "description": "CostCutter is a serverless, Python-based tool that helps users manage AWS resources and avoid surprise cloud costs. By monitoring budgets and automatically cleaning up resources when thresholds are exceeded, CostCutter keeps your AWS environment tidy and cost‑efficient.",
-        "url": "https://github.com/HYP3R00T/CostCutter",
-        "website": "https://costcutter.hyperoot.dev",
-        "topics": [
-          "aws",
-          "cloud",
-          "cost-control",
-          "cost-optimization"
-        ],
-        "language": "Python",
-        "stars": 1,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "aa13e3206fa22e47410bc2437558ac025439fc85",
-          "url": "https://github.com/HYP3R00T/CostCutter/commit/aa13e3206fa22e47410bc2437558ac025439fc85",
-          "date": "2026-02-01T16:09:35Z"
-        },
-        "commitCount": 128,
-        "createdAt": "2025-08-04T13:11:41Z",
-        "pushedAt": "2026-02-01T16:09:37Z",
-        "archived": true,
-        "fork": false,
-        "template": false,
         "license": "MIT"
       }
     },
@@ -386,36 +284,6 @@
         "license": "MIT"
       }
     },
-    "hyp3r00t/engineering-telemetry": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "engineering-telemetry",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/engineering-telemetry",
-        "website": null,
-        "topics": [],
-        "language": "Python",
-        "stars": 1,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "8fc9cbe1088180a5d3fb2f890eba42c2f8d5cc3e",
-          "url": "https://github.com/HYP3R00T/engineering-telemetry/commit/8fc9cbe1088180a5d3fb2f890eba42c2f8d5cc3e",
-          "date": "2026-10-09T03:36:45Z"
-        },
-        "commitCount": 29,
-        "createdAt": "2026-06-04T18:24:02Z",
-        "pushedAt": "2026-10-09T21:17:41Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
     "hyp3r00t/formulens": {
       "status": "fresh",
       "checkedAt": "2026-10-14T06:16:28.738Z",
@@ -528,8 +396,8 @@
     },
     "hyp3r00t/hypercli": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-14T11:35:07.252Z",
+      "fetchedAt": "2026-10-14T11:35:07.252Z",
       "data": {
         "name": "hypercli",
         "description": "hypercli is a Python package for building interactive, menu-driven command-line interfaces. It supports decorated menu entries, nested navigation, configurable visual styling, and a developer-friendly way to turn CLI workflows into structured user flows.",
@@ -557,36 +425,6 @@
         "commitCount": 40,
         "createdAt": "2022-12-30T21:31:35Z",
         "pushedAt": "2025-01-31T22:25:04Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/hyperoot-terminal": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "hyperoot-terminal",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/hyperoot-terminal",
-        "website": null,
-        "topics": [],
-        "language": "Python",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "79e473cb4775f6376123ca6e358820fc1aae5cd8",
-          "url": "https://github.com/HYP3R00T/hyperoot-terminal/commit/79e473cb4775f6376123ca6e358820fc1aae5cd8",
-          "date": "2026-10-08T18:43:52Z"
-        },
-        "commitCount": 70,
-        "createdAt": "2025-12-21T11:27:23Z",
-        "pushedAt": "2026-10-08T18:44:01Z",
         "archived": false,
         "fork": false,
         "template": false,
@@ -663,70 +501,6 @@
         "license": "MIT"
       }
     },
-    "hyp3r00t/notes": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "notes",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/notes",
-        "website": "http://notes.hyperoot.dev",
-        "topics": [],
-        "language": "Astro",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "e19c597fa10661b0760a491f7e512c0280019736",
-          "url": "https://github.com/HYP3R00T/notes/commit/e19c597fa10661b0760a491f7e512c0280019736",
-          "date": "2026-10-01T03:38:50Z"
-        },
-        "commitCount": 19,
-        "createdAt": "2026-08-25T03:34:53Z",
-        "pushedAt": "2026-10-01T10:25:13Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/omnishare": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "Omnishare",
-        "description": "Tools to directly post to various social media sites from the comfort of the terminal",
-        "url": "https://github.com/HYP3R00T/Omnishare",
-        "website": "https://omnishare.hyperoot.dev/",
-        "topics": [
-          "automation",
-          "cli-app",
-          "social-media"
-        ],
-        "language": "Python",
-        "stars": 1,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "2700b0233842a8d1a242283364412a54c1bdeb62",
-          "url": "https://github.com/HYP3R00T/Omnishare/commit/2700b0233842a8d1a242283364412a54c1bdeb62",
-          "date": "2024-11-28T16:04:46Z"
-        },
-        "commitCount": 17,
-        "createdAt": "2024-11-25T11:03:04Z",
-        "pushedAt": "2024-11-28T16:05:35Z",
-        "archived": true,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
     "hyp3r00t/physica": {
       "status": "fresh",
       "checkedAt": "2026-10-14T06:16:28.738Z",
@@ -792,40 +566,6 @@
         "fork": false,
         "template": false,
         "license": "MIT"
-      }
-    },
-    "hyp3r00t/rustlings-devcontainer": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "rustlings-devcontainer",
-        "description": "A preconfigured VS Code Dev Container to work through the Rustlings exercises with zero local setup beyond VS Code and Docker",
-        "url": "https://github.com/HYP3R00T/rustlings-devcontainer",
-        "website": null,
-        "topics": [
-          "devcontainer",
-          "rust-lang",
-          "sandbox"
-        ],
-        "language": "Shell",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "030134f9b61dae77352a0c16c0454b68d9a95d42",
-          "url": "https://github.com/HYP3R00T/rustlings-devcontainer/commit/030134f9b61dae77352a0c16c0454b68d9a95d42",
-          "date": "2026-06-04T20:52:28Z"
-        },
-        "commitCount": 12,
-        "createdAt": "2025-10-04T06:29:48Z",
-        "pushedAt": "2026-06-04T20:52:35Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": null
       }
     },
     "hyp3r00t/scripthub": {

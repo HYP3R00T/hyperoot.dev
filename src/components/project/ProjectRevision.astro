@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content"
 import GitCommitHorizontal from "@lucide/astro/icons/git-commit-horizontal"
 import { projectUpdatedAt } from "@/lib/project-catalog"
 import ProjectCommitCount from "./ProjectCommitCount"
+import ProjectRevisionTooltip from "./ProjectRevisionTooltip"
 
 interface Props {
   project: CollectionEntry<"projects">
@@ -37,19 +38,13 @@ const precise = date
     {commit && (
       <span class="revision-code">
         <GitCommitHorizontal size={14} aria-hidden="true" />
-        {commitUrl ? (
-          <a
-            href={commitUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={`Latest default-branch commit: ${commit.sha}`}
-            aria-label={`Commit ${commit.sha.slice(0, 7)} for ${project.data.title} (opens in a new tab)`}
-          >
-            {commit.sha.slice(0, 7)}
-          </a>
-        ) : (
-          <span title={commit.sha}>{commit.sha.slice(0, 7)}</span>
-        )}
+        <ProjectRevisionTooltip
+          client:load
+          label={commit.sha.slice(0, 7)}
+          url={commitUrl}
+          tooltip={`${github?.latestCommit ? "Latest default-branch commit" : "Commit"}: ${commit.sha}`}
+          ariaLabel={`Commit ${commit.sha.slice(0, 7)} for ${project.data.title}${commitUrl ? " (opens in a new tab)" : ""}`}
+        />
       </span>
     )}
     {commitCount !== undefined && branch && github && (
