@@ -1,0 +1,43 @@
+---
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
+import Code from "@lucide/astro/icons/code"
+import Download from "@lucide/astro/icons/download"
+import { Icon } from "astro-icon/components"
+
+interface Props {
+  label: string
+  href: string
+  icon: "github" | "extensions" | "downloads"
+  values: { count: number | null; label: string }[]
+  detail?: string
+}
+const { label, href, icon, values, detail } = Astro.props
+const MetricIcon = icon === "extensions" ? Code : Download
+const format = (count: number | null) => (count === null ? "—" : count.toLocaleString("en"))
+---
+
+<a
+  class="publication-metric"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`${label}: ${values.map(({ count, label }) => `${format(count)} ${label}`).join(", ")}${detail ? `, ${detail}` : ""}. Opens in a new tab`}
+>
+  <div class="publication-metric-heading">
+    {icon === "github" ? (
+      <Icon name="github" size={16} aria-hidden="true" />
+    ) : (
+      <MetricIcon size={16} aria-hidden="true" />
+    )}<span>{label}</span>
+    <ArrowUpRight class="publication-metric-arrow" size={14} aria-hidden="true" />
+  </div>
+  <div class="publication-metric-values">
+    {values.map(({ count, label }) => (
+      <div>
+        <strong>{format(count)}</strong>
+        <span>{label}</span>
+      </div>
+    ))}
+  </div>
+  {detail && <span class="publication-metric-detail">{detail}</span>}
+</a>

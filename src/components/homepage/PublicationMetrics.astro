@@ -1,0 +1,32 @@
+---
+import { catalogMetrics } from "@/lib/catalog-metrics.mjs"
+import { packageMetrics } from "@/lib/package-downloads.mjs"
+import PublicationMetric from "./PublicationMetric.astro"
+
+const root = process.cwd()
+const [packages, catalog] = await Promise.all([packageMetrics(root), catalogMetrics(root)])
+---
+
+<section class="publication-metrics" aria-label="Project usage metrics">
+  <PublicationMetric
+    icon="github"
+    label="GitHub"
+    href="https://github.com/HYP3R00T"
+    values={[{ count: catalog.stars, label: "stars" }]}
+    detail={`${catalog.forks === null ? "—" : catalog.forks.toLocaleString("en")} ${catalog.forks === 1 ? "fork" : "forks"}`}
+  />
+  <PublicationMetric
+    icon="extensions"
+    label="VS Code"
+    href="https://marketplace.visualstudio.com/publishers/hyperoot"
+    values={[{ count: catalog.installs, label: "extension installs" }]}
+    detail={`${catalog.extensionCount} ${catalog.extensionCount === 1 ? "extension" : "extensions"}`}
+  />
+  <PublicationMetric
+    icon="downloads"
+    label="Python"
+    href="https://pypi.org/org/hyperoot/"
+    values={[{ count: packages.totalDownloads, label: "package downloads" }]}
+    detail={`${packages.packageCount} packages`}
+  />
+</section>
