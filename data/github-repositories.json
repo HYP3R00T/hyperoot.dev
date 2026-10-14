@@ -640,69 +640,6 @@
         "license": "MIT"
       }
     },
-    "hyp3r00t/simulens": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "simulens",
-        "description": "A Python-first toolkit for interactive physics simulation and GPU-accelerated scientific visualization",
-        "url": "https://github.com/HYP3R00T/simulens",
-        "website": "https://hyp3r00t.github.io/simulens",
-        "topics": [],
-        "language": "Python",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 2,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "10cf4f6515469aae691040830c877a508e9d2882",
-          "url": "https://github.com/HYP3R00T/simulens/commit/10cf4f6515469aae691040830c877a508e9d2882",
-          "date": "2026-08-30T23:03:27Z"
-        },
-        "commitCount": 18,
-        "createdAt": "2026-08-29T08:29:01Z",
-        "pushedAt": "2026-10-01T03:39:10Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/spotipulse": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "SpotiPulse",
-        "description": "Spotify API Integration",
-        "url": "https://github.com/HYP3R00T/SpotiPulse",
-        "website": "https://spotify.hyperoot.dev/",
-        "topics": [
-          "api",
-          "spotify-web-api"
-        ],
-        "language": "Python",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "191ddf3f8202e2c26449e4b65674c27375bd6bdd",
-          "url": "https://github.com/HYP3R00T/SpotiPulse/commit/191ddf3f8202e2c26449e4b65674c27375bd6bdd",
-          "date": "2025-06-15T20:43:55Z"
-        },
-        "commitCount": 23,
-        "createdAt": "2025-05-11T05:41:05Z",
-        "pushedAt": "2025-06-15T20:44:03Z",
-        "archived": true,
-        "fork": false,
-        "template": false,
-        "license": "MIT"
-      }
-    },
     "hyp3r00t/threadbook": {
       "status": "fresh",
       "checkedAt": "2026-10-14T06:16:28.738Z",
