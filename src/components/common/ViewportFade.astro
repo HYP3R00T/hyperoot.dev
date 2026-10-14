@@ -1,0 +1,8 @@
+<!-- Overlapping masks increase blur toward each edge without dimming the clear center. -->
+{["top", "bottom"].map((edge) => (
+  <div class={`viewport-fade viewport-fade-${edge}`} aria-hidden="true">
+    {[1, 2, 3, 4].map(() => (
+      <span class="viewport-fade-layer"></span>
+    ))}
+  </div>
+))}

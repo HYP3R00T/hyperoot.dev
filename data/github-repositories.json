@@ -3,8 +3,8 @@
   "repositories": {
     "hyp3r00t/agents": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "agents",
         "description": "",
@@ -32,8 +32,8 @@
     },
     "hyp3r00t/ansitoolkit": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "AnsiToolkit",
         "description": "AnsiToolkit is a Python library for building rich terminal experiences with ANSI styling, formatted output utilities, and reusable CLI presentation components. It simplifies the creation of visually structured, developer-friendly terminal applications and automation tools.",
@@ -68,8 +68,8 @@
     },
     "hyp3r00t/celestialdocs": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "CelestialDocs",
         "description": "CelestialDocs is a modern documentation platform and Astro template designed for scalable, developer-friendly knowledge systems. It combines structured navigation, hybrid content generation, MDX support, and customizable UI components to build fast, maintainable, and production-ready documentation sites.",
@@ -107,8 +107,8 @@
     },
     "hyp3r00t/cheatsheetify": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "Cheatsheetify",
         "description": "A python tool to generate cheatsheet of command line tools as a PDF",
@@ -143,8 +143,8 @@
     },
     "hyp3r00t/costcutter": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "CostCutter",
         "description": "CostCutter is a serverless, Python-based tool that helps users manage AWS resources and avoid surprise cloud costs. By monitoring budgets and automatically cleaning up resources when thresholds are exceeded, CostCutter keeps your AWS environment tidy and cost‑efficient.",
@@ -177,8 +177,8 @@
     },
     "hyp3r00t/d2lab": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "d2lab",
         "description": "",
@@ -211,8 +211,8 @@
     },
     "hyp3r00t/devcontainer-astro-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "devcontainer-astro-template",
         "description": "",
@@ -244,8 +244,8 @@
     },
     "hyp3r00t/devcontainer-python-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "devcontainer-python-template",
         "description": "A modern Python development container template with best practices, automated tooling, and VS Code integration.",
@@ -278,8 +278,8 @@
     },
     "hyp3r00t/devcontainer-rust-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "devcontainer-rust-template",
         "description": "",
@@ -307,8 +307,8 @@
     },
     "hyp3r00t/devcontainer-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "devcontainer-template",
         "description": "A development container template designed for streamlined and efficient project setups. Includes pre-configured tools and environments to enhance productivity and maintain coding standards.",
@@ -340,8 +340,8 @@
     },
     "hyp3r00t/dotfiles": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "dotfiles",
         "description": "dotfiles is a cross-platform environment provisioning and configuration toolkit for Linux, WSL, and DevContainers. It combines Ansible, chezmoi, mise, and Bash orchestration to deliver reproducible, zero-touch developer environments from a single declarative codebase.",
@@ -377,8 +377,8 @@
     },
     "hyp3r00t/engineering-telemetry": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "engineering-telemetry",
         "description": "",
@@ -406,8 +406,8 @@
     },
     "hyp3r00t/formulens": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "formulens",
         "description": "Turn equation screenshots into LaTeX without typing them out",
@@ -440,8 +440,8 @@
     },
     "hyp3r00t/gitops-deployment-platform": {
       "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
+      "fetchedAt": "2026-10-14T03:35:34.671Z",
       "data": {
         "name": "gitops-deployment-platform",
         "description": "GitOps Deployment Platform is a Kubernetes-focused reference architecture for building reproducible, production-grade platform engineering environments using FluxCD, Infrastructure as Code, and declarative deployment workflows across self-hosted and cloud-native infrastructure.",
@@ -475,8 +475,8 @@
       }
     },
     "hyp3r00t/homelab": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "homelab",
@@ -512,8 +512,8 @@
       }
     },
     "hyp3r00t/hypercli": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "hypercli",
@@ -548,8 +548,8 @@
       }
     },
     "hyp3r00t/hyperoot-terminal": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "hyperoot-terminal",
@@ -577,8 +577,8 @@
       }
     },
     "hyp3r00t/hyperoot.dev": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "hyperoot.dev",
@@ -611,8 +611,8 @@
       }
     },
     "hyp3r00t/keypress": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "keypress",
@@ -645,8 +645,8 @@
       }
     },
     "hyp3r00t/notes": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "notes",
@@ -674,8 +674,8 @@
       }
     },
     "hyp3r00t/omnishare": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "Omnishare",
@@ -707,8 +707,8 @@
       }
     },
     "hyp3r00t/physica": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "Physica",
@@ -736,8 +736,8 @@
       }
     },
     "hyp3r00t/rajeshdas.dev": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "rajeshdas.dev",
@@ -772,8 +772,8 @@
       }
     },
     "hyp3r00t/rustlings-devcontainer": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "rustlings-devcontainer",
@@ -805,8 +805,8 @@
       }
     },
     "hyp3r00t/scripthub": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "scripthub",
@@ -838,8 +838,8 @@
       }
     },
     "hyp3r00t/settings-organizer": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "settings-organizer",
@@ -875,8 +875,8 @@
       }
     },
     "hyp3r00t/simulens": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "simulens",
@@ -904,8 +904,8 @@
       }
     },
     "hyp3r00t/spotipulse": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "SpotiPulse",
@@ -936,8 +936,8 @@
       }
     },
     "hyp3r00t/threadbook": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "Threadbook",
@@ -972,8 +972,8 @@
       }
     },
     "hyp3r00t/toolkit": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "toolkit",
@@ -1001,8 +1001,8 @@
       }
     },
     "hyp3r00t/utilityhub": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "UtilityHub",
@@ -1035,8 +1035,8 @@
       }
     },
     "hyp3r00t/voicepad": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "voicepad",
@@ -1072,8 +1072,8 @@
       }
     },
     "hyp3r00t/windows.dotfiles": {
-      "status": "fresh",
-      "checkedAt": "2026-10-13T16:36:09.725Z",
+      "status": "stale",
+      "checkedAt": "2026-10-14T03:35:34.671Z",
       "fetchedAt": "2026-10-13T16:36:09.725Z",
       "data": {
         "name": "windows.dotfiles",

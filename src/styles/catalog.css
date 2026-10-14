@@ -1,6 +1,7 @@
 /* Dotted framing and distinct information groups give the directory its hierarchy. */
 :root {
   --catalog-rule: color-mix(in oklch, var(--foreground-3) 42%, var(--background-0));
+  --catalog-header-height: 4.5rem;
 }
 .catalog-width {
   width: calc(100% - 4rem);
@@ -21,11 +22,74 @@
   background: color-mix(in oklch, var(--background-0) 96%, transparent);
   backdrop-filter: blur(12px);
 }
+.lab-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  border-bottom: 1px dotted var(--catalog-rule);
+  opacity: 0;
+  transition: opacity 180ms;
+}
+.lab-header[data-scrolled="true"]::after {
+  opacity: 1;
+}
+.viewport-fade {
+  position: fixed;
+  inset-inline: 0;
+  height: calc((100vh - var(--catalog-header-height)) * 0.19);
+  z-index: 70;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--fade-direction),
+    color-mix(in oklch, var(--background-0) 45%, transparent),
+    color-mix(in oklch, var(--background-0) 18%, transparent) 40%,
+    transparent
+  );
+}
+.viewport-fade-layer {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(var(--fade-blur));
+  mask-image: linear-gradient(var(--fade-direction), black 0%, black var(--fade-solid), transparent var(--fade-end));
+}
+.viewport-fade-layer:nth-child(1) {
+  --fade-blur: 0.5px;
+  --fade-solid: 0%;
+  --fade-end: 100%;
+}
+.viewport-fade-layer:nth-child(2) {
+  --fade-blur: 1.5px;
+  --fade-solid: 0%;
+  --fade-end: 75%;
+}
+.viewport-fade-layer:nth-child(3) {
+  --fade-blur: 3px;
+  --fade-solid: 0%;
+  --fade-end: 50%;
+}
+.viewport-fade-layer:nth-child(4) {
+  --fade-blur: 5px;
+  --fade-solid: 0%;
+  --fade-end: 25%;
+}
+.viewport-fade-top {
+  --fade-direction: to bottom;
+  top: var(--catalog-header-height);
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.lab-header[data-scrolled="true"] ~ * .viewport-fade-top {
+  opacity: 1;
+}
+.viewport-fade-bottom {
+  --fade-direction: to top;
+  bottom: 0;
+}
 .lab-header-inner {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  min-height: 4.5rem;
+  min-height: var(--catalog-header-height);
 }
 .lab-brand {
   display: grid;
@@ -255,9 +319,7 @@
   border: 1px dotted var(--catalog-rule);
   transition:
     border-color 180ms,
-    background 180ms,
-    opacity 500ms ease,
-    filter 500ms ease;
+    background 180ms;
 }
 .project-row:hover,
 .project-row:focus-within {
@@ -292,14 +354,6 @@
 .project-row:focus-within::before,
 .project-row:focus-within::after {
   opacity: 1;
-}
-.project-row[data-reveal="pending"] {
-  opacity: 0;
-  filter: blur(5px);
-}
-.project-row[data-reveal="visible"] {
-  opacity: 1;
-  filter: blur(0);
 }
 .project-number {
   display: none;
@@ -398,11 +452,6 @@
   font: 600 0.85rem var(--font-mono);
   color: var(--foreground-1);
 }
-.stat-label {
-  color: var(--foreground-3);
-  font: 0.65rem / 1.6 var(--font-sans);
-  margin: 0;
-}
 .project-row-footer {
   display: flex;
   align-items: center;
@@ -445,7 +494,7 @@
   min-height: 2.25rem;
   padding: 0.45rem 0.7rem;
   background: transparent;
-  border: 1px solid var(--catalog-rule);
+  border: 1px dotted var(--catalog-rule);
   font: 500 0.7rem var(--font-sans);
   color: var(--foreground-1);
   transition:
@@ -691,9 +740,12 @@
   .catalog-width {
     width: calc(100% - 2rem);
   }
+  :root {
+    --catalog-header-height: 4rem;
+  }
   .lab-header-inner {
     gap: 0.8rem;
-    min-height: 4rem;
+    min-height: var(--catalog-header-height);
   }
   .lab-brand {
     font-size: 0.75rem;
@@ -784,9 +836,6 @@
     gap: 0.8rem;
   }
 
-  .stat-label {
-    font-size: 0.65rem;
-  }
   .project-row-footer {
     align-items: start;
     flex-direction: column;
@@ -809,9 +858,11 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-row[data-reveal="pending"] {
-    opacity: 1;
-    filter: none;
+  .viewport-fade {
+    display: none;
+  }
+  .lab-header::after {
+    transition: none;
   }
 }
 
@@ -898,37 +949,6 @@
 .dropdown-trigger > span:last-child {
   color: var(--foreground-3);
 }
-.dropdown-content {
-  z-index: 100;
-  min-width: var(--radix-select-trigger-width);
-  max-height: var(--radix-select-content-available-height);
-  overflow: auto;
-  padding: 0.35rem;
-  background: var(--background-1);
-  color: var(--foreground-1);
-  border: 1px solid var(--catalog-rule);
-  box-shadow: 0 12px 30px #0003;
-  border-radius: 0.25rem;
-}
-.dropdown-option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 2.2rem;
-  padding: 0.5rem 0.65rem;
-  font: 0.75rem var(--font-sans);
-  cursor: pointer;
-  outline: none;
-  border-radius: 0.15rem;
-}
-.dropdown-option[data-highlighted] {
-  background: var(--background-2);
-  color: var(--foreground-0);
-}
-.dropdown-option[data-state="checked"] {
-  color: var(--foreground-0);
-}
 @media (max-width: 580px) {
   .profile-socials {
     font-size: 0.65rem;
@@ -976,4 +996,52 @@
     justify-content: start;
     padding-top: 0;
   }
+}
+
+.catalog-menu-content {
+  z-index: 100;
+  min-width: 14rem;
+  border: 1px dotted var(--catalog-rule);
+  border-radius: 0;
+  background: var(--background-0);
+  color: var(--foreground-1);
+  padding: 0.35rem;
+  box-shadow: none;
+  --tw-ring-shadow: 0 0 #0000;
+  font: 0.72rem / 1.5 var(--font-mono);
+}
+.catalog-menu-content [data-slot="dropdown-menu-label"] {
+  color: var(--foreground-3);
+  font: 0.6rem / 1.8 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.65rem;
+}
+.catalog-menu-content [data-slot="dropdown-menu-radio-item"] {
+  border-radius: 0;
+  font: inherit;
+  padding-block: 0.65rem;
+  padding-left: 0.65rem;
+  cursor: pointer;
+}
+.catalog-menu-content [data-slot="dropdown-menu-radio-item"][data-state="checked"] {
+  color: var(--foreground-0);
+  background: var(--background-1);
+}
+.catalog-menu-content [data-slot="dropdown-menu-radio-item"][data-highlighted] {
+  background: var(--foreground-0);
+  color: var(--background-0);
+}
+.catalog-menu-content [data-highlighted] svg {
+  color: inherit;
+}
+.catalog-stat-tooltip {
+  z-index: 100;
+  border: 1px dotted var(--foreground-3);
+  border-radius: 0;
+  background: var(--foreground-0);
+  color: var(--background-0);
+  padding: 0.45rem 0.65rem;
+  font: 0.65rem / 1.5 var(--font-mono);
+  box-shadow: none;
 }
