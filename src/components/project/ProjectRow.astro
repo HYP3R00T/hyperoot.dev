@@ -12,7 +12,7 @@ interface Props {
   index: number
 }
 const { project, index } = Astro.props
-const { title, description, repo, technologies, domains, github, hasPage } = project.data
+const { title, description, repo, technologies, domains, github, sourceRepo } = project.data
 const updatedAt = projectUpdatedAt(project.data)
 const search = [
   title,
@@ -38,35 +38,38 @@ const search = [
   data-activity={project.data.active ? "active" : "other"}
 >
   <span class="project-number" data-project-number aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-  <article
-    class:list={["project-row-content", { "project-row-no-stats": !github || project.data.private }]}
-    aria-labelledby={`project-${project.id}`}
-  >
-    <div class="project-row-heading">
-      <h3 id={`project-${project.id}`}>
-        {hasPage ? (
-          <a href={`/${project.id}/`} data-project-case-study-link>
-            {title}
-          </a>
-        ) : (
-          title
-        )}
-      </h3>
-      <div class="project-repo-stats">
-        <ProjectActivity project={project} />
-        {github?.language && <span class="project-language">{github.language}</span>}
+  <article class="project-row-content" aria-labelledby={`project-${project.id}`}>
+    <div class="project-topline">
+      <div class="project-row-heading">
+        <h3 id={`project-${project.id}`}>
+          {sourceRepo ? (
+            <a
+              class="project-primary-link"
+              href={sourceRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View ${title} source on GitHub (opens in a new tab)`}
+            >
+              {title}
+            </a>
+          ) : (
+            title
+          )}
+        </h3>
+        <div class="project-repo-stats">
+          <ProjectActivity project={project} />
+        </div>
       </div>
+      <ProjectStats project={project} />
     </div>
     {description && <p class="project-description">{description}</p>}
     {technologies.length > 0 && (
       <div class="project-stack">
-        <span class="metadata-label">Built with</span>
-        <ProjectTechnologies technologies={technologies} label={`${title} technologies`} limit={5} />
+        <ProjectTechnologies technologies={technologies} label={`${title} tags`} limit={5} />
       </div>
     )}
-    <ProjectStats project={project} />
     <div class="project-row-footer">
-      <div class="project-updates"><ProjectRevision project={project} /></div>
+      <ProjectRevision project={project} />
       <ProjectLinks project={project} includePage />
     </div>
   </article>

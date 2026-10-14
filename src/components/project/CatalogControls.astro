@@ -1,12 +1,21 @@
 ---
-import ChevronDown from "@lucide/astro/icons/chevron-down"
 import Search from "@lucide/astro/icons/search"
+import CatalogDropdown from "./CatalogDropdown"
 
 interface Props {
   domains: string[]
   count: number
 }
 const { domains, count } = Astro.props
+const activityOptions = [
+  { value: "all", label: "All activity" },
+  { value: "active", label: "Active in the last 30 days" },
+]
+const sortOptions = [
+  { value: "recent", label: "Recently pushed" },
+  { value: "stars", label: "Most stars" },
+  { value: "name", label: "Name A–Z" },
+]
 ---
 
 <div class="catalog-controls" data-catalog-controls hidden>
@@ -24,23 +33,35 @@ const { domains, count } = Astro.props
       >
       <kbd aria-hidden="true">/</kbd>
     </label>
-    <label class="catalog-select">
+    <div class="catalog-select">
       <span class="control-caption">Activity</span>
-      <select aria-label="Filter by activity" data-catalog-activity aria-controls="project-list">
+      <select
+        id="catalog-activity"
+        class="dropdown-native"
+        aria-label="Filter by activity"
+        data-catalog-activity
+        aria-controls="project-list"
+      >
         <option value="all">All activity</option>
         <option value="active">Active in the last 30 days</option>
       </select>
-      <ChevronDown size={14} aria-hidden="true" />
-    </label>
-    <label class="catalog-select">
+      <CatalogDropdown client:load controlId="catalog-activity" label="Filter by activity" options={activityOptions} />
+    </div>
+    <div class="catalog-select">
       <span class="control-caption">Sort</span>
-      <select aria-label="Sort projects" data-catalog-sort aria-controls="project-list">
+      <select
+        id="catalog-sort"
+        class="dropdown-native"
+        aria-label="Sort projects"
+        data-catalog-sort
+        aria-controls="project-list"
+      >
         <option value="recent">Recently pushed</option>
         <option value="stars">Most stars</option>
         <option value="name">Name A–Z</option>
       </select>
-      <ChevronDown size={14} aria-hidden="true" />
-    </label>
+      <CatalogDropdown client:load controlId="catalog-sort" label="Sort projects" options={sortOptions} />
+    </div>
   </div>
   <div class="catalog-filter-bar">
     <fieldset class="catalog-domains" aria-label="Filter by domain">

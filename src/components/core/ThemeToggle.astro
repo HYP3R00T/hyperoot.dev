@@ -4,7 +4,7 @@ import Sun from "@lucide/astro/icons/sun"
 ---
 
 <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme" title="Toggle color theme">
-  <span data-theme-name>Display</span><Sun size={14} class="theme-sun" aria-hidden="true" />
+  <Sun size={14} class="theme-sun" aria-hidden="true" />
   <Moon size={14} class="theme-moon" aria-hidden="true" />
 </button>
 
@@ -16,8 +16,6 @@ function setupThemeToggle() {
   const updateLabel = () => {
     const dark = document.documentElement.classList.contains("dark")
     button.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} theme`)
-    const name = button.querySelector("[data-theme-name]")
-    if (name) name.textContent = dark ? "Dark" : "Light"
     button.title = `Switch to ${dark ? "light" : "dark"} theme`
   }
   updateLabel()

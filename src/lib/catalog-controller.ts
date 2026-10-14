@@ -50,6 +50,8 @@ export function setupCatalog() {
       const number = row.querySelector("[data-project-number]")
       if (number) number.textContent = String(index + 1).padStart(2, "0")
     })
+    activity.dispatchEvent(new Event("catalog:sync"))
+    sort.dispatchEvent(new Event("catalog:sync"))
     refreshReveal()
     for (const button of filters) button.setAttribute("aria-pressed", String(button.dataset.domain === domain))
     count.textContent = `${matches.length} ${matches.length === 1 ? "project" : "projects"}${matches.length !== rows.length ? ` of ${rows.length}` : ""}`
@@ -97,7 +99,8 @@ export function setupCatalog() {
       event.ctrlKey ||
       event.metaKey ||
       event.altKey ||
-      (event.target instanceof Element && event.target.closest("input, textarea, select, [contenteditable]"))
+      (event.target instanceof Element &&
+        event.target.closest("input, textarea, select, [role=combobox], [role=listbox], [contenteditable]"))
     )
       return
     event.preventDefault()
