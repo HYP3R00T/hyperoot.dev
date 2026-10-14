@@ -4,6 +4,42 @@
   --catalog-header-height: 4.5rem;
   --catalog-control-height: 2.25rem;
 }
+.site-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.035;
+}
+.site-grain::before {
+  content: "";
+  position: absolute;
+  inset: -180px;
+  background-image: url("/textures/grain.svg");
+  background-size: 180px 180px;
+  animation: grain-drift 900ms steps(1, end) infinite;
+  will-change: transform;
+}
+.dark .site-grain {
+  opacity: 0.05;
+}
+@keyframes grain-drift {
+  0%, 100% { transform: translate(0, 0); }
+  12.5% { transform: translate(-36px, 54px); }
+  25% { transform: translate(63px, -27px); }
+  37.5% { transform: translate(-81px, -45px); }
+  50% { transform: translate(27px, 81px); }
+  62.5% { transform: translate(90px, 36px); }
+  75% { transform: translate(-54px, -90px); }
+  87.5% { transform: translate(45px, -63px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-grain::before {
+    animation: none;
+    will-change: auto;
+  }
+}
 .catalog-width {
   width: calc(100% - 4rem);
   max-width: 70rem;
@@ -20,7 +56,7 @@
   position: sticky;
   top: 0;
   z-index: 80;
-  background: color-mix(in oklch, var(--background-0) 96%, transparent);
+  background: var(--background-0);
   backdrop-filter: blur(12px);
 }
 .lab-header::after {

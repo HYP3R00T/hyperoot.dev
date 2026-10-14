@@ -5,6 +5,7 @@ import CodeCopyButton from "@/components/core/CodeCopyButton.astro"
 import Footer from "@/components/core/Footer.astro"
 import Header from "@/components/core/Header.astro"
 import HeadSEO from "@/components/core/HeadSEO.astro"
+import SiteAtmosphere from "@/components/core/SiteAtmosphere.astro"
 import type { BaseLayoutProps } from "@/lib/types"
 
 const { title, description, image, imageAlt, contentType } = Astro.props as BaseLayoutProps
@@ -17,6 +18,7 @@ const { title, description, image, imageAlt, contentType } = Astro.props as Base
   </head>
 
   <body class="relative flex min-h-screen flex-col">
+    <SiteAtmosphere />
     <a
       href="#main-content"
       class="sr-only fixed top-4 left-4 z-100 rounded-md bg-foreground-0 px-4 py-3 text-sm font-medium text-background-0 focus:not-sr-only"
