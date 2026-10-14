@@ -9,7 +9,7 @@ import {
   packageMetrics,
   selectedPackages,
   syncPackageDownloads,
-} from "../src/lib/package-downloads.mjs"
+} from "../src/lib/package-downloads.mts"
 
 const now = new Date("2026-10-14T00:00:00Z")
 async function fixture(t, snapshot) {

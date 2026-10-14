@@ -2,13 +2,23 @@ import { mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { parse } from "yaml"
 
+import {
+  errorMessage,
+  isMissingFile,
+  type ProjectSourceData,
+  type RepositoryData,
+  type RepositoryRecord,
+  type RepositorySnapshot,
+  type SyncOptions,
+} from "./project-data.mts"
+
 export const SNAPSHOT_PATH = "data/github-repositories.json"
 export const ACTIVE_DAYS = 30
 const REPO_PATTERN = /^[a-z\d](?:[a-z\d-]*[a-z\d])?\/[a-z\d._-]+$/i
 
-export async function readProjectSources(root) {
-  const entries = []
-  async function walk(directory) {
+export async function readProjectSources(root: string) {
+  const entries: { path: string; data: ProjectSourceData }[] = []
+  async function walk(directory: string) {
     for (const file of await readdir(directory, { withFileTypes: true })) {
       const path = resolve(directory, file.name)
       if (file.isDirectory()) await walk(path)
@@ -16,7 +26,7 @@ export async function readProjectSources(root) {
         const text = await readFile(path, "utf8")
         const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/)
         if (!match) throw new Error(`Missing frontmatter: ${path}`)
-        const data = parse(match[1])
+        const data = parse(match[1]) as ProjectSourceData
         if (!data || !REPO_PATTERN.test(data.repo ?? "")) throw new Error(`Expected repo: owner/name in ${path}`)
         if (data.hasPage && !match[2].trim()) throw new Error(`hasPage requires a write-up in ${path}`)
         entries.push({ path, data })
@@ -33,19 +43,22 @@ export async function readProjectSources(root) {
   return entries
 }
 
-export async function readSnapshot(root) {
+export async function readSnapshot(root: string): Promise<RepositorySnapshot> {
   try {
     const snapshot = JSON.parse(await readFile(resolve(root, SNAPSHOT_PATH), "utf8"))
     if (snapshot.version !== 1 || !snapshot.repositories) throw new Error("Invalid GitHub snapshot")
     return snapshot
   } catch (error) {
-    if (error.code === "ENOENT") return { version: 1, repositories: {} }
+    if (isMissingFile(error)) return { version: 1, repositories: {} }
     throw error
   }
 }
 
 /** Fetch only public metadata; never serialize API credentials or the full response. */
-export async function fetchRepository(repo, { fetchImpl = fetch, token = process.env.GITHUB_TOKEN } = {}) {
+export async function fetchRepository(
+  repo: string,
+  { fetchImpl = fetch, token = process.env.GITHUB_TOKEN }: { fetchImpl?: typeof fetch; token?: string } = {},
+): Promise<RepositoryData> {
   const options = {
     headers: {
       Accept: "application/vnd.github+json",
@@ -67,8 +80,8 @@ export async function fetchRepository(repo, { fetchImpl = fetch, token = process
     const lastPage = pulls.headers.get("link")?.match(/<([^>]+)>; rel="last"/)
     pullRequests = lastPage ? Number(new URL(lastPage[1]).searchParams.get("page")) : (await pulls.json()).length
   }
-  let latestCommit = null
-  let commitCount
+  let latestCommit: RepositoryData["latestCommit"] = null
+  let commitCount: number | undefined
   if (data.default_branch) {
     const commitResponse = await fetchImpl(
       `https://api.github.com/repos/${repo}/commits?sha=${encodeURIComponent(data.default_branch)}&per_page=1`,
@@ -112,7 +125,7 @@ export async function fetchRepository(repo, { fetchImpl = fetch, token = process
 }
 
 export async function syncRepositories(
-  root,
+  root: string,
   {
     force = false,
     offline = false,
@@ -121,11 +134,11 @@ export async function syncRepositories(
     token,
     now = new Date(),
     warn = console.warn,
-  } = {},
+  }: SyncOptions & { strict?: boolean; token?: string } = {},
 ) {
   const sources = await readProjectSources(root)
   const previous = await readSnapshot(root)
-  const repositories = {}
+  const repositories: RepositorySnapshot["repositories"] = {}
   let failures = 0
   for (const { data } of sources) {
     if (data.draft || data.private) continue
@@ -133,7 +146,7 @@ export async function syncRepositories(
     const cached = previous.repositories[key]
     if (
       offline ||
-      (!force && cached && now.getTime() - Date.parse(cached.checkedAt ?? cached.fetchedAt) < 6 * 60 * 60 * 1000)
+      (!force && cached && now.getTime() - Date.parse(cached.checkedAt ?? cached.fetchedAt ?? "") < 6 * 60 * 60 * 1000)
     ) {
       repositories[key] = cached ?? { status: "unavailable", fetchedAt: null, data: null }
       continue
@@ -147,7 +160,9 @@ export async function syncRepositories(
       }
     } catch (error) {
       failures++
-      warn(`${error.message}; ${cached?.data ? "using the last successful snapshot" : "using local metadata only"}.`)
+      warn(
+        `${errorMessage(error)}; ${cached?.data ? "using the last successful snapshot" : "using local metadata only"}.`,
+      )
       repositories[key] = {
         status: cached?.data ? "stale" : "unavailable",
         checkedAt: now.toISOString(),
@@ -157,7 +172,7 @@ export async function syncRepositories(
     }
   }
   if (strict && failures) throw new Error(`Could not refresh ${failures} repositories`)
-  const snapshot = { version: 1, repositories }
+  const snapshot: RepositorySnapshot = { version: 1, repositories }
   const path = resolve(root, SNAPSHOT_PATH)
   if (!offline && JSON.stringify(previous) !== JSON.stringify(snapshot)) {
     await mkdir(dirname(path), { recursive: true })
@@ -168,13 +183,21 @@ export async function syncRepositories(
   return snapshot
 }
 
-export function repositoryActivity(data, now = new Date()) {
+export function repositoryActivity(
+  data: { archived?: boolean; pushedAt?: string } | null | undefined,
+  now = new Date(),
+) {
   if (data?.archived || !data?.pushedAt) return false
   const age = now.getTime() - Date.parse(data.pushedAt)
   return age >= 0 && age <= ACTIVE_DAYS * 86400000
 }
 
-export function mergeProjectMetadata(local, record, now = new Date()) {
+export function mergeProjectMetadata(
+  input: Record<string, unknown>,
+  record: RepositoryRecord | undefined,
+  now = new Date(),
+) {
+  const local = input as ProjectSourceData
   const github = local.private ? undefined : record?.data
   return {
     ...local,
@@ -184,7 +207,7 @@ export function mergeProjectMetadata(local, record, now = new Date()) {
     domains: local.domains ?? [],
     sourceRepo: local.private ? undefined : (local.sourceRepo ?? github?.url ?? `https://github.com/${local.repo}`),
     website: local.website ?? github?.website ?? undefined,
-    github: github ? { ...github, fetchedAt: record.fetchedAt } : undefined,
+    github: github ? { ...github, fetchedAt: record?.fetchedAt } : undefined,
     syncStatus: record?.status ?? "unavailable",
     active: repositoryActivity(github ?? { pushedAt: local.lastUpdated ?? local.commit?.date }, now),
   }

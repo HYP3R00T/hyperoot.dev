@@ -1,8 +1,8 @@
 const SELECTOR = ".dot-pattern-interactive"
 
-const initialized = new WeakSet()
+const initialized = new WeakSet<HTMLElement>()
 
-function setupDotPattern(el) {
+function setupDotPattern(el: HTMLElement) {
   if (initialized.has(el)) return
   initialized.add(el)
 
@@ -38,7 +38,7 @@ function setupDotPattern(el) {
     rafId = window.requestAnimationFrame(animate)
   }
 
-  const updateTargetFromEvent = (event) => {
+  const updateTargetFromEvent = (event: PointerEvent) => {
     const rect = el.getBoundingClientRect()
     targetX = event.clientX - rect.left
     targetY = event.clientY - rect.top
@@ -59,8 +59,8 @@ function setupDotPattern(el) {
 }
 
 export default function initInteractiveDots() {
-  document.querySelectorAll(SELECTOR).forEach(setupDotPattern)
+  document.querySelectorAll<HTMLElement>(SELECTOR).forEach(setupDotPattern)
   document.addEventListener("astro:after-swap", () => {
-    document.querySelectorAll(SELECTOR).forEach(setupDotPattern)
+    document.querySelectorAll<HTMLElement>(SELECTOR).forEach(setupDotPattern)
   })
 }

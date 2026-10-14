@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url"
-import { syncRepositories } from "../src/lib/github-projects.mjs"
+import { syncRepositories } from "../src/lib/github-projects.mts"
 
 const root = fileURLToPath(new URL("../", import.meta.url))
 const snapshot = await syncRepositories(root, {

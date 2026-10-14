@@ -1,17 +1,14 @@
-// @ts-check
-
-import { unified } from "@astrojs/markdown-remark"
+import { type RehypePlugins, unified } from "@astrojs/markdown-remark"
 import mdx from "@astrojs/mdx"
 import react from "@astrojs/react"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import icon from "astro-icon"
-import projectGitHubIntegration from "./src/lib/project-github-integration.mjs"
-import rehypeCodeBlocks from "./src/lib/rehype-code-blocks.mjs"
-import rehypeHeadingLinks from "./src/lib/rehype-heading-links.mjs"
+import projectGitHubIntegration from "./src/lib/project-github-integration.mts"
+import rehypeCodeBlocks from "./src/lib/rehype-code-blocks.mts"
+import rehypeHeadingLinks from "./src/lib/rehype-heading-links.mts"
 
-/** @type {import("@astrojs/markdown-remark").RehypePlugins} */
-const rehypePlugins = [[rehypeCodeBlocks, { theme: "houston" }], rehypeHeadingLinks]
+const rehypePlugins: RehypePlugins = [[rehypeCodeBlocks, { theme: "houston" }], rehypeHeadingLinks]
 
 export default defineConfig({
   site: "https://hyperoot.dev",

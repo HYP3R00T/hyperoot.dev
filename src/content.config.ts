@@ -1,7 +1,8 @@
 import { defineCollection } from "astro:content"
 import { z } from "astro/zod"
-import { mergeProjectMetadata, readSnapshot, SNAPSHOT_PATH, syncRepositories } from "@/lib/github-projects.mjs"
+import { mergeProjectMetadata, SNAPSHOT_PATH, syncRepositories } from "@/lib/github-projects.mts"
 import { localContentLoader } from "@/lib/local-content-loader"
+import type { RepositorySnapshot } from "@/lib/project-data.mts"
 
 const components = defineCollection({
   loader: localContentLoader({ base: "./content/components" }),
@@ -12,15 +13,15 @@ const components = defineCollection({
   }),
 })
 
+let projectSnapshot: RepositorySnapshot = { version: 1, repositories: {} }
 const projects = defineCollection({
   loader: localContentLoader({
     base: "./content/projects",
     prepare: async (root) => {
-      await syncRepositories(root, { offline: process.env.PROJECTS_OFFLINE === "1" })
+      projectSnapshot = await syncRepositories(root, { offline: process.env.PROJECTS_OFFLINE === "1" })
     },
-    transformData: async (data, root) => {
-      const snapshot = await readSnapshot(root)
-      return mergeProjectMetadata(data, snapshot.repositories[String(data.repo).toLowerCase()])
+    transformData: async (data) => {
+      return mergeProjectMetadata(data, projectSnapshot.repositories[String(data.repo).toLowerCase()])
     },
     watchFiles: [SNAPSHOT_PATH],
   }),

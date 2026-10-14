@@ -36,4 +36,4 @@ const facts = github
 const stats: ProjectStat[] = facts.flatMap((stat) => (stat.value === undefined ? [] : [{ ...stat, value: stat.value }]))
 ---
 
-{stats.length > 0 && <ProjectStatsContent client:load title={project.data.title} stats={stats} />}
+{stats.length > 0 && <ProjectStatsContent client:visible title={project.data.title} stats={stats} />}
