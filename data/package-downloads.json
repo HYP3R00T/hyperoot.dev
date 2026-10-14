@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "packages": {
+    "ansitoolkit": {
+      "totalDownloads": 40954,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "hypercli": {
+      "totalDownloads": 21983,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "keypress": {
+      "totalDownloads": 14918,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "utilityhub-config": {
+      "totalDownloads": 6839,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "utilityhub-logging": {
+      "totalDownloads": 746,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "voicepad": {
+      "totalDownloads": 7158,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    },
+    "voicepad-core": {
+      "totalDownloads": 6717,
+      "fetchedAt": "2026-10-14T12:22:27.432Z"
+    }
+  }
+}

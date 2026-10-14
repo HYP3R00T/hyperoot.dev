@@ -1,0 +1,13 @@
+{
+  "projects": [
+    { "repo": "HYP3R00T/AnsiToolkit", "packages": ["ansitoolkit"] },
+    { "repo": "HYP3R00T/Cheatsheetify", "packages": ["cheatsheetify"] },
+    { "repo": "HYP3R00T/CostCutter", "packages": ["costcutter"] },
+    { "repo": "HYP3R00T/hypercli", "packages": ["hypercli"] },
+    { "repo": "HYP3R00T/keypress", "packages": ["keypress"] },
+    { "repo": "HYP3R00T/Omnishare", "packages": ["omnishare"] },
+    { "repo": "HYP3R00T/hyperoot-terminal", "packages": ["rajeshdas"] },
+    { "repo": "HYP3R00T/UtilityHub", "packages": ["utilityhub_config", "utilityhub-logging"] },
+    { "repo": "HYP3R00T/voicepad", "packages": ["voicepad", "voicepad-core"] }
+  ]
+}
