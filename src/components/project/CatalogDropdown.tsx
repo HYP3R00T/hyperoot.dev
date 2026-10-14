@@ -1,6 +1,13 @@
-import { Check, ChevronDown } from "lucide-react"
-import { Select } from "radix-ui"
+import { ChevronDown } from "lucide-react"
 import { useEffect, useState } from "react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 interface Props {
   controlId: string
@@ -28,28 +35,22 @@ export default function CatalogDropdown({ controlId, label, options }: Props) {
   }
   return (
     <div className="catalog-dropdown">
-      <Select.Root value={value} onValueChange={change}>
-        <Select.Trigger className="dropdown-trigger" aria-label={label} aria-controls="project-list">
-          <Select.Value />
-          <Select.Icon>
-            <ChevronDown size={14} />
-          </Select.Icon>
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Content className="dropdown-content" position="popper" sideOffset={6} collisionPadding={12}>
-            <Select.Viewport>
-              {options.map((option) => (
-                <Select.Item key={option.value} value={option.value} className="dropdown-option">
-                  <Select.ItemText>{option.label}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check size={14} />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
-            </Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="dropdown-trigger" aria-label={label}>
+          <span>{options.find((option) => option.value === value)?.label ?? options[0].label}</span>
+          <ChevronDown size={14} aria-hidden="true" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" sideOffset={6} collisionPadding={12} className="catalog-menu-content">
+          <DropdownMenuLabel>{label}</DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={value} onValueChange={change}>
+            {options.map((option) => (
+              <DropdownMenuRadioItem key={option.value} value={option.value}>
+                {option.label}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }
