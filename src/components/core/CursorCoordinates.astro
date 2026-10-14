@@ -1,0 +1,12 @@
+<div class="cursor-coordinates" data-cursor-coordinates aria-hidden="true">
+  <span class="cursor-axis cursor-axis-x"></span>
+  <span class="cursor-axis cursor-axis-y"></span>
+  <span class="cursor-coordinate cursor-coordinate-x" data-cursor-x></span>
+  <span class="cursor-coordinate cursor-coordinate-y" data-cursor-y></span>
+</div>
+
+<script>
+import { setupCursorCoordinates } from "@/lib/cursor-coordinates"
+
+document.addEventListener("astro:page-load", setupCursorCoordinates)
+</script>
