@@ -9,7 +9,18 @@ export function setupCursorCoordinates() {
   const lifecycle = new AbortController()
   const options = { signal: lifecycle.signal, passive: true }
   const context =
-    "a, button, input, select, textarea, [role=menu], [role=tooltip], .lab-header, .lab-footer, .catalog-hero, .catalog-controls, .catalog-section-heading, [data-project-row], .project-story"
+    "a, button, input, select, textarea, [role=menu], [role=tooltip], [role=dialog], [contenteditable=true], [data-project-row], .catalog-search, svg, img, video, canvas, pre, code"
+  const textRange = document.createRange()
+  const overText = (target: Element, x: number, y: number) => {
+    for (const node of target.childNodes) {
+      if (node.nodeType !== Node.TEXT_NODE || !node.textContent?.trim()) continue
+      textRange.selectNodeContents(node)
+      for (const rect of textRange.getClientRects()) {
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) return true
+      }
+    }
+    return false
+  }
   let frame = 0
   let position: { x: number; y: number } | undefined
   const hide = () => {
@@ -21,7 +32,7 @@ export function setupCursorCoordinates() {
     if (!position || !pointer.matches || motion.matches) return hide()
     const { x, y } = position
     const target = document.elementFromPoint(x, y)
-    if (!target || target.closest(context)) {
+    if (!target || target.closest(context) || overText(target, x, y)) {
       overlay.dataset.visible = "false"
       return
     }
