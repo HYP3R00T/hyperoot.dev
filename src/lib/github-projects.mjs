@@ -68,17 +68,25 @@ export async function fetchRepository(repo, { fetchImpl = fetch, token = process
     pullRequests = lastPage ? Number(new URL(lastPage[1]).searchParams.get("page")) : (await pulls.json()).length
   }
   let latestCommit = null
+  let commitCount
   if (data.default_branch) {
     const commitResponse = await fetchImpl(
-      `https://api.github.com/repos/${repo}/commits/${encodeURIComponent(data.default_branch)}`,
+      `https://api.github.com/repos/${repo}/commits?sha=${encodeURIComponent(data.default_branch)}&per_page=1`,
       options,
     )
     if (commitResponse.status !== 409) {
       if (!commitResponse.ok)
         throw new Error(`GitHub returned ${commitResponse.status} while reading the latest commit for ${repo}`)
-      const commit = await commitResponse.json()
-      latestCommit = { sha: commit.sha, url: commit.html_url, date: commit.commit.committer.date }
-    }
+      const commits = await commitResponse.json()
+      const commit = commits[0]
+      if (commit) latestCommit = { sha: commit.sha, url: commit.html_url, date: commit.commit.committer.date }
+      const link = commitResponse.headers.get("link") ?? ""
+      const lastPage = link.match(/<([^>]+)>; rel="last"/)
+      const total = lastPage ? Number(new URL(lastPage[1]).searchParams.get("page")) : commits.length
+      // With one result per page, the last page is the count. Omit it if GitHub only supplies a next page.
+      if ((!link.includes('rel="next"') || lastPage) && Number.isSafeInteger(total) && total >= commits.length)
+        commitCount = total
+    } else commitCount = 0
   }
   return {
     name: data.name,
@@ -93,6 +101,7 @@ export async function fetchRepository(repo, { fetchImpl = fetch, token = process
     pullRequests,
     defaultBranch: data.default_branch ?? null,
     latestCommit,
+    commitCount,
     createdAt: data.created_at,
     pushedAt: data.pushed_at,
     archived: data.archived,
