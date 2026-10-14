@@ -1,0 +1,29 @@
+---
+import Globe from "@lucide/astro/icons/globe"
+import Mail from "@lucide/astro/icons/mail"
+import { Icon as AssetIcon } from "astro-icon/components"
+
+const links = [
+  { label: "Personal website", href: "https://rajeshdas.dev", icon: Globe, external: true },
+  { label: "GitHub", href: "https://github.com/HYP3R00T", icon: undefined, external: true },
+  { label: "Email", href: "mailto:hello@rajeshdas.dev", icon: Mail, external: false },
+]
+---
+
+<nav class="profile-socials" aria-label="Find Rajesh elsewhere">
+  {links.map(({ label, href, icon: Icon, external }) => (
+    <a
+      href={href}
+      aria-label={label}
+      title={label}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
+      {Icon ? (
+        <Icon size={16} aria-hidden="true" />
+      ) : (
+        <AssetIcon name="github" width={16} height={16} aria-hidden="true" />
+      )}
+    </a>
+  ))}
+</nav>

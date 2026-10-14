@@ -6,7 +6,7 @@ export function setupCatalog() {
   catalog.dataset.initialized = "true"
   const list = catalog.querySelector<HTMLOListElement>("[data-project-list]")
   const search = catalog.querySelector<HTMLInputElement>("[data-catalog-search]")
-  const activity = catalog.querySelector<HTMLSelectElement>("[data-catalog-activity]")
+  const activity = catalog.querySelector<HTMLInputElement>("[data-catalog-activity]")
   const sort = catalog.querySelector<HTMLSelectElement>("[data-catalog-sort]")
   const rows = [...catalog.querySelectorAll<HTMLElement>("[data-project-row]")]
   const filters = [...catalog.querySelectorAll<HTMLButtonElement>("[data-domain]")]
@@ -19,8 +19,7 @@ export function setupCatalog() {
   const initialDomain = url.searchParams.get("domain")?.toLowerCase()
   if (filters.some((button) => button.dataset.domain === initialDomain)) domain = initialDomain ?? "all"
   if (SORT_VALUES.has(url.searchParams.get("sort") ?? "")) sort.value = url.searchParams.get("sort") ?? "recent"
-  if ([...activity.options].some((option) => option.value === url.searchParams.get("activity")))
-    activity.value = url.searchParams.get("activity") ?? "all"
+  activity.checked = url.searchParams.get("activity") === "active"
 
   function update() {
     if (!list || !search || !activity || !sort || !empty || !count) return
@@ -31,7 +30,7 @@ export function setupCatalog() {
           terms.every((term) => row.dataset.search?.includes(term)) &&
           (domain === "all" ||
             (JSON.parse(row.dataset.domains ?? "[]") as string[]).some((value) => value.toLowerCase() === domain)) &&
-          (activity.value === "all" || row.dataset.activity === activity.value),
+          (!activity.checked || row.dataset.activity === "active"),
       )
       .sort((a, b) => {
         if (sort.value === "name") return (a.dataset.title ?? "").localeCompare(b.dataset.title ?? "")
@@ -56,7 +55,7 @@ export function setupCatalog() {
       ["q", search.value.trim(), ""],
       ["domain", domain, "all"],
       ["sort", sort.value, "recent"],
-      ["activity", activity.value, "all"],
+      ["activity", activity.checked ? "active" : "all", "all"],
     ]) {
       if (value === fallback) url.searchParams.delete(key)
       else url.searchParams.set(key, value)
@@ -74,7 +73,7 @@ export function setupCatalog() {
     })
   catalog.querySelector("[data-catalog-reset]")?.addEventListener("click", () => {
     search.value = ""
-    activity.value = "all"
+    activity.checked = false
     domain = "all"
     update()
     search.focus()

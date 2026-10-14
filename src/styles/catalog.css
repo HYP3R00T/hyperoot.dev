@@ -2,6 +2,7 @@
 :root {
   --catalog-rule: color-mix(in oklch, var(--foreground-3) 42%, var(--background-0));
   --catalog-header-height: 4.5rem;
+  --catalog-control-height: 2.25rem;
 }
 .catalog-width {
   width: calc(100% - 4rem);
@@ -72,15 +73,6 @@
   --fade-solid: 0%;
   --fade-end: 25%;
 }
-.viewport-fade-top {
-  --fade-direction: to bottom;
-  top: var(--catalog-header-height);
-  opacity: 0;
-  transition: opacity 500ms;
-}
-.lab-header[data-scrolled="true"] ~ * .viewport-fade-top {
-  opacity: 1;
-}
 .viewport-fade-bottom {
   --fade-direction: to top;
   bottom: 0;
@@ -149,7 +141,7 @@
   grid-template-columns: 3.2rem minmax(0, 1fr);
   gap: 0.8rem 1.2rem;
   max-width: 48rem;
-  margin-bottom: 3.2rem;
+  margin-bottom: 5rem;
 }
 .profile-monogram {
   display: grid;
@@ -202,23 +194,14 @@
 .catalog-section-heading h2 {
   font: 500 1.35rem var(--font-display);
   letter-spacing: -0.035em;
-  margin-top: 0.3rem;
-}
-.catalog-count {
-  font: 0.65rem var(--font-mono);
-  color: var(--foreground-2);
-  border: 1px dotted var(--catalog-rule);
-  padding: 0.4rem 0.6rem;
-  white-space: nowrap;
 }
 .catalog-controls {
-  padding: 1rem;
   margin-bottom: 1.25rem;
-  border: 1px dotted var(--catalog-rule);
 }
 .catalog-toolbar {
-  display: flex;
-  align-items: end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
   gap: 0.8rem;
 }
 .catalog-search {
@@ -227,7 +210,7 @@
   gap: 0.8rem;
   flex: 1;
   min-width: 0;
-  height: 3.45rem;
+  height: var(--catalog-control-height);
   padding-inline: 1rem;
   background: var(--background-1);
   border: 1px solid var(--border);
@@ -262,7 +245,7 @@
 .catalog-select select {
   appearance: none;
   cursor: pointer;
-  min-height: 2.5rem;
+  min-height: var(--catalog-control-height);
   padding: 0 2rem 0 0.75rem;
   background: var(--background-1);
   border: 1px solid var(--border);
@@ -703,13 +686,12 @@
 }
 @media (max-width: 900px) {
   .catalog-toolbar {
-    flex-wrap: wrap;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
   .catalog-search {
-    flex-basis: 100%;
+    grid-column: 1 / -1;
   }
   .catalog-select {
-    flex: 1;
     min-width: 0;
   }
   .catalog-select select {
@@ -775,7 +757,7 @@
   .catalog-hero {
     grid-template-columns: 2.4rem minmax(0, 1fr);
     gap: 0.8rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 3.75rem;
   }
   .profile-monogram {
     width: 2.4rem;
@@ -798,16 +780,9 @@
   .catalog-section-heading h2 {
     font-size: 1.2rem;
   }
-  .catalog-count {
-    font-size: 0.58rem;
-    padding: 0.35rem 0.4rem;
-  }
-  .catalog-controls {
-    padding: 0.8rem;
-  }
   .catalog-search {
     padding-inline: 0.7rem;
-    height: 2.8rem;
+    height: var(--catalog-control-height);
   }
   .catalog-search input {
     font-size: 0.73rem;
@@ -883,23 +858,25 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1rem;
+  gap: 0.6rem;
   margin-top: 0.3rem;
-  font-size: 0.7rem;
-}
-
-.profile-socials > span {
-  color: var(--foreground-3);
 }
 
 .profile-socials a {
   position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px dotted var(--catalog-rule);
   color: var(--foreground-2);
-  transition: color 180ms;
+  transition: color 180ms, background 180ms, border-color 180ms;
 }
 
 .profile-socials a:hover {
-  color: var(--foreground-0);
+  color: var(--background-0);
+  background: var(--foreground-0);
+  border-color: var(--foreground-0);
 }
 
 .project-primary-link {
@@ -932,7 +909,7 @@
   justify-content: space-between;
   gap: 0.9rem;
   width: 100%;
-  min-height: 2.5rem;
+  min-height: var(--catalog-control-height);
   padding: 0 0.8rem;
   background: var(--background-1);
   border: 1px solid var(--border);
@@ -950,13 +927,6 @@
   color: var(--foreground-3);
 }
 @media (max-width: 580px) {
-  .profile-socials {
-    font-size: 0.65rem;
-    gap: 0.5rem 0.8rem;
-  }
-  .profile-socials > span {
-    flex-basis: 100%;
-  }
   .project-row-footer {
     gap: 0.9rem;
   }
@@ -1032,8 +1002,9 @@
   background: var(--foreground-0);
   color: var(--background-0);
 }
-.catalog-menu-content [data-highlighted] svg {
-  color: inherit;
+.catalog-menu-content [data-slot="dropdown-menu-radio-item"][data-highlighted] svg,
+.catalog-menu-content [data-slot="dropdown-menu-radio-item"][data-highlighted] svg * {
+  color: var(--background-0);
 }
 .catalog-stat-tooltip {
   z-index: 100;
@@ -1044,4 +1015,37 @@
   padding: 0.45rem 0.65rem;
   font: 0.65rem / 1.5 var(--font-mono);
   box-shadow: none;
+}
+
+.catalog-sort-trigger {
+  width: 3.25rem;
+  height: var(--catalog-control-height);
+  gap: 0.3rem;
+  padding: 0;
+  justify-content: center;
+}
+/* Keep the library toggle compact and consistent with the catalog controls. */
+.catalog-active-toggle {
+  height: var(--catalog-control-height);
+  border-radius: 0;
+  padding-inline: 0.75rem;
+  background: var(--background-1);
+  color: var(--foreground-2);
+  font: 0.65rem var(--font-mono);
+  cursor: pointer;
+}
+.catalog-active-toggle[aria-pressed="true"],
+.catalog-active-toggle:hover {
+  background: var(--foreground-0);
+  color: var(--background-0);
+}
+.catalog-activity:not(.toggle-enhanced) .catalog-active-toggle,
+.toggle-enhanced .catalog-activity-native {
+  display: none;
+}
+.catalog-activity-native {
+  display: flex;
+  align-items: center;
+  height: var(--catalog-control-height);
+  gap: 0.5rem;
 }
