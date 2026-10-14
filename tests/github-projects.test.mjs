@@ -28,9 +28,17 @@ const githubResponse = {
   fork: false,
   is_template: false,
   private: false,
+  open_issues_count: 0,
+  default_branch: "main",
   license: { spdx_id: "MIT" },
 }
-const fetchSuccess = async () => new Response(JSON.stringify(githubResponse))
+const commitResponse = {
+  sha: "a".repeat(40),
+  html_url: `https://github.com/example/tool/commit/${"a".repeat(40)}`,
+  commit: { committer: { date: "2026-10-12T00:00:00Z" } },
+}
+const fetchSuccess = async (url) =>
+  new Response(JSON.stringify(url.includes("/commits/") ? commitResponse : githubResponse))
 
 async function fixture(t) {
   const root = await mkdtemp(join(tmpdir(), "hyperoot-projects-"))
@@ -69,11 +77,12 @@ test("local overrides win, while omitted metadata falls back to GitHub", async (
   assert.deepEqual(fallback.technologies, ["python"])
 })
 
-test("activity uses push dates and archival takes precedence", () => {
-  assert.equal(repositoryActivity(null, now), "unknown")
-  assert.equal(repositoryActivity({ pushedAt: "2026-07-15T00:00:00Z" }, now), "recently-active")
-  assert.equal(repositoryActivity({ pushedAt: "2026-07-14T23:59:59Z" }, now), "quiet")
-  assert.equal(repositoryActivity({ ...githubResponse, archived: true }, now), "archived")
+test("only pushes within 30 days produce the active indicator", () => {
+  assert.equal(repositoryActivity(null, now), false)
+  assert.equal(repositoryActivity({ pushedAt: "2026-09-13T00:00:00Z" }, now), true)
+  assert.equal(repositoryActivity({ pushedAt: "2026-09-12T23:59:59Z" }, now), false)
+  assert.equal(repositoryActivity({ pushedAt: "2026-10-14T00:00:00Z" }, now), false)
+  assert.equal(repositoryActivity({ pushedAt: "2026-10-12T00:00:00Z", archived: true }, now), false)
 })
 
 test("refresh failure preserves successful metadata and its original fetch time", async (t) => {
@@ -106,7 +115,7 @@ test("offline mode makes no requests; new unavailable projects remain usable", a
     now,
   )
   assert.equal(project.title, "Local title")
-  assert.equal(project.activity, "unknown")
+  assert.equal(project.active, false)
   assert.equal(project.syncStatus, "unavailable")
   assert.equal(project.github, undefined)
 })
@@ -157,4 +166,51 @@ test("hasPage requires a body and repositories cannot be duplicated", async (t) 
   await writeFile(path, "---\nrepo: example/tool\nhasPage: true\n---\nA write-up.\n")
   await writeFile(join(root, "content/projects/duplicate.mdx"), "---\nrepo: Example/Tool\n---\n")
   await assert.rejects(readProjectSources(root), /Duplicate/)
+})
+
+test("open issues exclude PRs and pagination yields an exact open PR count", async () => {
+  const data = await fetchRepository("example/tool", {
+    fetchImpl: async (url) => {
+      if (url.includes("/pulls?"))
+        return new Response(JSON.stringify([{ number: 1 }]), {
+          headers: {
+            link: '<https://api.github.com/repos/example/tool/pulls?state=open&per_page=1&page=3>; rel="last"',
+          },
+        })
+      if (url.includes("/commits/")) return new Response(JSON.stringify(commitResponse))
+      return new Response(JSON.stringify({ ...githubResponse, open_issues_count: 5 }))
+    },
+  })
+  assert.equal(data.pullRequests, 3)
+  assert.equal(data.issues, 2)
+  assert.equal(data.defaultBranch, "main")
+  assert.equal(data.latestCommit.sha, "a".repeat(40))
+})
+
+test("empty repositories can publish their metadata without a commit", async () => {
+  const data = await fetchRepository("example/tool", {
+    fetchImpl: async (url) =>
+      url.includes("/commits/") ? new Response(null, { status: 409 }) : new Response(JSON.stringify(githubResponse)),
+  })
+  assert.equal(data.latestCommit, null)
+  assert.equal(data.pullRequests, 0)
+})
+
+test("private entries can explicitly author dates and commits without public statistics", () => {
+  const project = mergeProjectMetadata(
+    {
+      repo: "example/tool",
+      private: true,
+      lastUpdated: "2026-10-12T00:00:00Z",
+      commit: { sha: "abc1234", branch: "main" },
+      website: "https://example.com",
+    },
+    { data: { ...githubResponse, stars: 100 } },
+    now,
+  )
+  assert.equal(project.active, true)
+  assert.equal(project.github, undefined)
+  assert.equal(project.sourceRepo, undefined)
+  assert.equal(project.commit.sha, "abc1234")
+  assert.equal(project.website, "https://example.com")
 })

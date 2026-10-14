@@ -5,20 +5,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Warm neutral surfaces with golden-ratio lightness intervals */
-  --background-0: oklch(0.9800 0.006 85);
-  --background-1: oklch(0.9543 0.006 85);
-  --background-2: oklch(0.9126 0.006 85);
-  --background-3: oklch(0.8453 0.006 85);
+  /* Paper surfaces and warm gray borders */
+  --background-0: #fafafa;
+  --background-1: #f5f5f5;
+  --background-2: #dedede;
+  --background-3: #b5b5b5;
 
   /* Cool neutral text, ordered from quiet to high emphasis */
-  --foreground-3: oklch(0.5300 0.012 250);
-  --foreground-2: oklch(0.5000 0.012 250);
-  --foreground-1: oklch(0.3500 0.012 250);
-  --foreground-0: oklch(0.2000 0.012 250);
+  --foreground-3: #686868;
+  --foreground-2: #555555;
+  --foreground-1: #383838;
+  --foreground-0: #202020;
 
-  /* Cyan-blue interaction family */
-  --accent-1: oklch(0.5400 0.110 245);
+  /* Neutral interaction family */
+  --accent-1: #343434;
   --accent-2: color-mix(in oklch, var(--accent-1), black 12%);
 
   /* Semantic and chart colors balanced for light surfaces */
@@ -76,20 +76,20 @@
 }
 
 .dark {
-  /* Cool neutral surfaces with golden-ratio lightness intervals */
-  --background-0: oklch(0.1800 0.009 250);
-  --background-1: oklch(0.2057 0.009 250);
-  --background-2: oklch(0.2474 0.009 250);
-  --background-3: oklch(0.3147 0.009 250);
+  /* Deep ink surfaces and warm gray borders */
+  --background-0: #090909;
+  --background-1: #111111;
+  --background-2: #252525;
+  --background-3: #444444;
 
   /* Warm primary text with cool supporting neutrals */
-  --foreground-3: oklch(0.6000 0.012 250);
-  --foreground-2: oklch(0.7200 0.012 250);
-  --foreground-1: oklch(0.8700 0.010 85);
-  --foreground-0: oklch(0.9500 0.008 85);
+  --foreground-3: #949494;
+  --foreground-2: #b0b0b0;
+  --foreground-1: #d3d3d3;
+  --foreground-0: #eeeeee;
 
-  /* Brighter cyan-blue interaction family for dark surfaces */
-  --accent-1: oklch(0.7000 0.110 240);
+  /* Brighter neutral interaction family for dark surfaces */
+  --accent-1: #e7e7e7;
   --accent-2: color-mix(in oklch, var(--accent-1), white 10%);
 
   /* Semantic and chart colors balanced for dark surfaces */

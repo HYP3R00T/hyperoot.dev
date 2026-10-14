@@ -45,7 +45,15 @@ const projects = defineCollection({
       website: z.url().optional(),
       links: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
       hasPage: z.boolean().optional().default(false),
-      activity: z.enum(["recently-active", "quiet", "archived", "unknown"]),
+      active: z.boolean(),
+      lastUpdated: z.iso.datetime().optional(),
+      commit: z
+        .object({
+          sha: z.string().regex(/^[a-f\d]{7,40}$/i),
+          branch: z.string().optional(),
+          date: z.iso.datetime().optional(),
+        })
+        .optional(),
       syncStatus: z.enum(["fresh", "stale", "unavailable"]),
       github: z
         .object({
@@ -57,6 +65,13 @@ const projects = defineCollection({
           language: z.string().nullable(),
           stars: z.number().int().nonnegative(),
           forks: z.number().int().nonnegative(),
+          issues: z.number().int().nonnegative().optional(),
+          pullRequests: z.number().int().nonnegative().optional(),
+          defaultBranch: z.string().nullable().optional(),
+          latestCommit: z
+            .object({ sha: z.string().regex(/^[a-f\d]{40}$/i), url: z.url(), date: z.iso.datetime() })
+            .nullable()
+            .optional(),
           createdAt: z.iso.datetime(),
           pushedAt: z.iso.datetime().nullable(),
           archived: z.boolean(),

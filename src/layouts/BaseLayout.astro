@@ -23,7 +23,6 @@ const { title, description, image, imageAlt, contentType } = Astro.props as Base
     >
       Skip to content
     </a>
-    <div aria-hidden="true" class="site-page-rails"></div>
     <Header />
     <div class="flex flex-1">
       <main id="main-content" class="flex h-full w-full justify-center" tabindex="-1">
@@ -41,20 +40,4 @@ const { title, description, image, imageAlt, contentType } = Astro.props as Base
 import initInteractiveDots from "@/lib/initInteractiveDots"
 
 initInteractiveDots()
-</script>
-
-<script is:inline>
-;(() => {
-  const applyTheme = () => {
-    const savedTheme = localStorage.getItem("theme")
-    const theme = savedTheme === "light" || savedTheme === "dark" || savedTheme === "system" ? savedTheme : "system"
-    const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-
-    document.documentElement.classList.toggle("dark", isDark)
-    document.documentElement.style.colorScheme = isDark ? "dark" : "light"
-  }
-
-  applyTheme()
-  document.addEventListener("astro:after-swap", applyTheme)
-})()
 </script>

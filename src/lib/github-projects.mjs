@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path"
 import { parse } from "yaml"
 
 export const SNAPSHOT_PATH = "data/github-repositories.json"
-export const ACTIVE_DAYS = 90
+export const ACTIVE_DAYS = 30
 const REPO_PATTERN = /^[a-z\d](?:[a-z\d-]*[a-z\d])?\/[a-z\d._-]+$/i
 
 export async function readProjectSources(root) {
@@ -46,18 +46,40 @@ export async function readSnapshot(root) {
 
 /** Fetch only public metadata; never serialize API credentials or the full response. */
 export async function fetchRepository(repo, { fetchImpl = fetch, token = process.env.GITHUB_TOKEN } = {}) {
-  const response = await fetchImpl(`https://api.github.com/repos/${repo}`, {
+  const options = {
     headers: {
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2026-03-10",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     signal: AbortSignal.timeout(15000),
-  })
+  }
+  const response = await fetchImpl(`https://api.github.com/repos/${repo}`, options)
   if (!response.ok) throw new Error(`GitHub returned ${response.status} for ${repo}`)
   const data = await response.json()
   if (data.private || data.visibility === "private") throw new Error(`Repository is private: ${repo}`)
   if (!data.name || !data.html_url) throw new Error(`Invalid GitHub response for ${repo}`)
+  let pullRequests = 0
+  // open_issues_count includes PRs. per_page=1 makes the last page number the exact PR count.
+  if (data.open_issues_count > 0) {
+    const pulls = await fetchImpl(`https://api.github.com/repos/${repo}/pulls?state=open&per_page=1`, options)
+    if (!pulls.ok) throw new Error(`GitHub returned ${pulls.status} while counting pull requests for ${repo}`)
+    const lastPage = pulls.headers.get("link")?.match(/<([^>]+)>; rel="last"/)
+    pullRequests = lastPage ? Number(new URL(lastPage[1]).searchParams.get("page")) : (await pulls.json()).length
+  }
+  let latestCommit = null
+  if (data.default_branch) {
+    const commitResponse = await fetchImpl(
+      `https://api.github.com/repos/${repo}/commits/${encodeURIComponent(data.default_branch)}`,
+      options,
+    )
+    if (commitResponse.status !== 409) {
+      if (!commitResponse.ok)
+        throw new Error(`GitHub returned ${commitResponse.status} while reading the latest commit for ${repo}`)
+      const commit = await commitResponse.json()
+      latestCommit = { sha: commit.sha, url: commit.html_url, date: commit.commit.committer.date }
+    }
+  }
   return {
     name: data.name,
     description: data.description ?? "",
@@ -67,6 +89,10 @@ export async function fetchRepository(repo, { fetchImpl = fetch, token = process
     language: data.language ?? null,
     stars: data.stargazers_count,
     forks: data.forks_count,
+    issues: Math.max(0, (data.open_issues_count ?? 0) - pullRequests),
+    pullRequests,
+    defaultBranch: data.default_branch ?? null,
+    latestCommit,
     createdAt: data.created_at,
     pushedAt: data.pushed_at,
     archived: data.archived,
@@ -134,13 +160,13 @@ export async function syncRepositories(
 }
 
 export function repositoryActivity(data, now = new Date()) {
-  if (data?.archived) return "archived"
-  if (!data?.pushedAt) return "unknown"
-  return now.getTime() - Date.parse(data.pushedAt) <= ACTIVE_DAYS * 86400000 ? "recently-active" : "quiet"
+  if (data?.archived || !data?.pushedAt) return false
+  const age = now.getTime() - Date.parse(data.pushedAt)
+  return age >= 0 && age <= ACTIVE_DAYS * 86400000
 }
 
 export function mergeProjectMetadata(local, record, now = new Date()) {
-  const github = record?.data
+  const github = local.private ? undefined : record?.data
   return {
     ...local,
     title: local.title ?? github?.name ?? local.repo.split("/")[1],
@@ -151,6 +177,6 @@ export function mergeProjectMetadata(local, record, now = new Date()) {
     website: local.website ?? github?.website ?? undefined,
     github: github ? { ...github, fetchedAt: record.fetchedAt } : undefined,
     syncStatus: record?.status ?? "unavailable",
-    activity: repositoryActivity(github, now),
+    active: repositoryActivity(github ?? { pushedAt: local.lastUpdated ?? local.commit?.date }, now),
   }
 }

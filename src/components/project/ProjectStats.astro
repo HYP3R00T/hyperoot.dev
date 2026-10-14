@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from "astro:content"
+import CircleDot from "@lucide/astro/icons/circle-dot"
+import GitFork from "@lucide/astro/icons/git-fork"
+import GitPullRequest from "@lucide/astro/icons/git-pull-request"
+import Star from "@lucide/astro/icons/star"
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+const { project } = Astro.props
+const github = project.data.private ? undefined : project.data.github
+const stats = github
+  ? [
+      { label: "Stars", value: github.stars, icon: Star, url: `${github.url}/stargazers` },
+      { label: "Forks", value: github.forks, icon: GitFork, url: `${github.url}/forks` },
+      { label: "Open issues", value: github.issues, icon: CircleDot, url: `${github.url}/issues` },
+      { label: "Open pull requests", value: github.pullRequests, icon: GitPullRequest, url: `${github.url}/pulls` },
+    ]
+  : []
+---
+
+{stats.length > 0 && (
+  <ul class="project-stats" aria-label={`${project.data.title} GitHub statistics`}>
+    {stats
+      .filter((stat) => stat.value !== undefined)
+      .map(({ label, value, icon: Icon, url }) => (
+        <li>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`${value} ${label.toLowerCase()}`}
+            aria-label={`${value} ${label.toLowerCase()} for ${project.data.title} (opens in a new tab)`}
+          >
+            <Icon size={14} aria-hidden="true" />
+            <span class="stat-value">{value?.toLocaleString("en")}</span>
+            <span class="stat-label">{label}</span>
+          </a>
+        </li>
+      ))}
+  </ul>
+)}

@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from "astro:content"
+import ProjectAction from "./ProjectAction.astro"
+
+interface Props {
+  project: CollectionEntry<"projects">
+  includePage?: boolean
+}
+const { project, includePage = false } = Astro.props
+const { title, website, sourceRepo, links, hasPage } = project.data
+const externalLinks = [
+  ...(website ? [{ label: "Website", url: website }] : []),
+  ...(sourceRepo ? [{ label: "GitHub", url: sourceRepo }] : []),
+  ...links,
+].filter((link, index, all) => all.findIndex((other) => other.url === link.url) === index)
+---
+
+<div class="project-links">
+  {externalLinks.map((link) => (
+    <ProjectAction
+      href={link.url}
+      label={link.label}
+      title={title}
+      kind={link.url === website ? "website" : link.url === sourceRepo ? "source" : "other"}
+    />
+  ))}
+  {includePage && hasPage && <ProjectAction href={`/${project.id}/`} label="Read more" title={title} kind="story" />}
+</div>

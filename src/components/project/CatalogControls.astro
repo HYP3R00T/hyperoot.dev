@@ -1,0 +1,57 @@
+---
+import ChevronDown from "@lucide/astro/icons/chevron-down"
+import Search from "@lucide/astro/icons/search"
+
+interface Props {
+  domains: string[]
+  count: number
+}
+const { domains, count } = Astro.props
+---
+
+<div class="catalog-controls" data-catalog-controls hidden>
+  <div class="catalog-toolbar">
+    <label class="catalog-search">
+      <Search size={18} aria-hidden="true" />
+      <span class="sr-only">Search projects</span>
+      <input
+        type="search"
+        name="q"
+        placeholder="Find a project, tool, or technology…"
+        autocomplete="off"
+        data-catalog-search
+        aria-controls="project-list"
+      >
+      <kbd aria-hidden="true">/</kbd>
+    </label>
+    <label class="catalog-select">
+      <span class="control-caption">Activity</span>
+      <select aria-label="Filter by activity" data-catalog-activity aria-controls="project-list">
+        <option value="all">All activity</option>
+        <option value="active">Active in the last 30 days</option>
+      </select>
+      <ChevronDown size={14} aria-hidden="true" />
+    </label>
+    <label class="catalog-select">
+      <span class="control-caption">Sort</span>
+      <select aria-label="Sort projects" data-catalog-sort aria-controls="project-list">
+        <option value="recent">Recently pushed</option>
+        <option value="stars">Most stars</option>
+        <option value="name">Name A–Z</option>
+      </select>
+      <ChevronDown size={14} aria-hidden="true" />
+    </label>
+  </div>
+  <div class="catalog-filter-bar">
+    <fieldset class="catalog-domains" aria-label="Filter by domain">
+      <button type="button" class="domain-filter" data-domain="all" aria-pressed="true">
+        All projects <span>{count}</span>
+      </button>
+      {domains.map((domain) => (
+        <button type="button" class="domain-filter" data-domain={domain.toLowerCase()} aria-pressed="false">
+          {domain}
+        </button>
+      ))}
+    </fieldset>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 ---
 import { getImage } from "astro:assets"
-import { ClientRouter } from "astro:transitions"
 
 import "@/styles/global.css"
+import "@/styles/catalog.css"
 // Supports weights 100-900
 import "@fontsource-variable/inter/wght.css"
 // Supports weights 300-700
@@ -99,4 +99,16 @@ if (typeof image === "object" && "src" in image) {
 
 <link rel="stylesheet" href="https://cdn.plyr.io/3.8.3/plyr.css">
 
-<ClientRouter />
+<script is:inline data-astro-rerun>
+;(() => {
+  let saved = null
+  try {
+    saved = localStorage.getItem("theme")
+  } catch {
+    /* Use the system preference. */
+  }
+  const dark = saved !== "light"
+  document.documentElement.classList.toggle("dark", dark)
+  document.documentElement.style.colorScheme = dark ? "dark" : "light"
+})()
+</script>

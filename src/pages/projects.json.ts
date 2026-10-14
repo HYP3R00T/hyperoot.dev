@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content"
-import { compareProjects } from "@/lib/project-catalog"
+import { compareProjects, projectUpdatedAt } from "@/lib/project-catalog"
 
 export const prerender = true
 
@@ -20,7 +20,9 @@ export async function GET() {
       sourceRepo: data.sourceRepo,
       website: data.website ?? null,
       links: data.links,
-      activity: data.activity,
+      active: data.active,
+      lastUpdated: projectUpdatedAt(data) ?? null,
+      commit: data.github?.latestCommit ?? data.commit ?? null,
       syncStatus: data.syncStatus,
       github: data.github ?? null,
     }))

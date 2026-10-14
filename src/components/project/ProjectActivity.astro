@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+const { project } = Astro.props
+---
+
+{project.data.active && (
+  <span class="project-activity" data-active title="A repository push within the last 30 days">
+    <span class="activity-dot" aria-hidden="true"></span>Active
+  </span>
+)}
