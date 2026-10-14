@@ -5,7 +5,8 @@ import { Icon as AssetIcon } from "astro-icon/components"
 
 const links = [
   { label: "Personal website", href: "https://rajeshdas.dev", icon: Globe, external: true },
-  { label: "GitHub", href: "https://github.com/HYP3R00T", icon: undefined, external: true },
+  { label: "GitHub", href: "https://github.com/HYP3R00T", icon: "github", external: true },
+  { label: "LinkedIn", href: "https://linkedin.com/in/rajesh-kumar-das", icon: "linkedin", external: true },
   { label: "Email", href: "mailto:hello@rajeshdas.dev", icon: Mail, external: false },
 ]
 ---
@@ -19,10 +20,10 @@ const links = [
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
     >
-      {Icon ? (
-        <Icon size={16} aria-hidden="true" />
+      {typeof Icon === "string" ? (
+        <AssetIcon name={Icon} width={16} height={16} aria-hidden="true" />
       ) : (
-        <AssetIcon name="github" width={16} height={16} aria-hidden="true" />
+        <Icon size={16} aria-hidden="true" />
       )}
     </a>
   ))}
