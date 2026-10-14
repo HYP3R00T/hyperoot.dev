@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content"
 import { z } from "astro/zod"
 import { mergeProjectMetadata, SNAPSHOT_PATH, syncRepositories } from "@/lib/github-projects.mts"
 import { localContentLoader } from "@/lib/local-content-loader"
+import { PROJECT_DOMAINS } from "@/lib/project-catalog"
 import type { RepositorySnapshot } from "@/lib/project-data.mts"
 
 let projectSnapshot: RepositorySnapshot = { version: 1, repositories: {} }
@@ -22,7 +23,7 @@ const projects = defineCollection({
       title: z.string(),
       description: z.string(),
       technologies: z.array(z.string()).default([]),
-      domains: z.array(z.string()).default([]),
+      domains: z.array(z.enum(PROJECT_DOMAINS)).default([]),
       icon: z.string().optional(),
       order: z.number().optional(),
       startDate: z.date().optional(),

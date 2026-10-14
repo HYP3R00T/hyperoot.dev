@@ -2,10 +2,11 @@
 import { getCollection } from "astro:content"
 import CatalogControls from "@/components/project/CatalogControls.astro"
 import ProjectRow from "@/components/project/ProjectRow.astro"
-import { compareProjects } from "@/lib/project-catalog"
+import { compareProjects, PROJECT_DOMAINS } from "@/lib/project-catalog"
 
 const projects = (await getCollection("projects")).filter((project) => !project.data.draft).sort(compareProjects)
-const domains = [...new Set(projects.flatMap((project) => project.data.domains))].sort()
+const availableDomains = new Set(projects.flatMap((project) => project.data.domains))
+const domains = PROJECT_DOMAINS.filter((domain) => availableDomains.has(domain))
 ---
 
 <section id="projects" class="project-catalog" data-project-catalog aria-labelledby="projects-title">
