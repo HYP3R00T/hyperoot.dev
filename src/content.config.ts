@@ -4,15 +4,6 @@ import { mergeProjectMetadata, SNAPSHOT_PATH, syncRepositories } from "@/lib/git
 import { localContentLoader } from "@/lib/local-content-loader"
 import type { RepositorySnapshot } from "@/lib/project-data.mts"
 
-const components = defineCollection({
-  loader: localContentLoader({ base: "./content/components" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    category: z.string().optional(),
-  }),
-})
-
 let projectSnapshot: RepositorySnapshot = { version: 1, repositories: {} }
 const projects = defineCollection({
   loader: localContentLoader({
@@ -86,4 +77,4 @@ const projects = defineCollection({
     }),
 })
 
-export const collections = { components, projects }
+export const collections = { projects }
