@@ -1,6 +1,8 @@
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { syncExtensionInstalls } from "./catalog-metrics.mjs"
 import { syncRepositories } from "./github-projects.mjs"
+import { syncPackageDownloads } from "./package-downloads.mjs"
 
 export default function projectGitHubIntegration() {
   return {
@@ -15,6 +17,14 @@ export default function projectGitHubIntegration() {
         }
         await syncRepositories(root, {
           force: command === "build",
+          offline: process.env.PROJECTS_OFFLINE === "1",
+          warn: (message) => logger.warn(message),
+        })
+        await syncPackageDownloads(root, {
+          offline: process.env.PROJECTS_OFFLINE === "1",
+          warn: (message) => logger.warn(message),
+        })
+        await syncExtensionInstalls(root, {
           offline: process.env.PROJECTS_OFFLINE === "1",
           warn: (message) => logger.warn(message),
         })

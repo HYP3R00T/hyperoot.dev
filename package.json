@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "projects:sync": "node --env-file-if-exists=.env scripts/sync-projects.mjs",
+    "metrics:sync": "node --env-file-if-exists=.env scripts/sync-package-metrics.mjs",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs"
   },
