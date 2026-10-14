@@ -296,7 +296,7 @@
   filter: blur(0);
 }
 .project-row:hover,
-.project-row:focus-within {
+.project-row:has(:focus-visible) {
   z-index: 1;
   border-color: var(--foreground-2);
   background: var(--background-1);
@@ -325,8 +325,8 @@
 }
 .project-row:hover::before,
 .project-row:hover::after,
-.project-row:focus-within::before,
-.project-row:focus-within::after {
+.project-row:has(:focus-visible)::before,
+.project-row:has(:focus-visible)::after {
   opacity: 1;
 }
 .project-number {
@@ -453,6 +453,14 @@
 }
 .project-revision a:hover {
   color: var(--foreground-0);
+}
+.revision-tooltip-trigger {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: help;
 }
 .project-links {
   display: flex;
