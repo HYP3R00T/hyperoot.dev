@@ -10,11 +10,8 @@ const domains = [...new Set(projects.flatMap((project) => project.data.domains))
 
 <section id="projects" class="project-catalog" data-project-catalog aria-labelledby="projects-title">
   <div class="catalog-section-heading">
-    <div>
-      <p class="eyebrow">Project index</p>
-      <h2 id="projects-title">Browse the collection</h2>
-    </div>
-    <p class="catalog-count" data-catalog-count role="status" aria-live="polite" aria-atomic="true">
+    <h2 id="projects-title">Browse the collection</h2>
+    <p class="sr-only" data-catalog-count role="status" aria-live="polite" aria-atomic="true">
       {projects.length}
       projects
     </p>

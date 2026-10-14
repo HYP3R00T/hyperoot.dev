@@ -1,5 +1,6 @@
 ---
 import Search from "@lucide/astro/icons/search"
+import CatalogActivityToggle from "./CatalogActivityToggle"
 import CatalogDropdown from "./CatalogDropdown"
 
 interface Props {
@@ -7,10 +8,6 @@ interface Props {
   count: number
 }
 const { domains, count } = Astro.props
-const activityOptions = [
-  { value: "all", label: "All activity" },
-  { value: "active", label: "Active in the last 30 days" },
-]
 const sortOptions = [
   { value: "recent", label: "Recently pushed" },
   { value: "stars", label: "Most stars" },
@@ -33,22 +30,14 @@ const sortOptions = [
       >
       <kbd aria-hidden="true">/</kbd>
     </label>
-    <div class="catalog-select">
-      <span class="control-caption">Activity</span>
-      <select
-        id="catalog-activity"
-        class="dropdown-native"
-        aria-label="Filter by activity"
-        data-catalog-activity
-        aria-controls="project-list"
+    <div class="catalog-activity">
+      <label class="catalog-activity-native"
+        ><input type="checkbox" data-catalog-activity aria-controls="project-list">
+        Active only</label
       >
-        <option value="all">All activity</option>
-        <option value="active">Active in the last 30 days</option>
-      </select>
-      <CatalogDropdown client:load controlId="catalog-activity" label="Filter by activity" options={activityOptions} />
+      <CatalogActivityToggle client:load />
     </div>
     <div class="catalog-select">
-      <span class="control-caption">Sort</span>
       <select
         id="catalog-sort"
         class="dropdown-native"
