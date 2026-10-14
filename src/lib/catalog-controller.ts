@@ -1,3 +1,5 @@
+import { createScrollReveal } from "./scroll-reveal"
+
 const SORT_VALUES = new Set(["recent", "stars", "name"])
 
 export function setupCatalog() {
@@ -9,6 +11,7 @@ export function setupCatalog() {
   const activity = catalog.querySelector<HTMLInputElement>("[data-catalog-activity]")
   const sort = catalog.querySelector<HTMLSelectElement>("[data-catalog-sort]")
   const rows = [...catalog.querySelectorAll<HTMLElement>("[data-project-row]")]
+  const refreshReveal = createScrollReveal(rows)
   const filters = [...catalog.querySelectorAll<HTMLButtonElement>("[data-domain]")]
   const empty = catalog.querySelector<HTMLElement>("[data-catalog-empty]")
   const count = catalog.querySelector<HTMLElement>("[data-catalog-count]")
@@ -48,6 +51,7 @@ export function setupCatalog() {
     })
     activity.dispatchEvent(new Event("catalog:sync"))
     sort.dispatchEvent(new Event("catalog:sync"))
+    refreshReveal()
     for (const button of filters) button.setAttribute("aria-pressed", String(button.dataset.domain === domain))
     count.textContent = `${matches.length} ${matches.length === 1 ? "project" : "projects"}${matches.length !== rows.length ? ` of ${rows.length}` : ""}`
     empty.hidden = matches.length > 0

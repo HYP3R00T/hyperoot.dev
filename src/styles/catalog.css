@@ -70,49 +70,6 @@
 .lab-header[data-scrolled="true"]::after {
   opacity: 1;
 }
-.viewport-fade {
-  position: fixed;
-  inset-inline: 0;
-  height: calc((100vh - var(--catalog-header-height)) * 0.19);
-  z-index: 70;
-  pointer-events: none;
-  background: linear-gradient(
-    var(--fade-direction),
-    color-mix(in oklch, var(--background-0) 45%, transparent),
-    color-mix(in oklch, var(--background-0) 18%, transparent) 40%,
-    transparent
-  );
-}
-.viewport-fade-layer {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(var(--fade-blur));
-  mask-image: linear-gradient(var(--fade-direction), black 0%, black var(--fade-solid), transparent var(--fade-end));
-}
-.viewport-fade-layer:nth-child(1) {
-  --fade-blur: 0.5px;
-  --fade-solid: 0%;
-  --fade-end: 100%;
-}
-.viewport-fade-layer:nth-child(2) {
-  --fade-blur: 1.5px;
-  --fade-solid: 0%;
-  --fade-end: 75%;
-}
-.viewport-fade-layer:nth-child(3) {
-  --fade-blur: 3px;
-  --fade-solid: 0%;
-  --fade-end: 50%;
-}
-.viewport-fade-layer:nth-child(4) {
-  --fade-blur: 5px;
-  --fade-solid: 0%;
-  --fade-end: 25%;
-}
-.viewport-fade-bottom {
-  --fade-direction: to top;
-  bottom: 0;
-}
 .lab-header-inner {
   display: flex;
   align-items: center;
@@ -338,7 +295,17 @@
   border: 1px dotted var(--catalog-rule);
   transition:
     border-color 180ms,
-    background 180ms;
+    background 180ms,
+    opacity 500ms ease,
+    filter 500ms ease;
+}
+.project-row[data-reveal="pending"] {
+  opacity: 0;
+  filter: blur(5px);
+}
+.project-row[data-reveal="visible"] {
+  opacity: 1;
+  filter: blur(0);
 }
 .project-row:hover,
 .project-row:focus-within {
@@ -869,8 +836,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .viewport-fade {
-    display: none;
+  .project-row[data-reveal] {
+    opacity: 1;
+    filter: none;
+    transition: none;
   }
   .lab-header::after {
     transition: none;
