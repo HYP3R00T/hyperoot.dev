@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url"
-import { catalogMetrics, syncExtensionInstalls } from "../src/lib/catalog-metrics.mjs"
-import { packageMetrics, syncPackageDownloads } from "../src/lib/package-downloads.mjs"
+import { catalogMetrics, syncExtensionInstalls } from "../src/lib/catalog-metrics.mts"
+import { packageMetrics, syncPackageDownloads } from "../src/lib/package-downloads.mts"
 
 const root = fileURLToPath(new URL("../", import.meta.url))
 await syncPackageDownloads(root, {

@@ -10,7 +10,7 @@ import {
   repositoryActivity,
   SNAPSHOT_PATH,
   syncRepositories,
-} from "../src/lib/github-projects.mjs"
+} from "../src/lib/github-projects.mts"
 
 const now = new Date("2026-10-13T00:00:00Z")
 const githubResponse = {

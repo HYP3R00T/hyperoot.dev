@@ -1,16 +1,38 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
-import { readProjectSources } from "./github-projects.mjs"
+import { readProjectSources } from "./github-projects.mts"
+
+import { errorMessage, isMissingFile, type SyncOptions } from "./project-data.mts"
+
+interface DownloadRecord {
+  totalDownloads: number
+  fetchedAt: string
+}
+interface DownloadSnapshot {
+  version: 1
+  packages: Record<string, DownloadRecord>
+}
+interface PackageRegistry {
+  projects: { repo: string; packages: string[] }[]
+}
+class DownloadError extends Error {
+  constructor(message: string, publicStatus: number) {
+    super(message)
+    this.status = publicStatus
+  }
+  status: number
+}
 
 export const DOWNLOAD_SNAPSHOT_PATH = "data/package-downloads.json"
 const DAY = 24 * 60 * 60 * 1000
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-const validCount = (count) => Number.isSafeInteger(count) && count >= 0
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
+const validCount = (count: unknown): count is number =>
+  typeof count === "number" && Number.isSafeInteger(count) && count >= 0
 
-export async function selectedPackages(root) {
+export async function selectedPackages(root: string) {
   const sources = await readProjectSources(root)
   const visible = new Set(sources.filter(({ data }) => !data.draft).map(({ data }) => data.repo.toLowerCase()))
-  const registry = JSON.parse(await readFile(resolve(root, "data/pypi-packages.json"), "utf8"))
+  const registry = JSON.parse(await readFile(resolve(root, "data/pypi-packages.json"), "utf8")) as PackageRegistry
   return [
     ...new Set(
       registry.projects
@@ -21,18 +43,25 @@ export async function selectedPackages(root) {
   ].sort()
 }
 
-export async function readDownloadSnapshot(root) {
+export async function readDownloadSnapshot(root: string): Promise<DownloadSnapshot> {
   try {
     const snapshot = JSON.parse(await readFile(resolve(root, DOWNLOAD_SNAPSHOT_PATH), "utf8"))
     if (snapshot.version !== 1 || !snapshot.packages) throw new Error("Invalid package download snapshot")
     return snapshot
   } catch (error) {
-    if (error.code === "ENOENT") return { version: 1, packages: {} }
+    if (isMissingFile(error)) return { version: 1, packages: {} }
     throw error
   }
 }
 
-export async function fetchPackageDownloads(name, { key, fetchImpl = fetch, sleepImpl = sleep } = {}) {
+export async function fetchPackageDownloads(
+  name: string,
+  {
+    key,
+    fetchImpl = fetch,
+    sleepImpl = sleep,
+  }: { key: string; fetchImpl?: typeof fetch; sleepImpl?: (ms: number) => Promise<void> },
+) {
   for (let attempt = 0; attempt < 3; attempt++) {
     const response = await fetchImpl(`https://api.pepy.tech/api/v2/projects/${encodeURIComponent(name)}`, {
       headers: { "X-API-Key": key },
@@ -46,9 +75,7 @@ export async function fetchPackageDownloads(name, { key, fetchImpl = fetch, slee
       continue
     }
     if (!response.ok) {
-      const error = new Error(`Pepy returned ${response.status} for ${name}`)
-      error.status = response.status
-      throw error
+      throw new DownloadError(`Pepy returned ${response.status} for ${name}`, response.status)
     }
     const data = await response.json()
     if (
@@ -61,10 +88,11 @@ export async function fetchPackageDownloads(name, { key, fetchImpl = fetch, slee
     const remaining = response.headers.get("X-Rate-Limit-Remaining")
     return { totalDownloads: data.total_downloads, remaining: remaining === null ? null : Number(remaining) }
   }
+  throw new Error(`Could not fetch downloads for ${name}`)
 }
 
 export async function syncPackageDownloads(
-  root,
+  root: string,
   {
     key = process.env.PEPY_API_KEY,
     offline = false,
@@ -73,11 +101,11 @@ export async function syncPackageDownloads(
     fetchImpl = fetch,
     sleepImpl = sleep,
     warn = console.warn,
-  } = {},
+  }: SyncOptions & { key?: string; sleepImpl?: (ms: number) => Promise<void> } = {},
 ) {
   const names = await selectedPackages(root)
   const previous = await readDownloadSnapshot(root)
-  const packages = {}
+  const packages: DownloadSnapshot["packages"] = {}
   let waitBeforeNext = false
   let authenticationFailed = false
   for (const name of names) {
@@ -92,15 +120,15 @@ export async function syncPackageDownloads(
       const data = await fetchPackageDownloads(name, { key, fetchImpl, sleepImpl })
       packages[name] = { totalDownloads: data.totalDownloads, fetchedAt: now.toISOString() }
       // Use the documented burst allowance only while the server reports available tokens.
-      waitBeforeNext = !(Number.isFinite(data.remaining) && data.remaining > 0)
+      waitBeforeNext = !(data.remaining !== null && Number.isFinite(data.remaining) && data.remaining > 0)
     } catch (error) {
       if (cached) packages[name] = cached
-      warn(`${error.message}; ${cached ? "keeping the saved total" : "download total unavailable"}.`)
+      warn(`${errorMessage(error)}; ${cached ? "keeping the saved total" : "download total unavailable"}.`)
       waitBeforeNext = true
-      if (error.status === 401 || error.status === 403) authenticationFailed = true
+      if (error instanceof DownloadError && (error.status === 401 || error.status === 403)) authenticationFailed = true
     }
   }
-  const snapshot = { version: 1, packages }
+  const snapshot: DownloadSnapshot = { version: 1, packages }
   if (!offline && JSON.stringify(snapshot) !== JSON.stringify(previous)) {
     const path = resolve(root, DOWNLOAD_SNAPSHOT_PATH)
     await mkdir(dirname(path), { recursive: true })
@@ -111,7 +139,7 @@ export async function syncPackageDownloads(
   return snapshot
 }
 
-export async function packageMetrics(root, now = new Date()) {
+export async function packageMetrics(root: string, now = new Date()) {
   const names = await selectedPackages(root)
   const snapshot = await readDownloadSnapshot(root)
   const records = names.map((name) => snapshot.packages[name])

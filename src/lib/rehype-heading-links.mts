@@ -1,15 +1,10 @@
 import GithubSlugger from "github-slugger"
+import { type MarkdownNode, type MarkdownTree, textContent } from "./markdown-tree.mts"
 
 const HEADING_TAGS = new Set(["h2", "h3", "h4"])
 
-const textContent = (node) => {
-  if (node.type === "text") return node.value
-  if (!Array.isArray(node.children)) return ""
-  return node.children.map(textContent).join("")
-}
-
-const walk = (node, slugger) => {
-  if (HEADING_TAGS.has(node.tagName)) {
+const walk = (node: MarkdownNode, slugger: GithubSlugger): void => {
+  if (node.type === "element" && HEADING_TAGS.has(node.tagName)) {
     node.properties ??= {}
     const id = typeof node.properties.id === "string" ? node.properties.id : slugger.slug(textContent(node))
     node.properties.id = id
@@ -26,10 +21,10 @@ const walk = (node, slugger) => {
     })
   }
 
-  if (!Array.isArray(node.children)) return
+  if (!("children" in node)) return
   for (const child of node.children) walk(child, slugger)
 }
 
 export default function rehypeHeadingLinks() {
-  return (tree) => walk(tree, new GithubSlugger())
+  return (tree: MarkdownTree) => walk(tree, new GithubSlugger())
 }

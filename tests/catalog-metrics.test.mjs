@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import test from "node:test"
-import { catalogMetrics, fetchExtensionInstalls, syncExtensionInstalls } from "../src/lib/catalog-metrics.mjs"
+import { catalogMetrics, fetchExtensionInstalls, syncExtensionInstalls } from "../src/lib/catalog-metrics.mts"
 
 const response = (value, id = "settings-organizer") => ({
   ok: true,

@@ -1,6 +1,13 @@
 import rehypePrettyCode from "rehype-pretty-code"
+import {
+  type HighlightTransformer,
+  type MarkdownElement,
+  type MarkdownNode,
+  type MarkdownTree,
+  textContent,
+} from "./markdown-tree.mts"
 
-const LANGUAGE_LABELS = {
+const LANGUAGE_LABELS: Record<string, string> = {
   ansi: "ANSI",
   bash: "Bash",
   console: "Console",
@@ -29,18 +36,13 @@ const LANGUAGE_LABELS = {
   yml: "YAML",
 }
 
-const textContent = (node) => {
-  if (node.type === "text") return node.value
-  if (!Array.isArray(node.children)) return ""
-  return node.children.map(textContent).join("")
-}
+const hasProperty = (node: MarkdownNode, property: string) =>
+  node?.type === "element" && Object.hasOwn(node.properties ?? {}, property)
 
-const hasProperty = (node, property) => node?.type === "element" && Object.hasOwn(node.properties ?? {}, property)
-
-const normalizeAnsiSource = (node) => {
+const normalizeAnsiSource = (node: MarkdownNode) => {
   if (node?.type !== "element" || node.tagName !== "code") return
 
-  const classes = node.properties?.className
+  const classes: unknown = node.properties?.className
   const classNames = Array.isArray(classes) ? classes : typeof classes === "string" ? classes.split(/\s+/) : []
   const language = node.properties?.["data-language"]
   if (!classNames.includes("language-ansi") && language !== "ansi") return
@@ -51,7 +53,7 @@ const normalizeAnsiSource = (node) => {
   }
 }
 
-const createHeader = (language, filename) => ({
+const createHeader = (language: string, filename: string): MarkdownElement => ({
   type: "element",
   tagName: "figcaption",
   properties: { className: ["code-block__header"] },
@@ -70,10 +72,10 @@ const createHeader = (language, filename) => ({
         ...(filename
           ? [
               {
-                type: "element",
+                type: "element" as const,
                 tagName: "span",
                 properties: { className: ["code-block__filename"], title: filename },
-                children: [{ type: "text", value: filename }],
+                children: [{ type: "text" as const, value: filename }],
               },
             ]
           : []),
@@ -93,13 +95,15 @@ const createHeader = (language, filename) => ({
   ],
 })
 
-const transformCodeBlock = (node) => {
+const transformCodeBlock = (node: MarkdownNode) => {
   if (node?.type !== "element" || node.tagName !== "figure" || !hasProperty(node, "data-rehype-pretty-code-figure")) {
     return
   }
 
   const title = node.children.find((child) => hasProperty(child, "data-rehype-pretty-code-title"))
-  const pre = node.children.find((child) => child.type === "element" && child.tagName === "pre")
+  const pre = node.children.find(
+    (child): child is MarkdownElement => child.type === "element" && child.tagName === "pre",
+  )
   if (!pre) return
 
   const language = String(pre.properties?.["data-language"] ?? "text").toLowerCase()
@@ -117,24 +121,25 @@ const transformCodeBlock = (node) => {
   node.children = [createHeader(language, filename), pre]
 }
 
-const walk = (node) => {
+const walk = (node: MarkdownNode): void => {
   transformCodeBlock(node)
-  if (!Array.isArray(node.children)) return
+  if (!("children" in node)) return
   for (const child of node.children) walk(child)
 }
 
-const walkAnsiSource = (node) => {
+const walkAnsiSource = (node: MarkdownNode): void => {
   normalizeAnsiSource(node)
-  if (!Array.isArray(node.children)) return
+  if (!("children" in node)) return
   for (const child of node.children) walkAnsiSource(child)
 }
 
-export default function rehypeCodeBlocks(options = {}) {
+export default function rehypeCodeBlocks(options: Parameters<typeof rehypePrettyCode>[0] = {}) {
   const highlightCode = rehypePrettyCode(options)
 
-  return async (tree, file) => {
+  if (!highlightCode) throw new Error("Code highlighter did not initialize")
+  return async (tree: MarkdownTree, file: Parameters<HighlightTransformer>[1]) => {
     walkAnsiSource(tree)
-    await highlightCode(tree, file)
+    await highlightCode(tree, file, () => {})
     walk(tree)
   }
 }
