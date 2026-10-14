@@ -451,7 +451,7 @@
   align-items: center;
   gap: 0.35rem;
 }
-.revision-code a:hover {
+.project-revision a:hover {
   color: var(--foreground-0);
 }
 .project-links {

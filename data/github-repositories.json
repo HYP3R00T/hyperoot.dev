@@ -3,8 +3,8 @@
   "repositories": {
     "hyp3r00t/agents": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "agents",
         "description": "",
@@ -22,6 +22,7 @@
           "url": "https://github.com/HYP3R00T/agents/commit/0413a9dc13b1c0d0d15a49882a964e716ef23c0b",
           "date": "2026-07-26T13:41:01Z"
         },
+        "commitCount": 25,
         "createdAt": "2026-04-15T02:27:52Z",
         "pushedAt": "2026-07-26T13:41:01Z",
         "archived": false,
@@ -32,8 +33,8 @@
     },
     "hyp3r00t/ansitoolkit": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "AnsiToolkit",
         "description": "AnsiToolkit is a Python library for building rich terminal experiences with ANSI styling, formatted output utilities, and reusable CLI presentation components. It simplifies the creation of visually structured, developer-friendly terminal applications and automation tools.",
@@ -58,6 +59,7 @@
           "url": "https://github.com/HYP3R00T/AnsiToolkit/commit/42644a42db3817967ccae6177ee9f2c34ffadf51",
           "date": "2025-01-31T23:40:13Z"
         },
+        "commitCount": 31,
         "createdAt": "2024-08-27T17:58:09Z",
         "pushedAt": "2025-01-31T23:40:18Z",
         "archived": false,
@@ -68,8 +70,8 @@
     },
     "hyp3r00t/celestialdocs": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "CelestialDocs",
         "description": "CelestialDocs is a modern documentation platform and Astro template designed for scalable, developer-friendly knowledge systems. It combines structured navigation, hybrid content generation, MDX support, and customizable UI components to build fast, maintainable, and production-ready documentation sites.",
@@ -97,6 +99,7 @@
           "url": "https://github.com/HYP3R00T/CelestialDocs/commit/113648b6edaa2a14139a47a2a1d1e9aa883b4934",
           "date": "2026-09-25T17:07:03Z"
         },
+        "commitCount": 288,
         "createdAt": "2024-07-22T11:28:59Z",
         "pushedAt": "2026-10-01T03:39:25Z",
         "archived": false,
@@ -107,8 +110,8 @@
     },
     "hyp3r00t/cheatsheetify": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "Cheatsheetify",
         "description": "A python tool to generate cheatsheet of command line tools as a PDF",
@@ -133,6 +136,7 @@
           "url": "https://github.com/HYP3R00T/Cheatsheetify/commit/fc9a1a3db9a4c7f30b3cf6c1e640690184c9374a",
           "date": "2024-05-10T10:27:39Z"
         },
+        "commitCount": 39,
         "createdAt": "2024-05-02T10:28:18Z",
         "pushedAt": "2024-06-17T15:16:46Z",
         "archived": true,
@@ -143,8 +147,8 @@
     },
     "hyp3r00t/costcutter": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "CostCutter",
         "description": "CostCutter is a serverless, Python-based tool that helps users manage AWS resources and avoid surprise cloud costs. By monitoring budgets and automatically cleaning up resources when thresholds are exceeded, CostCutter keeps your AWS environment tidy and cost‑efficient.",
@@ -167,6 +171,7 @@
           "url": "https://github.com/HYP3R00T/CostCutter/commit/aa13e3206fa22e47410bc2437558ac025439fc85",
           "date": "2026-02-01T16:09:35Z"
         },
+        "commitCount": 128,
         "createdAt": "2025-08-04T13:11:41Z",
         "pushedAt": "2026-02-01T16:09:37Z",
         "archived": true,
@@ -177,8 +182,8 @@
     },
     "hyp3r00t/d2lab": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "d2lab",
         "description": "",
@@ -201,6 +206,7 @@
           "url": "https://github.com/HYP3R00T/d2lab/commit/a78b2664a9f9dd8b057d52e11863d88275a0ee37",
           "date": "2026-07-01T21:03:38Z"
         },
+        "commitCount": 32,
         "createdAt": "2025-08-20T15:06:19Z",
         "pushedAt": "2026-07-01T21:03:44Z",
         "archived": false,
@@ -211,8 +217,8 @@
     },
     "hyp3r00t/devcontainer-astro-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "devcontainer-astro-template",
         "description": "",
@@ -234,6 +240,7 @@
           "url": "https://github.com/HYP3R00T/devcontainer-astro-template/commit/12dcb6f40f35b19b158b6304784cf899383ab7e4",
           "date": "2026-08-25T03:05:59Z"
         },
+        "commitCount": 227,
         "createdAt": "2025-09-27T10:03:36Z",
         "pushedAt": "2026-10-01T03:39:13Z",
         "archived": false,
@@ -244,8 +251,8 @@
     },
     "hyp3r00t/devcontainer-python-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "devcontainer-python-template",
         "description": "A modern Python development container template with best practices, automated tooling, and VS Code integration.",
@@ -268,6 +275,7 @@
           "url": "https://github.com/HYP3R00T/devcontainer-python-template/commit/e627fbab22ef2324933601d59040e0eaa07f20d8",
           "date": "2026-08-29T08:13:41Z"
         },
+        "commitCount": 96,
         "createdAt": "2025-05-11T04:32:41Z",
         "pushedAt": "2026-08-29T08:13:45Z",
         "archived": false,
@@ -278,8 +286,8 @@
     },
     "hyp3r00t/devcontainer-rust-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "devcontainer-rust-template",
         "description": "",
@@ -297,6 +305,7 @@
           "url": "https://github.com/HYP3R00T/devcontainer-rust-template/commit/8d6cb111c73e0196d7195a0d539c63afe51face8",
           "date": "2026-10-11T12:52:13Z"
         },
+        "commitCount": 17,
         "createdAt": "2026-10-10T14:49:07Z",
         "pushedAt": "2026-10-11T14:01:12Z",
         "archived": false,
@@ -307,8 +316,8 @@
     },
     "hyp3r00t/devcontainer-template": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "devcontainer-template",
         "description": "A development container template designed for streamlined and efficient project setups. Includes pre-configured tools and environments to enhance productivity and maintain coding standards.",
@@ -330,6 +339,7 @@
           "url": "https://github.com/HYP3R00T/devcontainer-template/commit/e1af4da524a75866a3093ca8b7837eedbe37aba1",
           "date": "2026-08-29T07:47:33Z"
         },
+        "commitCount": 64,
         "createdAt": "2025-05-05T23:48:32Z",
         "pushedAt": "2026-08-29T07:47:37Z",
         "archived": false,
@@ -340,8 +350,8 @@
     },
     "hyp3r00t/dotfiles": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "dotfiles",
         "description": "dotfiles is a cross-platform environment provisioning and configuration toolkit for Linux, WSL, and DevContainers. It combines Ansible, chezmoi, mise, and Bash orchestration to deliver reproducible, zero-touch developer environments from a single declarative codebase.",
@@ -367,6 +377,7 @@
           "url": "https://github.com/HYP3R00T/dotfiles/commit/b6df857fde2b6fcedc831c5f521845ee6f578ab5",
           "date": "2026-10-06T15:46:11Z"
         },
+        "commitCount": 232,
         "createdAt": "2025-04-15T05:46:50Z",
         "pushedAt": "2026-10-06T15:46:16Z",
         "archived": false,
@@ -377,8 +388,8 @@
     },
     "hyp3r00t/engineering-telemetry": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "engineering-telemetry",
         "description": "",
@@ -396,6 +407,7 @@
           "url": "https://github.com/HYP3R00T/engineering-telemetry/commit/8fc9cbe1088180a5d3fb2f890eba42c2f8d5cc3e",
           "date": "2026-10-09T03:36:45Z"
         },
+        "commitCount": 29,
         "createdAt": "2026-06-04T18:24:02Z",
         "pushedAt": "2026-10-09T21:17:41Z",
         "archived": false,
@@ -406,8 +418,8 @@
     },
     "hyp3r00t/formulens": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "formulens",
         "description": "Turn equation screenshots into LaTeX without typing them out",
@@ -430,6 +442,7 @@
           "url": "https://github.com/HYP3R00T/formulens/commit/dee0dee4dd410de26938eda6dec2a921f770a79f",
           "date": "2026-10-03T12:23:18Z"
         },
+        "commitCount": 18,
         "createdAt": "2026-10-02T06:45:38Z",
         "pushedAt": "2026-10-03T12:23:56Z",
         "archived": false,
@@ -440,8 +453,8 @@
     },
     "hyp3r00t/gitops-deployment-platform": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-14T03:35:34.671Z",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "gitops-deployment-platform",
         "description": "GitOps Deployment Platform is a Kubernetes-focused reference architecture for building reproducible, production-grade platform engineering environments using FluxCD, Infrastructure as Code, and declarative deployment workflows across self-hosted and cloud-native infrastructure.",
@@ -466,6 +479,7 @@
           "url": "https://github.com/HYP3R00T/gitops-deployment-platform/commit/1295dd091c8e558f5f84920abe95b3230ef1d0cf",
           "date": "2026-07-26T13:43:13Z"
         },
+        "commitCount": 212,
         "createdAt": "2026-02-06T20:28:42Z",
         "pushedAt": "2026-08-06T03:35:11Z",
         "archived": false,
@@ -475,9 +489,9 @@
       }
     },
     "hyp3r00t/homelab": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "homelab",
         "description": "homelab is a self-hosted infrastructure and experimentation environment for exploring Kubernetes, networking, automation, observability, and platform engineering workflows. It documents real-world operational practices, infrastructure design decisions, and production-inspired DevOps experimentation.",
@@ -503,6 +517,7 @@
           "url": "https://github.com/HYP3R00T/homelab/commit/62591e2ba55f6b82da08830c0d5d28ef9b5f0293",
           "date": "2026-09-19T14:40:03Z"
         },
+        "commitCount": 243,
         "createdAt": "2025-01-15T19:21:11Z",
         "pushedAt": "2026-09-19T14:40:07Z",
         "archived": false,
@@ -512,9 +527,9 @@
       }
     },
     "hyp3r00t/hypercli": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "hypercli",
         "description": "hypercli is a Python package for building interactive, menu-driven command-line interfaces. It supports decorated menu entries, nested navigation, configurable visual styling, and a developer-friendly way to turn CLI workflows into structured user flows.",
@@ -539,6 +554,7 @@
           "url": "https://github.com/HYP3R00T/hypercli/commit/d42fea3aaae01aa0b871568d7bc04ca58db57f67",
           "date": "2025-01-31T22:25:04Z"
         },
+        "commitCount": 40,
         "createdAt": "2022-12-30T21:31:35Z",
         "pushedAt": "2025-01-31T22:25:04Z",
         "archived": false,
@@ -548,9 +564,9 @@
       }
     },
     "hyp3r00t/hyperoot-terminal": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "hyperoot-terminal",
         "description": "",
@@ -568,6 +584,7 @@
           "url": "https://github.com/HYP3R00T/hyperoot-terminal/commit/79e473cb4775f6376123ca6e358820fc1aae5cd8",
           "date": "2026-10-08T18:43:52Z"
         },
+        "commitCount": 70,
         "createdAt": "2025-12-21T11:27:23Z",
         "pushedAt": "2026-10-08T18:44:01Z",
         "archived": false,
@@ -577,9 +594,9 @@
       }
     },
     "hyp3r00t/hyperoot.dev": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "hyperoot.dev",
         "description": "HYP3R00T Labs is the business-facing home for open-source projects, technical services, and proof of work. Built with Astro and Tailwind CSS, it showcases capabilities across DevOps, automation, and developer tooling.",
@@ -598,12 +615,13 @@
         "pullRequests": 0,
         "defaultBranch": "main",
         "latestCommit": {
-          "sha": "54413e161fe873c883c64b0e3aed227e52dcf31c",
-          "url": "https://github.com/HYP3R00T/hyperoot.dev/commit/54413e161fe873c883c64b0e3aed227e52dcf31c",
-          "date": "2026-10-13T14:21:12Z"
+          "sha": "af7ec365a39599fd56d2c7dcf170891c7466eb3e",
+          "url": "https://github.com/HYP3R00T/hyperoot.dev/commit/af7ec365a39599fd56d2c7dcf170891c7466eb3e",
+          "date": "2026-10-14T05:13:23Z"
         },
+        "commitCount": 121,
         "createdAt": "2025-07-25T01:16:24Z",
-        "pushedAt": "2026-10-13T14:21:13Z",
+        "pushedAt": "2026-10-14T05:13:23Z",
         "archived": false,
         "fork": false,
         "template": false,
@@ -611,9 +629,9 @@
       }
     },
     "hyp3r00t/keypress": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "keypress",
         "description": "keypress is a Python library for capturing and handling keyboard input in terminal applications with support for real-time key events, shortcuts, and interactive command-line workflows. It provides a lightweight foundation for building responsive CLI and TUI experiences.",
@@ -636,6 +654,7 @@
           "url": "https://github.com/HYP3R00T/keypress/commit/53b9a69d0b22f6942f3e8b1d224e37679fa3ae94",
           "date": "2024-08-29T06:40:28Z"
         },
+        "commitCount": 16,
         "createdAt": "2024-08-25T06:02:18Z",
         "pushedAt": "2024-08-29T06:40:28Z",
         "archived": false,
@@ -645,9 +664,9 @@
       }
     },
     "hyp3r00t/notes": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "notes",
         "description": "",
@@ -665,6 +684,7 @@
           "url": "https://github.com/HYP3R00T/notes/commit/e19c597fa10661b0760a491f7e512c0280019736",
           "date": "2026-10-01T03:38:50Z"
         },
+        "commitCount": 19,
         "createdAt": "2026-08-25T03:34:53Z",
         "pushedAt": "2026-10-01T10:25:13Z",
         "archived": false,
@@ -674,9 +694,9 @@
       }
     },
     "hyp3r00t/omnishare": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "Omnishare",
         "description": "Tools to directly post to various social media sites from the comfort of the terminal",
@@ -698,6 +718,7 @@
           "url": "https://github.com/HYP3R00T/Omnishare/commit/2700b0233842a8d1a242283364412a54c1bdeb62",
           "date": "2024-11-28T16:04:46Z"
         },
+        "commitCount": 17,
         "createdAt": "2024-11-25T11:03:04Z",
         "pushedAt": "2024-11-28T16:05:35Z",
         "archived": true,
@@ -707,9 +728,9 @@
       }
     },
     "hyp3r00t/physica": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "Physica",
         "description": "",
@@ -727,6 +748,7 @@
           "url": "https://github.com/HYP3R00T/Physica/commit/a5a04a816e0fbc5aeaaa529a0d1ef7d3e4c369e7",
           "date": "2026-10-08T03:37:04Z"
         },
+        "commitCount": 285,
         "createdAt": "2026-02-25T16:46:22Z",
         "pushedAt": "2026-10-09T21:27:20Z",
         "archived": false,
@@ -736,9 +758,9 @@
       }
     },
     "hyp3r00t/rajeshdas.dev": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "rajeshdas.dev",
         "description": "A high-performance personal portfolio and technical blog built with Astro, focused on DevOps, cloud-native infrastructure, automation, and developer tooling. Includes MDX-powered content, responsive UI components, RSS generation, and containerized local development workflows.",
@@ -763,6 +785,7 @@
           "url": "https://github.com/HYP3R00T/rajeshdas.dev/commit/f13fc936b957377579a19be498c076d2aa70172a",
           "date": "2026-10-13T12:40:13Z"
         },
+        "commitCount": 652,
         "createdAt": "2025-08-10T15:00:08Z",
         "pushedAt": "2026-10-13T12:42:17Z",
         "archived": false,
@@ -772,9 +795,9 @@
       }
     },
     "hyp3r00t/rustlings-devcontainer": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "rustlings-devcontainer",
         "description": "A preconfigured VS Code Dev Container to work through the Rustlings exercises with zero local setup beyond VS Code and Docker",
@@ -796,6 +819,7 @@
           "url": "https://github.com/HYP3R00T/rustlings-devcontainer/commit/030134f9b61dae77352a0c16c0454b68d9a95d42",
           "date": "2026-06-04T20:52:28Z"
         },
+        "commitCount": 12,
         "createdAt": "2025-10-04T06:29:48Z",
         "pushedAt": "2026-06-04T20:52:35Z",
         "archived": false,
@@ -805,9 +829,9 @@
       }
     },
     "hyp3r00t/scripthub": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "scripthub",
         "description": "A lightweight script manager to organize, run, and add your personal scripts",
@@ -829,6 +853,7 @@
           "url": "https://github.com/HYP3R00T/scripthub/commit/71469e553c4d8f50a6099fd261cc7769d2a325cc",
           "date": "2026-03-10T00:28:14Z"
         },
+        "commitCount": 24,
         "createdAt": "2025-09-18T18:13:00Z",
         "pushedAt": "2026-08-23T05:15:49Z",
         "archived": false,
@@ -838,9 +863,9 @@
       }
     },
     "hyp3r00t/settings-organizer": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "settings-organizer",
         "description": "Settings Organizer is a Visual Studio Code extension that helps structure, categorize, and maintain large settings.json files through automated grouping, formatting, and developer-friendly configuration management workflows.",
@@ -866,6 +891,7 @@
           "url": "https://github.com/HYP3R00T/settings-organizer/commit/58f0326b0a5bc64326e80946b671b01b44575e56",
           "date": "2026-06-04T12:45:55Z"
         },
+        "commitCount": 92,
         "createdAt": "2024-07-16T09:57:33Z",
         "pushedAt": "2026-06-04T12:45:57Z",
         "archived": false,
@@ -875,9 +901,9 @@
       }
     },
     "hyp3r00t/simulens": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "simulens",
         "description": "A Python-first toolkit for interactive physics simulation and GPU-accelerated scientific visualization",
@@ -895,6 +921,7 @@
           "url": "https://github.com/HYP3R00T/simulens/commit/10cf4f6515469aae691040830c877a508e9d2882",
           "date": "2026-08-30T23:03:27Z"
         },
+        "commitCount": 18,
         "createdAt": "2026-08-29T08:29:01Z",
         "pushedAt": "2026-10-01T03:39:10Z",
         "archived": false,
@@ -904,9 +931,9 @@
       }
     },
     "hyp3r00t/spotipulse": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "SpotiPulse",
         "description": "Spotify API Integration",
@@ -927,6 +954,7 @@
           "url": "https://github.com/HYP3R00T/SpotiPulse/commit/191ddf3f8202e2c26449e4b65674c27375bd6bdd",
           "date": "2025-06-15T20:43:55Z"
         },
+        "commitCount": 23,
         "createdAt": "2025-05-11T05:41:05Z",
         "pushedAt": "2025-06-15T20:44:03Z",
         "archived": true,
@@ -936,9 +964,9 @@
       }
     },
     "hyp3r00t/threadbook": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "Threadbook",
         "description": "A no-bullshit, privacy-conscious Obsidian starter vault built around daily notes, wikilinks, plain Markdown, flat folders, and fast search.",
@@ -963,6 +991,7 @@
           "url": "https://github.com/HYP3R00T/Threadbook/commit/1773f93ad1f87aa7e7d104768a58b0745052ea96",
           "date": "2026-07-21T11:16:51Z"
         },
+        "commitCount": 11,
         "createdAt": "2026-07-20T18:03:26Z",
         "pushedAt": "2026-07-21T11:16:58Z",
         "archived": false,
@@ -972,9 +1001,9 @@
       }
     },
     "hyp3r00t/toolkit": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "toolkit",
         "description": "",
@@ -992,6 +1021,7 @@
           "url": "https://github.com/HYP3R00T/toolkit/commit/f46fc569b6cda0865a2b05464e26b01044c4b12d",
           "date": "2026-10-01T03:37:48Z"
         },
+        "commitCount": 100,
         "createdAt": "2025-12-09T04:30:23Z",
         "pushedAt": "2026-10-01T10:26:14Z",
         "archived": false,
@@ -1001,9 +1031,9 @@
       }
     },
     "hyp3r00t/utilityhub": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "UtilityHub",
         "description": "UtilityHub is a modular Python utility ecosystem for reusable developer tooling, automation helpers, configuration management, and everyday engineering workflows. Designed as a multi-package workspace with modern packaging, documentation, and reproducible development environments.",
@@ -1026,6 +1056,7 @@
           "url": "https://github.com/HYP3R00T/UtilityHub/commit/845e360fa1bfd8fde0b18507f4edc1feddd95006",
           "date": "2026-10-09T21:16:32Z"
         },
+        "commitCount": 187,
         "createdAt": "2024-10-28T15:25:50Z",
         "pushedAt": "2026-10-09T21:17:28Z",
         "archived": false,
@@ -1035,9 +1066,9 @@
       }
     },
     "hyp3r00t/voicepad": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "voicepad",
         "description": "VoicePad is a terminal-first voice note and transcription tool built with Python and Whisper. It records audio, generates local AI-powered transcriptions, and streamlines voice-based workflows through an ergonomic CLI and developer-friendly automation features.",
@@ -1063,6 +1094,7 @@
           "url": "https://github.com/HYP3R00T/voicepad/commit/d0737da839ed223c643dfd6cc0a4ced0647477fc",
           "date": "2026-10-07T07:30:21Z"
         },
+        "commitCount": 452,
         "createdAt": "2025-10-23T19:14:28Z",
         "pushedAt": "2026-10-07T07:30:21Z",
         "archived": false,
@@ -1072,9 +1104,9 @@
       }
     },
     "hyp3r00t/windows.dotfiles": {
-      "status": "stale",
-      "checkedAt": "2026-10-14T03:35:34.671Z",
-      "fetchedAt": "2026-10-13T16:36:09.725Z",
+      "status": "fresh",
+      "checkedAt": "2026-10-14T06:16:28.738Z",
+      "fetchedAt": "2026-10-14T06:16:28.738Z",
       "data": {
         "name": "windows.dotfiles",
         "description": "A remote of copy my configurations of tools in Windows",
@@ -1092,6 +1124,7 @@
           "url": "https://github.com/HYP3R00T/windows.dotfiles/commit/00ca97387eace5d55ed499b648b166a406442db9",
           "date": "2025-12-14T09:19:01Z"
         },
+        "commitCount": 27,
         "createdAt": "2024-02-17T20:12:37Z",
         "pushedAt": "2025-12-14T09:19:05Z",
         "archived": false,

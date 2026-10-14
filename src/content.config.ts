@@ -67,6 +67,7 @@ const projects = defineCollection({
           forks: z.number().int().nonnegative(),
           issues: z.number().int().nonnegative().optional(),
           pullRequests: z.number().int().nonnegative().optional(),
+          commitCount: z.number().int().nonnegative().optional(),
           defaultBranch: z.string().nullable().optional(),
           latestCommit: z
             .object({ sha: z.string().regex(/^[a-f\d]{40}$/i), url: z.url(), date: z.iso.datetime() })

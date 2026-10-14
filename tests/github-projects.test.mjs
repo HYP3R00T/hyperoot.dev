@@ -38,7 +38,7 @@ const commitResponse = {
   commit: { committer: { date: "2026-10-12T00:00:00Z" } },
 }
 const fetchSuccess = async (url) =>
-  new Response(JSON.stringify(url.includes("/commits/") ? commitResponse : githubResponse))
+  new Response(JSON.stringify(url.includes("/commits?") ? [commitResponse] : githubResponse))
 
 async function fixture(t) {
   const root = await mkdtemp(join(tmpdir(), "hyperoot-projects-"))
@@ -177,7 +177,7 @@ test("open issues exclude PRs and pagination yields an exact open PR count", asy
             link: '<https://api.github.com/repos/example/tool/pulls?state=open&per_page=1&page=3>; rel="last"',
           },
         })
-      if (url.includes("/commits/")) return new Response(JSON.stringify(commitResponse))
+      if (url.includes("/commits?")) return new Response(JSON.stringify([commitResponse]))
       return new Response(JSON.stringify({ ...githubResponse, open_issues_count: 5 }))
     },
   })
@@ -190,9 +190,10 @@ test("open issues exclude PRs and pagination yields an exact open PR count", asy
 test("empty repositories can publish their metadata without a commit", async () => {
   const data = await fetchRepository("example/tool", {
     fetchImpl: async (url) =>
-      url.includes("/commits/") ? new Response(null, { status: 409 }) : new Response(JSON.stringify(githubResponse)),
+      url.includes("/commits?") ? new Response(null, { status: 409 }) : new Response(JSON.stringify(githubResponse)),
   })
   assert.equal(data.latestCommit, null)
+  assert.equal(data.commitCount, 0)
   assert.equal(data.pullRequests, 0)
 })
 
@@ -213,4 +214,40 @@ test("private entries can explicitly author dates and commits without public sta
   assert.equal(project.sourceRepo, undefined)
   assert.equal(project.commit.sha, "abc1234")
   assert.equal(project.website, "https://example.com")
+})
+
+test("commit count uses default-branch pagination and preserves the latest commit", async () => {
+  for (const total of [1, 128]) {
+    const data = await fetchRepository("example/tool", {
+      fetchImpl: async (url) => {
+        if (!url.includes("/commits?"))
+          return new Response(JSON.stringify({ ...githubResponse, default_branch: "release/stable" }))
+        assert.equal(new URL(url).searchParams.get("sha"), "release/stable")
+        assert.equal(new URL(url).searchParams.get("per_page"), "1")
+        return new Response(JSON.stringify([commitResponse]), {
+          headers:
+            total > 1
+              ? {
+                  link: `<https://api.github.com/repos/example/tool/commits?sha=release%2Fstable&per_page=1&page=${total}>; rel="last"`,
+                }
+              : {},
+        })
+      },
+    })
+    assert.equal(data.commitCount, total)
+    assert.equal(data.latestCommit.sha, commitResponse.sha)
+  }
+})
+
+test("commit count stays unknown when pagination has no last page", async () => {
+  const data = await fetchRepository("example/tool", {
+    fetchImpl: async (url) =>
+      url.includes("/commits?")
+        ? new Response(JSON.stringify([commitResponse]), {
+            headers: { link: '<https://api.github.com/repos/example/tool/commits?per_page=1&page=2>; rel="next"' },
+          })
+        : new Response(JSON.stringify(githubResponse)),
+  })
+  assert.equal(data.commitCount, undefined)
+  assert.equal(data.latestCommit.sha, commitResponse.sha)
 })

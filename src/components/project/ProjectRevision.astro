@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content"
 import GitCommitHorizontal from "@lucide/astro/icons/git-commit-horizontal"
 import { projectUpdatedAt } from "@/lib/project-catalog"
+import ProjectCommitCount from "./ProjectCommitCount"
 
 interface Props {
   project: CollectionEntry<"projects">
@@ -11,6 +12,8 @@ const { github, commit: authoredCommit } = project.data
 const commit = github?.latestCommit ?? authoredCommit
 const date = projectUpdatedAt(project.data)
 const commitUrl = github?.latestCommit?.url
+const commitCount = project.data.private ? undefined : github?.commitCount
+const branch = github?.defaultBranch
 const formatted = date
   ? new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(
       new Date(date),
@@ -21,7 +24,7 @@ const precise = date
   : null
 ---
 
-{(date || commit) && (
+{(date || commit || commitCount !== undefined) && (
   <div class="project-revision">
     {date && (
       <span>
@@ -48,6 +51,15 @@ const precise = date
           <span title={commit.sha}>{commit.sha.slice(0, 7)}</span>
         )}
       </span>
+    )}
+    {commitCount !== undefined && branch && github && (
+      <ProjectCommitCount
+        client:load
+        count={commitCount}
+        branch={branch}
+        url={`${github.url}/commits/${encodeURIComponent(branch)}`}
+        title={project.data.title}
+      />
     )}
   </div>
 )}
