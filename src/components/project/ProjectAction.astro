@@ -1,0 +1,34 @@
+---
+import ArrowRight from "@lucide/astro/icons/arrow-right"
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
+import Globe from "@lucide/astro/icons/globe"
+import { Icon } from "astro-icon/components"
+
+interface Props {
+  href: string
+  label: string
+  title: string
+  kind?: "website" | "source" | "story" | "other"
+}
+const { href, label, title, kind = "other" } = Astro.props
+const external = kind !== "story"
+---
+
+<a
+  class="project-action"
+  data-kind={kind}
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  aria-label={`${label} for ${title}${external ? " (opens in a new tab)" : ""}`}
+  data-project-case-study-link={kind === "story" || undefined}
+>
+  {kind === "website" && <Globe size={15} aria-hidden="true" />}
+  {kind === "source" && <Icon name="github" aria-hidden="true" />}
+  <span>{label}</span>
+  {kind === "story" ? (
+    <ArrowRight class="action-arrow" size={15} aria-hidden="true" />
+  ) : (
+    <ArrowUpRight class="action-arrow" size={15} aria-hidden="true" />
+  )}
+</a>

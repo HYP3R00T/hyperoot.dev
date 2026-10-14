@@ -1,59 +1,37 @@
 ---
-import { Icon } from "astro-icon/components"
-
-import { Button } from "@/components/ui/button"
+import Moon from "@lucide/astro/icons/moon"
+import Sun from "@lucide/astro/icons/sun"
 ---
 
-<Button id="theme-toggle" type="button" variant="secondary" size="icon" className="relative" aria-label="Toggle theme">
-  <Icon name="toggle" class="transition-transform duration-200 dark:rotate-180" />
-  <span class="sr-only">Toggle theme</span>
-</Button>
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme" title="Toggle color theme">
+  <span data-theme-name>Display</span><Sun size={14} class="theme-sun" aria-hidden="true" />
+  <Moon size={14} class="theme-moon" aria-hidden="true" />
+</button>
 
 <script>
-type Theme = "light" | "dark"
-
-function getTheme(): Theme {
-  if (typeof localStorage !== "undefined") {
-    const stored = localStorage.getItem("theme")
-    if (stored === "light" || stored === "dark") return stored
+function setupThemeToggle() {
+  const button = document.querySelector<HTMLButtonElement>("[data-theme-toggle]")
+  if (!button || button.dataset.initialized) return
+  button.dataset.initialized = "true"
+  const updateLabel = () => {
+    const dark = document.documentElement.classList.contains("dark")
+    button.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} theme`)
+    const name = button.querySelector("[data-theme-name]")
+    if (name) name.textContent = dark ? "Dark" : "Light"
+    button.title = `Switch to ${dark ? "light" : "dark"} theme`
   }
-  return "dark"
-}
-
-function applyTheme(theme: Theme): void {
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark")
-    document.documentElement.classList.remove("light")
-  } else {
-    document.documentElement.classList.add("light")
-    document.documentElement.classList.remove("dark")
-  }
-  localStorage.setItem("theme", theme)
-}
-
-function initTheme(): void {
-  const toggle = document.getElementById("theme-toggle")
-  if (!toggle) return
-
-  // Apply saved theme on load
-  applyTheme(getTheme())
-
-  // Prevent duplicate listeners
-  if (toggle.dataset.initialized) return
-  toggle.dataset.initialized = "true"
-
-  // Toggle theme on click
-  toggle.addEventListener("click", () => {
-    const current = document.documentElement.classList.contains("dark") ? "dark" : "light"
-    applyTheme(current === "dark" ? "light" : "dark")
+  updateLabel()
+  button.addEventListener("click", () => {
+    const dark = document.documentElement.classList.toggle("dark")
+    document.documentElement.style.colorScheme = dark ? "dark" : "light"
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light")
+    } catch {
+      /* Storage may be disabled. */
+    }
+    updateLabel()
   })
 }
-
-// Initialize on DOM ready and after page swaps
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initTheme)
-} else {
-  initTheme()
-}
-document.addEventListener("astro:after-swap", initTheme)
+setupThemeToggle()
+document.addEventListener("astro:page-load", setupThemeToggle)
 </script>

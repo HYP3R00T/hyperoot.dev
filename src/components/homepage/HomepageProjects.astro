@@ -1,41 +1,42 @@
 ---
 import { getCollection } from "astro:content"
-import placeholder from "@/assets/placeholder.png"
-import SectionHeader from "@/components/core/SectionHeader.astro"
-import SiteSection from "@/components/core/SiteSection.astro"
-import { ProjectDomainFilter } from "@/components/homepage/ProjectDomainFilter"
-import ProjectArchiveCard from "@/components/project/ProjectArchiveCard.astro"
+import CatalogControls from "@/components/project/CatalogControls.astro"
+import ProjectRow from "@/components/project/ProjectRow.astro"
 import { compareProjects } from "@/lib/project-catalog"
 
-const projects = await getCollection("projects").then((entries) =>
-  entries.filter((entry) => !entry.data.draft).sort(compareProjects),
-)
-const domainCounts = new Map<string, number>()
-
-for (const project of projects) {
-  for (const domain of project.data.domains) {
-    domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + 1)
-  }
-}
-
-const domains = [...domainCounts.entries()]
-  .map(([label, count]) => ({ label, value: label.toLowerCase(), count }))
-  .sort((a, b) => a.label.localeCompare(b.label))
+const projects = (await getCollection("projects")).filter((project) => !project.data.draft).sort(compareProjects)
+const domains = [...new Set(projects.flatMap((project) => project.data.domains))].sort()
 ---
 
-<SiteSection id="projects" aria-label="Selected projects" data-projects-list>
-  <SectionHeader
-    eyebrow="Selected work"
-    title="Open-source systems built for real work."
-    titleId="projects-title"
-    description="Explore a focused set of operational platforms, developer tools, and automation projects chosen for their practical use, technical depth, or demonstrated impact."
-  />
-
-  <ProjectDomainFilter client:load domains={domains} projectCount={projects.length} />
-
-  <div id="projects-grid" class="grid items-stretch bg-background-0 xl:grid-cols-2">
-    {projects.map((project) => (
-      <ProjectArchiveCard project={project} image={project.data.images?.[0] ?? placeholder} />
-    ))}
+<section id="projects" class="project-catalog" data-project-catalog aria-labelledby="projects-title">
+  <div class="catalog-section-heading">
+    <div>
+      <p class="eyebrow">Project index</p>
+      <h2 id="projects-title">Browse the collection</h2>
+    </div>
+    <p class="catalog-count" data-catalog-count role="status" aria-live="polite" aria-atomic="true">
+      {projects.length}
+      projects
+    </p>
   </div>
-</SiteSection>
+  <CatalogControls domains={domains} count={projects.length} />
+  <ol id="project-list" class="project-list" data-project-list>
+    {projects.map((project, index) => <ProjectRow project={project} index={index} />)}
+  </ol>
+  <div class="catalog-empty" data-catalog-empty hidden>
+    <p>No projects found.</p>
+    <span>Try a different search or clear the filters.</span>
+    <button type="button" class="text-link" data-catalog-reset>Clear filters</button>
+  </div>
+  <p class="catalog-footnote">
+    Active means a push in the last 30 days, including automated updates. Commit references show the latest commit on
+    the default branch.
+  </p>
+</section>
+
+<script>
+import { setupCatalog } from "@/lib/catalog-controller"
+
+setupCatalog()
+document.addEventListener("astro:page-load", setupCatalog)
+</script>

@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from "astro:content"
+import { projectUpdatedAt } from "@/lib/project-catalog"
+import ProjectActivity from "./ProjectActivity.astro"
+import ProjectLinks from "./ProjectLinks.astro"
+import ProjectRevision from "./ProjectRevision.astro"
+import ProjectStats from "./ProjectStats.astro"
+import ProjectTechnologies from "./ProjectTechnologies.astro"
+
+interface Props {
+  project: CollectionEntry<"projects">
+  index: number
+}
+const { project, index } = Astro.props
+const { title, description, repo, technologies, domains, github, hasPage } = project.data
+const updatedAt = projectUpdatedAt(project.data)
+const search = [
+  title,
+  description,
+  repo,
+  ...technologies,
+  ...domains,
+  ...(github?.topics ?? []),
+  github?.language ?? "",
+]
+  .join(" ")
+  .toLowerCase()
+---
+
+<li
+  class="project-row"
+  data-project-row
+  data-search={search}
+  data-domains={JSON.stringify(domains)}
+  data-title={title}
+  data-pushed={updatedAt ? Date.parse(updatedAt) : 0}
+  data-stars={github?.stars ?? -1}
+  data-activity={project.data.active ? "active" : "other"}
+>
+  <span class="project-number" data-project-number aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+  <article
+    class:list={["project-row-content", { "project-row-no-stats": !github || project.data.private }]}
+    aria-labelledby={`project-${project.id}`}
+  >
+    <div class="project-row-heading">
+      <h3 id={`project-${project.id}`}>
+        {hasPage ? (
+          <a href={`/${project.id}/`} data-project-case-study-link>
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h3>
+      <div class="project-repo-stats">
+        <ProjectActivity project={project} />
+        {github?.language && <span class="project-language">{github.language}</span>}
+      </div>
+    </div>
+    {description && <p class="project-description">{description}</p>}
+    {technologies.length > 0 && (
+      <div class="project-stack">
+        <span class="metadata-label">Built with</span>
+        <ProjectTechnologies technologies={technologies} label={`${title} technologies`} limit={5} />
+      </div>
+    )}
+    <ProjectStats project={project} />
+    <div class="project-row-footer">
+      <div class="project-updates"><ProjectRevision project={project} /></div>
+      <ProjectLinks project={project} includePage />
+    </div>
+  </article>
+</li>

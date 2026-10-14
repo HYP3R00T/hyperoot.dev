@@ -1,0 +1,19 @@
+---
+interface Props {
+  technologies: string[]
+  label?: string
+  limit?: number
+}
+const { technologies, label = "Technologies", limit = technologies.length } = Astro.props
+---
+
+{technologies.length > 0 && (
+  <ul class="project-technologies" aria-label={label}>
+    {technologies.slice(0, limit).map((technology) => (
+      <li>{technology}</li>
+    ))}
+    {technologies.length > limit && (
+      <li title={technologies.slice(limit).join(", ")}>+{technologies.length - limit}</li>
+    )}
+  </ul>
+)}

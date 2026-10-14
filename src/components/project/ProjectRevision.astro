@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content"
+import GitBranch from "@lucide/astro/icons/git-branch"
+import GitCommitHorizontal from "@lucide/astro/icons/git-commit-horizontal"
+import { projectUpdatedAt } from "@/lib/project-catalog"
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+const { project } = Astro.props
+const { github, commit: authoredCommit } = project.data
+const commit = github?.latestCommit ?? authoredCommit
+const date = projectUpdatedAt(project.data)
+const branch = github?.defaultBranch ?? authoredCommit?.branch
+const commitUrl = github?.latestCommit?.url
+const formatted = date
+  ? new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(
+      new Date(date),
+    )
+  : null
+const precise = date
+  ? new Intl.DateTimeFormat("en", { dateStyle: "full", timeStyle: "long", timeZone: "UTC" }).format(new Date(date))
+  : null
+---
+
+{(date || branch || commit) && (
+  <div class="project-revision">
+    {date && (
+      <span>
+        Updated{" "}
+        <time datetime={date} title={precise ?? undefined}>
+          {formatted}
+        </time>
+      </span>
+    )}
+    {branch && (
+      <span class="revision-code" title="Default branch">
+        <GitBranch size={13} aria-hidden="true" />
+        <span class="sr-only">Branch </span>
+        {branch}
+      </span>
+    )}
+    {commit && (
+      <span class="revision-code">
+        <GitCommitHorizontal size={14} aria-hidden="true" />
+        {commitUrl ? (
+          <a
+            href={commitUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Latest default-branch commit: ${commit.sha}`}
+            aria-label={`Commit ${commit.sha.slice(0, 7)} for ${project.data.title} (opens in a new tab)`}
+          >
+            {commit.sha.slice(0, 7)}
+          </a>
+        ) : (
+          <span title={commit.sha}>{commit.sha.slice(0, 7)}</span>
+        )}
+      </span>
+    )}
+  </div>
+)}
