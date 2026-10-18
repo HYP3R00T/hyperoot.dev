@@ -3,8 +3,8 @@
   "repositories": {
     "hyp3r00t/ansitoolkit": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "AnsiToolkit",
         "description": "AnsiToolkit is a Python library for building rich terminal experiences with ANSI styling, formatted output utilities, and reusable CLI presentation components. It simplifies the creation of visually structured, developer-friendly terminal applications and automation tools.",
@@ -38,10 +38,44 @@
         "license": "MIT"
       }
     },
+    "hyp3r00t/astro-project-template": {
+      "status": "fresh",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
+      "data": {
+        "name": "astro-project-template",
+        "description": "",
+        "url": "https://github.com/HYP3R00T/astro-project-template",
+        "website": "http://astro-template.hyperoot.dev",
+        "topics": [
+          "astro",
+          "static-site",
+          "template"
+        ],
+        "language": "Astro",
+        "stars": 0,
+        "forks": 0,
+        "issues": 0,
+        "pullRequests": 0,
+        "defaultBranch": "main",
+        "latestCommit": {
+          "sha": "517f110a12c8197fb73e5211ce966456c9e7a71e",
+          "url": "https://github.com/HYP3R00T/astro-project-template/commit/517f110a12c8197fb73e5211ce966456c9e7a71e",
+          "date": "2026-10-18T14:05:44Z"
+        },
+        "commitCount": 233,
+        "createdAt": "2025-09-27T10:03:36Z",
+        "pushedAt": "2026-10-18T14:05:52Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
     "hyp3r00t/celestialdocs": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "CelestialDocs",
         "description": "CelestialDocs is a modern documentation platform and Astro template designed for scalable, developer-friendly knowledge systems. It combines structured navigation, hybrid content generation, MDX support, and customizable UI components to build fast, maintainable, and production-ready documentation sites.",
@@ -80,8 +114,8 @@
     },
     "hyp3r00t/d2lab": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "d2lab",
         "description": "",
@@ -113,143 +147,10 @@
         "license": null
       }
     },
-    "hyp3r00t/devcontainer-astro-template": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "devcontainer-astro-template",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/devcontainer-astro-template",
-        "website": "http://webdevtemplate.hyperoot.dev",
-        "topics": [
-          "astro",
-          "static-site",
-          "template"
-        ],
-        "language": "Astro",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 2,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "12dcb6f40f35b19b158b6304784cf899383ab7e4",
-          "url": "https://github.com/HYP3R00T/devcontainer-astro-template/commit/12dcb6f40f35b19b158b6304784cf899383ab7e4",
-          "date": "2026-08-25T03:05:59Z"
-        },
-        "commitCount": 227,
-        "createdAt": "2025-09-27T10:03:36Z",
-        "pushedAt": "2026-10-01T03:39:13Z",
-        "archived": false,
-        "fork": false,
-        "template": true,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/devcontainer-python-template": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "devcontainer-python-template",
-        "description": "A modern Python development container template with best practices, automated tooling, and VS Code integration.",
-        "url": "https://github.com/HYP3R00T/devcontainer-python-template",
-        "website": "https://hyp3r00t.github.io/devcontainer-python-template/",
-        "topics": [
-          "devcontainer",
-          "development-environment",
-          "python",
-          "template-repository"
-        ],
-        "language": "Shell",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "e627fbab22ef2324933601d59040e0eaa07f20d8",
-          "url": "https://github.com/HYP3R00T/devcontainer-python-template/commit/e627fbab22ef2324933601d59040e0eaa07f20d8",
-          "date": "2026-08-29T08:13:41Z"
-        },
-        "commitCount": 96,
-        "createdAt": "2025-05-11T04:32:41Z",
-        "pushedAt": "2026-08-29T08:13:45Z",
-        "archived": false,
-        "fork": false,
-        "template": true,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/devcontainer-rust-template": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "devcontainer-rust-template",
-        "description": "",
-        "url": "https://github.com/HYP3R00T/devcontainer-rust-template",
-        "website": "https://hyp3r00t.github.io/devcontainer-rust-template/",
-        "topics": [],
-        "language": "Shell",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "8d6cb111c73e0196d7195a0d539c63afe51face8",
-          "url": "https://github.com/HYP3R00T/devcontainer-rust-template/commit/8d6cb111c73e0196d7195a0d539c63afe51face8",
-          "date": "2026-10-11T12:52:13Z"
-        },
-        "commitCount": 17,
-        "createdAt": "2026-10-10T14:49:07Z",
-        "pushedAt": "2026-10-11T14:01:12Z",
-        "archived": false,
-        "fork": false,
-        "template": true,
-        "license": "MIT"
-      }
-    },
-    "hyp3r00t/devcontainer-template": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "devcontainer-template",
-        "description": "A development container template designed for streamlined and efficient project setups. Includes pre-configured tools and environments to enhance productivity and maintain coding standards.",
-        "url": "https://github.com/HYP3R00T/devcontainer-template",
-        "website": "https://hyp3r00t.github.io/devcontainer-template",
-        "topics": [
-          "devcontainer",
-          "github-copilot",
-          "template-project"
-        ],
-        "language": "PowerShell",
-        "stars": 1,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "e1af4da524a75866a3093ca8b7837eedbe37aba1",
-          "url": "https://github.com/HYP3R00T/devcontainer-template/commit/e1af4da524a75866a3093ca8b7837eedbe37aba1",
-          "date": "2026-08-29T07:47:33Z"
-        },
-        "commitCount": 64,
-        "createdAt": "2025-05-05T23:48:32Z",
-        "pushedAt": "2026-08-29T07:47:37Z",
-        "archived": false,
-        "fork": false,
-        "template": true,
-        "license": "MIT"
-      }
-    },
     "hyp3r00t/dotfiles": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "dotfiles",
         "description": "dotfiles is a cross-platform environment provisioning and configuration toolkit for Linux, WSL, and DevContainers. It combines Ansible, chezmoi, mise, and Bash orchestration to deliver reproducible, zero-touch developer environments from a single declarative codebase.",
@@ -286,8 +187,8 @@
     },
     "hyp3r00t/formulens": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "formulens",
         "description": "Turn equation screenshots into LaTeX without typing them out",
@@ -321,8 +222,8 @@
     },
     "hyp3r00t/gitops-deployment-platform": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "gitops-deployment-platform",
         "description": "GitOps Deployment Platform is a Kubernetes-focused reference architecture for building reproducible, production-grade platform engineering environments using FluxCD, Infrastructure as Code, and declarative deployment workflows across self-hosted and cloud-native infrastructure.",
@@ -358,8 +259,8 @@
     },
     "hyp3r00t/homelab": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "homelab",
         "description": "homelab is a self-hosted infrastructure and experimentation environment for exploring Kubernetes, networking, automation, observability, and platform engineering workflows. It documents real-world operational practices, infrastructure design decisions, and production-inspired DevOps experimentation.",
@@ -396,8 +297,8 @@
     },
     "hyp3r00t/hypercli": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T11:35:07.252Z",
-      "fetchedAt": "2026-10-14T11:35:07.252Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "hypercli",
         "description": "hypercli is a Python package for building interactive, menu-driven command-line interfaces. It supports decorated menu entries, nested navigation, configurable visual styling, and a developer-friendly way to turn CLI workflows into structured user flows.",
@@ -433,8 +334,8 @@
     },
     "hyp3r00t/hyperoot.dev": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "hyperoot.dev",
         "description": "HYP3R00T Labs is the business-facing home for open-source projects, technical services, and proof of work. Built with Astro and Tailwind CSS, it showcases capabilities across DevOps, automation, and developer tooling.",
@@ -446,20 +347,20 @@
           "open-source",
           "platform-engineering"
         ],
-        "language": "Astro",
+        "language": "TypeScript",
         "stars": 0,
         "forks": 0,
         "issues": 0,
         "pullRequests": 0,
         "defaultBranch": "main",
         "latestCommit": {
-          "sha": "af7ec365a39599fd56d2c7dcf170891c7466eb3e",
-          "url": "https://github.com/HYP3R00T/hyperoot.dev/commit/af7ec365a39599fd56d2c7dcf170891c7466eb3e",
-          "date": "2026-10-14T05:13:23Z"
+          "sha": "a1683342b5d9fedfb84ac31f73ec0cf94076b7e8",
+          "url": "https://github.com/HYP3R00T/hyperoot.dev/commit/a1683342b5d9fedfb84ac31f73ec0cf94076b7e8",
+          "date": "2026-10-14T13:38:47Z"
         },
-        "commitCount": 121,
+        "commitCount": 134,
         "createdAt": "2025-07-25T01:16:24Z",
-        "pushedAt": "2026-10-14T05:13:23Z",
+        "pushedAt": "2026-10-14T13:38:48Z",
         "archived": false,
         "fork": false,
         "template": false,
@@ -468,8 +369,8 @@
     },
     "hyp3r00t/keypress": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "keypress",
         "description": "keypress is a Python library for capturing and handling keyboard input in terminal applications with support for real-time key events, shortcuts, and interactive command-line workflows. It provides a lightweight foundation for building responsive CLI and TUI experiences.",
@@ -503,8 +404,8 @@
     },
     "hyp3r00t/physica": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "Physica",
         "description": "",
@@ -518,23 +419,92 @@
         "pullRequests": 1,
         "defaultBranch": "main",
         "latestCommit": {
-          "sha": "a5a04a816e0fbc5aeaaa529a0d1ef7d3e4c369e7",
-          "url": "https://github.com/HYP3R00T/Physica/commit/a5a04a816e0fbc5aeaaa529a0d1ef7d3e4c369e7",
-          "date": "2026-10-08T03:37:04Z"
+          "sha": "745833f9b86c6673e0e39fcad47970ca42650372",
+          "url": "https://github.com/HYP3R00T/Physica/commit/745833f9b86c6673e0e39fcad47970ca42650372",
+          "date": "2026-10-15T03:36:29Z"
         },
-        "commitCount": 285,
+        "commitCount": 286,
         "createdAt": "2026-02-25T16:46:22Z",
-        "pushedAt": "2026-10-09T21:27:20Z",
+        "pushedAt": "2026-10-15T07:54:29Z",
         "archived": false,
         "fork": false,
         "template": false,
         "license": "MIT"
       }
     },
+    "hyp3r00t/project-template": {
+      "status": "fresh",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
+      "data": {
+        "name": "project-template",
+        "description": "A development container template designed for streamlined and efficient project setups. Includes pre-configured tools and environments to enhance productivity and maintain coding standards.",
+        "url": "https://github.com/HYP3R00T/project-template",
+        "website": "http://template.hyperoot.dev",
+        "topics": [
+          "devcontainer",
+          "github-copilot",
+          "template-project"
+        ],
+        "language": "PowerShell",
+        "stars": 1,
+        "forks": 0,
+        "issues": 0,
+        "pullRequests": 0,
+        "defaultBranch": "main",
+        "latestCommit": {
+          "sha": "216718f3581908a59c151f589d6f50b1e68d3111",
+          "url": "https://github.com/HYP3R00T/project-template/commit/216718f3581908a59c151f589d6f50b1e68d3111",
+          "date": "2026-10-18T14:08:22Z"
+        },
+        "commitCount": 66,
+        "createdAt": "2025-05-05T23:48:32Z",
+        "pushedAt": "2026-10-18T14:08:23Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
+    "hyp3r00t/python-project-template": {
+      "status": "fresh",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
+      "data": {
+        "name": "python-project-template",
+        "description": "A modern Python development container template with best practices, automated tooling, and VS Code integration.",
+        "url": "https://github.com/HYP3R00T/python-project-template",
+        "website": "http://python-template.hyperoot.dev",
+        "topics": [
+          "devcontainer",
+          "development-environment",
+          "python",
+          "template-repository"
+        ],
+        "language": "Shell",
+        "stars": 0,
+        "forks": 0,
+        "issues": 0,
+        "pullRequests": 0,
+        "defaultBranch": "main",
+        "latestCommit": {
+          "sha": "40dda4acb696600111d004b122a9faa91a942a5a",
+          "url": "https://github.com/HYP3R00T/python-project-template/commit/40dda4acb696600111d004b122a9faa91a942a5a",
+          "date": "2026-10-18T14:03:21Z"
+        },
+        "commitCount": 98,
+        "createdAt": "2025-05-11T04:32:41Z",
+        "pushedAt": "2026-10-18T14:03:22Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
     "hyp3r00t/rajeshdas.dev": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "rajeshdas.dev",
         "description": "A high-performance personal portfolio and technical blog built with Astro, focused on DevOps, cloud-native infrastructure, automation, and developer tooling. Includes MDX-powered content, responsive UI components, RSS generation, and containerized local development workflows.",
@@ -555,23 +525,53 @@
         "pullRequests": 0,
         "defaultBranch": "main",
         "latestCommit": {
-          "sha": "f13fc936b957377579a19be498c076d2aa70172a",
-          "url": "https://github.com/HYP3R00T/rajeshdas.dev/commit/f13fc936b957377579a19be498c076d2aa70172a",
-          "date": "2026-10-13T12:40:13Z"
+          "sha": "ac555134d7af1ed28b900556446513d7a3b26541",
+          "url": "https://github.com/HYP3R00T/rajeshdas.dev/commit/ac555134d7af1ed28b900556446513d7a3b26541",
+          "date": "2026-10-15T20:44:20Z"
         },
-        "commitCount": 652,
+        "commitCount": 669,
         "createdAt": "2025-08-10T15:00:08Z",
-        "pushedAt": "2026-10-13T12:42:17Z",
+        "pushedAt": "2026-10-15T20:44:20Z",
         "archived": false,
         "fork": false,
         "template": false,
         "license": "MIT"
       }
     },
+    "hyp3r00t/rust-project-template": {
+      "status": "fresh",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
+      "data": {
+        "name": "rust-project-template",
+        "description": "",
+        "url": "https://github.com/HYP3R00T/rust-project-template",
+        "website": "http://rust-template.hyperoot.dev",
+        "topics": [],
+        "language": "Shell",
+        "stars": 0,
+        "forks": 0,
+        "issues": 0,
+        "pullRequests": 0,
+        "defaultBranch": "main",
+        "latestCommit": {
+          "sha": "21f6a2faf35945ab9297fa1a7c979fc79b07b59b",
+          "url": "https://github.com/HYP3R00T/rust-project-template/commit/21f6a2faf35945ab9297fa1a7c979fc79b07b59b",
+          "date": "2026-10-18T14:02:31Z"
+        },
+        "commitCount": 18,
+        "createdAt": "2026-10-10T14:49:07Z",
+        "pushedAt": "2026-10-18T14:03:28Z",
+        "archived": false,
+        "fork": false,
+        "template": true,
+        "license": "MIT"
+      }
+    },
     "hyp3r00t/scripthub": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "scripthub",
         "description": "A lightweight script manager to organize, run, and add your personal scripts",
@@ -604,8 +604,8 @@
     },
     "hyp3r00t/settings-organizer": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "settings-organizer",
         "description": "Settings Organizer is a Visual Studio Code extension that helps structure, categorize, and maintain large settings.json files through automated grouping, formatting, and developer-friendly configuration management workflows.",
@@ -642,8 +642,8 @@
     },
     "hyp3r00t/threadbook": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "Threadbook",
         "description": "A no-bullshit, privacy-conscious Obsidian starter vault built around daily notes, wikilinks, plain Markdown, flat folders, and fast search.",
@@ -679,8 +679,8 @@
     },
     "hyp3r00t/toolkit": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "toolkit",
         "description": "",
@@ -709,8 +709,8 @@
     },
     "hyp3r00t/utilityhub": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "UtilityHub",
         "description": "UtilityHub is a modular Python utility ecosystem for reusable developer tooling, automation helpers, configuration management, and everyday engineering workflows. Designed as a multi-package workspace with modern packaging, documentation, and reproducible development environments.",
@@ -726,7 +726,7 @@
         "stars": 0,
         "forks": 0,
         "issues": 0,
-        "pullRequests": 0,
+        "pullRequests": 2,
         "defaultBranch": "main",
         "latestCommit": {
           "sha": "845e360fa1bfd8fde0b18507f4edc1feddd95006",
@@ -735,7 +735,7 @@
         },
         "commitCount": 187,
         "createdAt": "2024-10-28T15:25:50Z",
-        "pushedAt": "2026-10-09T21:17:28Z",
+        "pushedAt": "2026-10-16T03:39:11Z",
         "archived": false,
         "fork": false,
         "template": false,
@@ -744,8 +744,8 @@
     },
     "hyp3r00t/voicepad": {
       "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
+      "checkedAt": "2026-10-18T14:16:12.791Z",
+      "fetchedAt": "2026-10-18T14:16:12.791Z",
       "data": {
         "name": "voicepad",
         "description": "VoicePad is a terminal-first voice note and transcription tool built with Python and Whisper. It records audio, generates local AI-powered transcriptions, and streamlines voice-based workflows through an ergonomic CLI and developer-friendly automation features.",
@@ -767,47 +767,17 @@
         "pullRequests": 0,
         "defaultBranch": "main",
         "latestCommit": {
-          "sha": "d0737da839ed223c643dfd6cc0a4ced0647477fc",
-          "url": "https://github.com/HYP3R00T/voicepad/commit/d0737da839ed223c643dfd6cc0a4ced0647477fc",
-          "date": "2026-10-07T07:30:21Z"
+          "sha": "3f473ecf437cedf05075d35b3e483fa60d0b1b9c",
+          "url": "https://github.com/HYP3R00T/voicepad/commit/3f473ecf437cedf05075d35b3e483fa60d0b1b9c",
+          "date": "2026-10-17T12:40:24Z"
         },
-        "commitCount": 452,
+        "commitCount": 454,
         "createdAt": "2025-10-23T19:14:28Z",
-        "pushedAt": "2026-10-07T07:30:21Z",
+        "pushedAt": "2026-10-17T12:40:24Z",
         "archived": false,
         "fork": false,
         "template": false,
         "license": "MIT"
-      }
-    },
-    "hyp3r00t/windows.dotfiles": {
-      "status": "fresh",
-      "checkedAt": "2026-10-14T06:16:28.738Z",
-      "fetchedAt": "2026-10-14T06:16:28.738Z",
-      "data": {
-        "name": "windows.dotfiles",
-        "description": "A remote of copy my configurations of tools in Windows",
-        "url": "https://github.com/HYP3R00T/windows.dotfiles",
-        "website": "https://rajeshdas.dev",
-        "topics": [],
-        "language": "PowerShell",
-        "stars": 0,
-        "forks": 0,
-        "issues": 0,
-        "pullRequests": 0,
-        "defaultBranch": "main",
-        "latestCommit": {
-          "sha": "00ca97387eace5d55ed499b648b166a406442db9",
-          "url": "https://github.com/HYP3R00T/windows.dotfiles/commit/00ca97387eace5d55ed499b648b166a406442db9",
-          "date": "2025-12-14T09:19:01Z"
-        },
-        "commitCount": 27,
-        "createdAt": "2024-02-17T20:12:37Z",
-        "pushedAt": "2025-12-14T09:19:05Z",
-        "archived": false,
-        "fork": false,
-        "template": false,
-        "license": null
       }
     }
   }
