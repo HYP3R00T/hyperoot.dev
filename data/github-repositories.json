@@ -779,6 +779,36 @@
         "template": false,
         "license": "MIT"
       }
+    },
+    "hyp3r00t/console": {
+      "status": "fresh",
+      "checkedAt": "2026-10-28T14:54:28.072Z",
+      "fetchedAt": "2026-10-28T14:54:28.072Z",
+      "data": {
+        "name": "console",
+        "description": "",
+        "url": "https://github.com/HYP3R00T/console",
+        "website": null,
+        "topics": [],
+        "language": "TypeScript",
+        "stars": 0,
+        "forks": 0,
+        "issues": 0,
+        "pullRequests": 0,
+        "defaultBranch": "main",
+        "latestCommit": {
+          "sha": "11e557599ab2575b2b3fb941e7ce7d156f6047fa",
+          "url": "https://github.com/HYP3R00T/console/commit/11e557599ab2575b2b3fb941e7ce7d156f6047fa",
+          "date": "2026-10-28T14:34:33Z"
+        },
+        "commitCount": 9,
+        "createdAt": "2026-10-25T21:22:12Z",
+        "pushedAt": "2026-10-28T14:34:34Z",
+        "archived": false,
+        "fork": false,
+        "template": false,
+        "license": "MIT"
+      }
     }
   }
 }
