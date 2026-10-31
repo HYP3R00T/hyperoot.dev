@@ -2,32 +2,32 @@
   "version": 1,
   "packages": {
     "ansitoolkit": {
-      "totalDownloads": 41068,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 41245,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "hypercli": {
-      "totalDownloads": 22063,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 22250,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "keypress": {
-      "totalDownloads": 14988,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 15082,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "utilityhub-config": {
-      "totalDownloads": 6873,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 7048,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "utilityhub-logging": {
-      "totalDownloads": 751,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 781,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "voicepad": {
-      "totalDownloads": 7212,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 7442,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     },
     "voicepad-core": {
-      "totalDownloads": 6772,
-      "fetchedAt": "2026-10-18T14:16:36.568Z"
+      "totalDownloads": 6983,
+      "fetchedAt": "2026-10-31T11:38:57.285Z"
     }
   }
 }
